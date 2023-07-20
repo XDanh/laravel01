@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ResourceUser;
+use App\Models\Form1Model;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class InformationCustomer extends Controller
+class Form1Controller extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        return response()->json(new ResourceUser(Form1Model::all()));
     }
 
     /**
@@ -27,7 +32,18 @@ class InformationCustomer extends Controller
      */
     public function store(Request $request)
     {
-        //
+      /*   return response()->json([$request->all()]); */
+        $validator = Validator::make($request->all(), [
+            'TenKH' => 'required',
+            'DiaChi' => 'required',
+            'MaThue' => 'required|max:13',
+            'MaBHXH' => 'max:13',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+        return response()->json(['oke' => 'oke']);
     }
 
     /**
