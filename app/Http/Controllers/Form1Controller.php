@@ -37,7 +37,7 @@ class Form1Controller extends Controller
             'TenKH' => 'required',
             'DiaChi' => 'required',
             'MaThue' => 'required|max:13',
-            'MaBHXH' => 'max:13',
+            'MaBHXH' => 'min:13|max:13',
         ]);
 
         if ($validator->fails()) {
