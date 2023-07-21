@@ -11,12 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('form1',function(Blueprint $table){
+        Schema::create('form2',function(Blueprint $table){
             $table->id();
-            $table->text('TenKH');
-            $table->text('DiaChi');
-            $table->text('MaThue');
-            $table->text('MaBHXH');
+            $table->foreignId('MaCT');
+            $table->foreignId('MaKH');
+            $table->text('NV');
+            $table->date('NgayKyHD');
+            $table->text('MaHD');
+            $table->text('TrangThaiDH');
+            $table->text('LoaiDH');
+            $table->text('GhiChu');
+            $table->text('MaGD');
+            $table->text('MaThueBao');
+            $table->text('Username');
+            $table->text('SoSeri');
+            $table->text('SoHD');
+            $table->text('MaTraCuuHD');
+            $table->text('NgayXuatDH');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('form1');
+        Schema::dropIfExists('form2');
     }
 };
