@@ -10,12 +10,23 @@ class Thong_tin_hop_dong extends Model
     use HasFactory;
     protected $table = 'thong_tin_hop_dong';
     protected $fillable = [
-        'MaKH',
+        'TEN_KHACH_HANG',
+        'DIA_CHI',
+        'MA_SO_THUE',
+        'MBHXH',
         'NV',
         'NGAY_KY_HD',
-        'MaHD',
-        'TRANG_THAI_HP',
-        'LOAI_DH',
+        'MA_HOP_DONG',
+        'TRANG_THAI_DON_HANG',
+        'LOAI_DON_HANG',
+        'DICH_VU',
+        'GOI_CUOC',
+        'THOI_GIAN',
+        'LOAI_TB',
+        'GIA_THIET_BI',
+        'GIA_TRUOC_THUE',
+        'VAT',
+        'GIA_SAU_THUE',
         'GHI_CHU',
         'MA_GD',
         'MA_THUE_BAO',
@@ -23,9 +34,6 @@ class Thong_tin_hop_dong extends Model
         'SO_SERI',
         'SO_HD',
         'MA_TRA_CUU',
-        'NGAY_XUAT_HD',
-        'MaGC',
-        'VAT',
-        'GIA_SAU_THUE'
+        'NGAY_XUAT_HOA_DON',
     ];
 }

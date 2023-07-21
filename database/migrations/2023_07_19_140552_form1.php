@@ -13,24 +13,31 @@ return new class extends Migration
     {
         Schema::create('thong_tin_hop_dong', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('MaKH');
-            $table->text('NV');
-            $table->date('NGAY_KY_HD');
-            $table->text('MaHD');
-            $table->text('TRANG_THAI_HP');
-            $table->text('LOAI_DH');
-            $table->text('GHI_CHU');
-            $table->text('MA_GD');
-            $table->text('MA_THUE_Bao');
-            $table->text('USERNAME');
-            $table->text('SO_SERI');
-            $table->text('SO_HD');
-            $table->text('MA_TRA_CUU');
-            $table->text('NGAY_XUAT_HD');
-            $table->foreignId('MaGC');
-            $table->integer('VAT');
-            $table->integer('GIA_SAU_THUE');
-            $table->timestamps();
+            $table->string('TEN_KHACH_HANG');
+            $table->string('DIA_CHI');
+            $table->string('MA_SO_THUE');
+            $table->string('MBHXH');
+            $table->string('NV');
+            $table->string('NGAY_KY_HD');
+            $table->string('MA_HOP_DONG');
+            $table->string('TRANG_THAI_DON_HANG');
+            $table->string('LOAI_DON_HANG');
+            $table->string('DICH_VU');
+            $table->string('GOI_CUOC');
+            $table->string('THOI_GIAN');
+            $table->string('LOAI_TB');
+            $table->string('GIA_THIET_BI');
+            $table->string('GIA_TRUOC_THUE');
+            $table->string('VAT');
+            $table->string('GIA_SAU_THUE');
+            $table->string('GHI_CHU');
+            $table->string('MA_GD');
+            $table->string('MA_THUE_BAO');
+            $table->string('USERNAME');
+            $table->string('SO_SERI');
+            $table->string('SO_HD');
+            $table->string('MA_TRA_CUU');
+            $table->string('NGAY_XUAT_HOA_DON');
         });
     }
 
