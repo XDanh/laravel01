@@ -11,16 +11,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-
     <link rel="stylesheet" href="/css/app.css">
 </head>
 
 <body>
     <div class="container">
-        <h1>Create Post</h1>
-        <form action="{{ route('customer.store') }}" method="POST" id="idForm">
+        <h1>TẠO HỢP ĐỒNG</h1>
+        <form action="{{ route('contracts.store') }}" method="POST" id="idForm">
             @csrf
-            <h2>Thông tin khách hàng</h2>
+            <h3>Thông tin khách hàng</h3>
 
             <div class="d-flex justify-content-between flex-column flex-md-row">
                 <div class="inputBox p-3">
@@ -52,7 +51,7 @@
                         <label class="label me-2">Tỉnh/ Thành phố: </label>
                         <div class="control">
                             <select id="provinceInput" class="form-control">
-
+                                <option value="">----Chọn Tỉnh/ Thành phố----</option>
                             </select>
                         </div>
                     </div>
@@ -61,7 +60,7 @@
                         <label class="label me-2">Quận/ Huyện: </label>
                         <div class="control">
                             <select id="districtInput" class="form-control">
-
+                                <option value="">----Chọn Quận/ Huyện----</option>
                             </select>
                         </div>
                         <!-- <p class="help is-danger">{{ $errors->first('DiaChi') }}</p> -->
@@ -71,7 +70,7 @@
                         <label class="label me-2">Phường/ Xã: </label>
                         <div class="control">
                             <select id="wardInput" class="form-control">
-
+                                <option value="">----Chọn Phường/ Xã----</option>
                             </select>
                         </div>
                         <!-- <p class="help is-danger">{{ $errors->first('DiaChi') }}</p> -->
@@ -87,7 +86,7 @@
                 </div>
             </div>
 
-            <h2>Thông tin hợp đồng</h2>
+            <h3>Thông tin hợp đồng</h3>
 
             <div class="d-flex justify-content-between flex-column flex-md-row">
                 <div class="inputBox p-3">
@@ -231,7 +230,6 @@
                 url: "https://provinces.open-api.vn/api/p/",
                 success: function(data) {
                     listProvince = data
-                    console.log(data)
                     $.each(data, function(index, value) {
                         $("#provinceInput").prepend(`<option value=${value.code}>${value.name}</option>`);
                     })

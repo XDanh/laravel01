@@ -23,11 +23,15 @@
     <table id="contracts" class="table table-striped" class="display">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>Tên nhân viên</th>
           <th>Tên khách hàng</th>
-          <th>Địa chỉ</th>
-          <th>Mã thuế</th>
-          <th>Mã bảo hiểm xã hội</th>
+          <th>Mã hợp đồng</th>
+          <th>Mã số thế</th>
+          <th>Ngày ký</th>
+          <th>Dịch vụ</th>
+          <th>Loại đơn</th>
+          <th>Giá sau thế</th>
+          <th>Trạng thái</th>
           <th>Thao tác</th>
         </tr>
       </thead>
@@ -365,19 +369,31 @@
               ordering: true,
               select: true,
               columns: [{
-                  data: "id"
+                  data: "id" || null
                 },
                 {
-                  data: "TenKH"
+                  data: "TenKH" || null
                 },
                 {
-                  data: "DiaChi"
+                  data: "DiaChi" || null
                 },
                 {
-                  data: "MaThue"
+                  data: "MaThue" || null
                 },
                 {
-                  data: "MaBHXH"
+                  data: "MaBHXH" || null
+                },
+                {
+                  data: "MaBHXH" || null
+                },
+                {
+                  data: "MaBHXH" || null
+                },
+                {
+                  data: "MaBHXH" || null
+                },
+                {
+                  data: "MaBHXH" || null
                 },
                 {
                   data: null,
