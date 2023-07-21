@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('Home');
 });
-Route::get('/form1',function(){
+Route::get('/form1', function () {
     return view('Form1');
 });
 /* Route::post('/customer', [Form1Controller::class,'store']); */
