@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('dichvu',function(Blueprint $table){
             $table->id('MaDV');
-            $table->string('Tendichvu');
+            $table->string('DICH_VU');
 
         });
     }

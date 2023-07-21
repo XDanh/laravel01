@@ -10,21 +10,22 @@ class Form2 extends Model
     use HasFactory;
     protected $table = 'form2';
     protected $fillable = [
-        'NV',
         'MaKH',
-        'MaCT',
-        'NgayKyHD',
+        'NV',
+        'NGAY_KY_HD',
         'MaHD',
-        'TrangThaiDH',
-        'LoaiDH',
-        'ThoiGian',
-        'GhiChu',
-        'MaGD',
-        'MaThueBao',
-        'Username',
-        'SoSeri',
-        'SoHD',
-        'MaTraCuuHD',
-        'NgayXuatDH',
+        'TRANG_THAI_HP',
+        'LOAI_DH',
+        'GHI_CHU',
+        'MA_GD',
+        'MA_THUE_Bao',
+        'USERNAME',
+        'SO_SERI',
+        'SO_HD',
+        'MA_TRA_CUU',
+        'NGAY_XUAT_HD',
+        'MaGC',
+        'VAT',
+        'GIA_SAU_THUE'
     ];
 }

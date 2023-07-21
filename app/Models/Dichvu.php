@@ -11,6 +11,6 @@ class Dichvu extends Model
     protected $table = 'dichvu';
     protected $fillable = [
         'MaDV',
-        'Tendichvu'
+        'DICH_VU'
     ];
 }

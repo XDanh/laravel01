@@ -12,8 +12,7 @@ class Goicuoc extends Model
     protected $fillable = [
         'MaDV',
         'MaGC',
-        'TenGoiCuoc',
-        'LoaiGoi',
-        'ThoiGian',
+        'GOI_CUOC',
+        'THOI_GIAN',
     ];
 }

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('form1',function(Blueprint $table){
             $table->id('MaKH');
-            $table->text('TenKH');
-            $table->text('DiaChi');
-            $table->text('MaThue');
+            $table->text('TEN_KH');
+            $table->text('DIA_CHI');
+            $table->text('MA_THUE');
             $table->text('MaBHXH');
         });
 

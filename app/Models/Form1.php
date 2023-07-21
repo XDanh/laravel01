@@ -10,9 +10,9 @@ class Form1 extends Model
     use HasFactory;
     protected $table = 'form1';
     protected $fillable = [
-        'TenKH',
-        'DiaChi',
-        'MaThue',
+        'TEN_KH',
+        'DIA_CHI',
+        'MA_THUE',
         'MaBHXH',
     ];
 }

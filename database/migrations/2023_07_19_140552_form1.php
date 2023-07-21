@@ -13,21 +13,23 @@ return new class extends Migration
     {
         Schema::create('form2',function(Blueprint $table){
             $table->id();
-            $table->foreignId('MaCT');
             $table->foreignId('MaKH');
             $table->text('NV');
-            $table->date('NgayKyHD');
+            $table->date('NGAY_KY_HD');
             $table->text('MaHD');
-            $table->text('TrangThaiDH');
-            $table->text('LoaiDH');
-            $table->text('GhiChu');
-            $table->text('MaGD');
-            $table->text('MaThueBao');
-            $table->text('Username');
-            $table->text('SoSeri');
-            $table->text('SoHD');
-            $table->text('MaTraCuuHD');
-            $table->text('NgayXuatDH');
+            $table->text('TRANG_THAI_HP');
+            $table->text('LOAI_DH');
+            $table->text('GHI_CHU');
+            $table->text('MA_GD');
+            $table->text('MA_THUE_Bao');
+            $table->text('USERNAME');
+            $table->text('SO_SERI');
+            $table->text('SO_HD');
+            $table->text('MA_TRA_CUU');
+            $table->text('NGAY_XUAT_HD');
+            $table->foreignId('MaGC');
+            $table->integer('VAT');
+            $table->integer('GIA_SAU_THUE');
             $table->timestamps();
         });
     }

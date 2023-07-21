@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('chitiet',function(Blueprint $table){
-            $table->id('MaCT');
-            $table->foreignId('MaTB');
+        Schema::create('loaigoi',function(Blueprint $table){
             $table->foreignId('MaGC');
-            $table->integer('GiaTruocThue');
-            $table->integer('VAT');
-            $table->integer('GiaSauThue');
-            $table->timestamps();
+            $table->id('MaLoai');
+            $table->string('LOAI_GOI');
+
         });
     }
 
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('chitiet');
+        //
     }
 };

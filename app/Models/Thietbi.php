@@ -11,6 +11,8 @@ class Thietbi extends Model
     protected $table = 'loaitb';
     protected $fillable = [
         'MaTB',
-        'TenTB'
+        'THIET_BI',
+        'GIA_TB',
+        'MaGC',
     ];
 }
