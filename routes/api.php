@@ -8,6 +8,7 @@ use App\Models\Goicuoc;
 use App\Models\Loaigoi;
 use App\Models\Thietbi;
 use App\Models\thoihan;
+use App\Models\Thong_tin_hop_dong;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,4 +42,7 @@ Route::post('/loaigoi', function (Request $request) {
 });
 Route::post('/thoihan', function (Request $request) {
     return new ResourceUser(thoihan::where('MaLoai', $request->MaLoai)->get());
+});
+Route::post('/contract', function (Request $request) {
+    return new ResourceUser(Thong_tin_hop_dong::where('id', $request->id)->get());
 });
