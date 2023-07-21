@@ -17,10 +17,13 @@ class UserController extends Controller
      */
     public function index(): JsonResponse
     {
-        $result = new ResourceUser(Form1::all());
-        return response()->json($result[0]['MaKH']);
+        /* $result = new ResourceUser(Form1::all());
+        return response()->json($result[0]['MaKH']); */
 
-        /* return response()->json(new ResourceUser(Form2::all())); */
+        return response()->json([
+            'form1'=>new ResourceUser(Form1::all()),
+            'form2'=>new ResourceUser(Form2::all()),
+        ]);
     }
 
     /**
