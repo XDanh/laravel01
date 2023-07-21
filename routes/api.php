@@ -1,7 +1,13 @@
 <?php
 
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\Form1Controller;
+
+use App\Http\Controllers\UserController;
+use App\Http\Resources\ResourceUser;
+use App\Models\Dichvu;
+use App\Models\Goicuoc;
+use App\Models\Loaigoi;
+use App\Models\Thietbi;
+use App\Models\thoihan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +26,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 /* Route::resource('customer', Form1Controller::class); */
-Route::resource('customer', Form1Controller::class);
-
+Route::resource('form1', UserController::class);
+Route::get('/dichvu', function () {
+    return new ResourceUser(Dichvu::all());
+});
+Route::post('/goicuoc', function (Request $request) {
+    return new ResourceUser(Goicuoc::where('MaDV',$request->MaDV)->get());
+});
+Route::post('/thietbi', function (Request $request) {
+    return new ResourceUser(Thietbi::where('MaGC',$request->MaGC)->get());
+});
+Route::post('/loaigoi', function (Request $request) {
+    return new ResourceUser(Loaigoi::where('MaGC',$request->MaGC)->get());
+});
+Route::post('/thoihan', function (Request $request) {
+    return new ResourceUser(thoihan::where('MaLoai',$request->MaLoai)->get());
+});
