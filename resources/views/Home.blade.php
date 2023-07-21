@@ -19,6 +19,7 @@
 
 <body>
   <div class="container">
+    <!-- Table view -->
     <table id="contracts" class="table table-striped" class="display">
       <thead>
         <tr>
@@ -353,7 +354,7 @@
   <script>
     $(document).ready(function() {
       $.ajax({
-        url: "http://127.0.0.1:8000/api/customer",
+        url: "http://127.0.0.1:8000/api/contracts",
         type: "GET",
         success: function(data) {
           console.log(data)

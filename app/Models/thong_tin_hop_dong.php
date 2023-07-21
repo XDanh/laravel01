@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Form2 extends Model
+class Thong_tin_hop_dong extends Model
 {
     use HasFactory;
-    protected $table = 'form2';
+    protected $table = 'thong_tin_hop_dong';
     protected $fillable = [
         'MaKH',
         'NV',
@@ -18,7 +18,7 @@ class Form2 extends Model
         'LOAI_DH',
         'GHI_CHU',
         'MA_GD',
-        'MA_THUE_Bao',
+        'MA_THUE_BAO',
         'USERNAME',
         'SO_SERI',
         'SO_HD',
