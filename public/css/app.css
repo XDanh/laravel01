@@ -1,0 +1,12 @@
+.inputBox {
+  width: 100%;
+}
+
+.inputBox>.field>.control {
+  width: 100%;
+}
+
+.inputBox>.field>.label {
+  /* white-space: nowrap; */
+  width: 50%;
+}
