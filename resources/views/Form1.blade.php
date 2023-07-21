@@ -85,6 +85,7 @@
             }
         });
     });
+    @section()
 </script>
 
 </html>

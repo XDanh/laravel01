@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ResourceUser;
+use App\Models\Dichvu;
+use App\Models\Form1;
 use App\Models\Form2;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,7 +17,10 @@ class UserController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(new ResourceUser(Form2::all()));
+        $result = new ResourceUser(Form1::all());
+        return response()->json($result[0]['MaKH']);
+
+        /* return response()->json(new ResourceUser(Form2::all())); */
     }
 
     /**
@@ -61,7 +66,32 @@ class UserController extends Controller
             return response()->json($validator->errors());
 
         }
-        Form2::create($request->all());
+        Form1::create([
+            'TenKH' => $request->TenKH,
+            'DiaChi' => $request->DiaChi,
+            'MaThue' => $request->MaThue,
+            'MaBHXH' => $request->MaBHXH,
+        ]);
+        $result = New ResourceUser(Form1::all());
+        $MaKH = $result[0]['MaKH'];
+        Form2::create([
+            'NV' => $request->NV,
+            'MaKH' => $MaKH,
+            'MaCT' => $request->MaCT,
+            'NgayKyHD' => $request->NgayKyHD,
+            'MaHD' => $request->MaHD,
+            'TrangThaiDH' => $request->TrangThaiDH,
+            'LoaiDH' => $request->LoaiDH,
+            'ThoiGian' => $request->ThoiGian,
+            'GhiChu' => $request->GhiChu,
+            'MaGD' => $request->MaGD,
+            'MaThueBao' => $request->MaThueBao,
+            'Username' => $request->Username,
+            'SoSeri' => $request->SoSeri,
+            'SoHD' => $request->SoHD,
+            'MaTraCuuHD' => $request->MaTraCuuHD,
+            'NgayXuatDH' => $request->NgayXuatDH,
+        ]);
 
         return response()->json(['oke' => 'oke','status' => '200']);
     }

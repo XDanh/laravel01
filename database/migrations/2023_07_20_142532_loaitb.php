@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('loaitb',function(Blueprint $table){
             $table->id('MaTB');
             $table->string('TenTB');
+            $table->integer('GiaTB');
             $table->timestamps();
         });
     }

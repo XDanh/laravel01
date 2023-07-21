@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id('MaCT');
             $table->foreignId('MaTB');
             $table->foreignId('MaGC');
-            $table->integer('GiaTB');
             $table->integer('GiaTruocThue');
             $table->integer('VAT');
             $table->integer('GiaSauThue');

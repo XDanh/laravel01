@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Http\Controllers\Form1Controller;
+use App\Http\Controllers\UserController;
 use App\Http\Resources\ResourceUser;
 use App\Models\Dichvu;
 use App\Models\Goicuoc;
@@ -24,8 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 /* Route::resource('customer', Form1Controller::class); */
-Route::resource('form2', Form2Controller::class);
-Route::resource('form1', Form1Controller::class);
+Route::resource('form1', UserController::class);
 Route::get('/dichvu', function () {
     return new ResourceUser(Dichvu::all());
 });

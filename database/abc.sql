@@ -49,9 +49,12 @@ INSERT INTO `loaitb` (`MaTB`, `TenTB`, `created_at`, `updated_at`) VALUES
 	(2, 'Khuyến mãi', NULL, NULL),
 	(3, 'Tự trang bị', NULL, NULL),
 	(4, 'Không có', NULL, NULL);
+
 /*!40000 ALTER TABLE `loaitb` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+INSERT INTO `loaitb` (`MaGC`, `GiaTruocThue`,'VAT', `created_at`, `updated_at`) VALUES
+

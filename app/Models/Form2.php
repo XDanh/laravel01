@@ -11,6 +11,7 @@ class Form2 extends Model
     protected $table = 'form2';
     protected $fillable = [
         'NV',
+        'MaKH',
         'MaCT',
         'NgayKyHD',
         'MaHD',
