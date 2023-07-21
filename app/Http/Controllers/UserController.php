@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ResourceUser;
 use App\Models\Dichvu;
-use App\Models\Form1;
-use App\Models\Form2;
+use App\Models\thong_tin_khach_hang;
+use App\Models\thong_tin_hop_dong;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,10 +17,10 @@ class UserController extends Controller
      */
     public function index(): JsonResponse
     {
-        $result = new ResourceUser(Form1::all());
-        return response()->json($result[0]['MaKH']);
+        $result = new ResourceUser(Thong_tin_khach_hang::all());
+        // return response()->json($result[0]['MaKH']);
 
-        /* return response()->json(new ResourceUser(Form2::all())); */
+        return response()->json(new ResourceUser(Thong_tin_hop_dong::select('NGAY_KY_HD', 'NV', 'LOAI_DH')));
     }
 
     /**
@@ -36,7 +36,7 @@ class UserController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-      /*   return response()->json([$request->all()]); */
+        /*   return response()->json([$request->all()]); */
         $validator = Validator::make($request->all(), [
             'TenKH' => 'required',
             'DiaChi' => 'required',
@@ -64,17 +64,16 @@ class UserController extends Controller
         if ($validator->fails()) {
 
             return response()->json($validator->errors());
-
         }
-        Form1::create([
+        Thong_tin_khach_hang::create([
             'TenKH' => $request->TenKH,
             'DiaChi' => $request->DiaChi,
             'MaThue' => $request->MaThue,
             'MaBHXH' => $request->MaBHXH,
         ]);
-        $result = New ResourceUser(Form1::all());
+        $result = new ResourceUser(Thong_tin_khach_hang::all());
         $MaKH = $result[0]['MaKH'];
-        Form2::create([
+        Thong_tin_hop_dong::create([
             'NV' => $request->NV,
             'MaKH' => $MaKH,
             'MaCT' => $request->MaCT,
@@ -93,7 +92,7 @@ class UserController extends Controller
             'NgayXuatDH' => $request->NgayXuatDH,
         ]);
 
-        return response()->json(['oke' => 'oke','status' => '200']);
+        return response()->json(['oke' => 'oke', 'status' => '200']);
     }
 
     /**
@@ -117,9 +116,9 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id): JsonResponse
     {
-        Form2::where('id',$id)->update($request->all());
+        Thong_tin_hop_dong::where('id', $id)->update($request->all());
 
-        return response()->json(['mess'=>'oke','status' => '200']);
+        return response()->json(['mess' => 'oke', 'status' => '200']);
     }
 
     /**
@@ -127,13 +126,12 @@ class UserController extends Controller
      */
     public function destroy(string $id): JsonResponse
     {
-        $result = Form2::find($id);
+        $result = Thong_tin_hop_dong::find($id);
 
-        if(!$result) return response()->json(['mess' => 'something wrong']);
+        if (!$result) return response()->json(['mess' => 'something wrong']);
 
         $result->delete();
 
         return response()->json(['mess' => 'oke', 'status' => '200']);
-
     }
 }

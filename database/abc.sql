@@ -46,7 +46,7 @@ INSERT INTO `goicuoc` (`MaDV`, `MaGC`, `GOI_CUOC`, `THOI_GIAN`) VALUES
 /*!40000 ALTER TABLE `loaitb` DISABLE KEYS */;
 INSERT INTO `loaitb` (`MaGC`, `THIET_BI`,`GIA_TB`, `created_at`, `updated_at`) VALUES
 	(1, 'Mua\r\n\r\n' ,550000, NULL, NULL),
-	(2, 'Mua\r\n\r\n',165000, NULL, NULL),
+	(2, 'Mua\r\n\r\n',165000, NULL, NULL);
 
 
 /*!40000 ALTER TABLE `loaitb` ENABLE KEYS */;
