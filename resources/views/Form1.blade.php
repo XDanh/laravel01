@@ -57,7 +57,7 @@
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Tỉnh/ Thành phố: </label>
                         <div class="control">
-                            <select id="provinceInput" class="form-control" name="TINH_TP">
+                            <select id="provinceInput" class="form-control" >
                                 <option value="">----Chọn Tỉnh/ Thành phố----</option>
                             </select>
                         </div>
@@ -66,7 +66,7 @@
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Quận/ Huyện: </label>
                         <div class="control">
-                            <select id="districtInput" class="form-control" name="QUAN_HUYEN">
+                            <select id="districtInput" class="form-control">
                                 <option value="">----Chọn Quận/ Huyện----</option>
                             </select>
                         </div>
@@ -75,7 +75,7 @@
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Phường/ Xã: </label>
                         <div class="control">
-                            <select id="wardInput" class="form-control" name="XA_PHUONG">
+                            <select id="wardInput" class="form-control">
                                 <option value="">----Chọn Phường/ Xã----</option>
                             </select>
                         </div>
@@ -132,7 +132,7 @@
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Dịch vụ: </label>
                         <div class="control">
-                            <select id="serviceInput" class="form-control" name="DICH_VU">
+                            <select id="serviceInput" class="form-control">
                                 <option value="">----Chọn dịch vụ----</option>
 
                             </select>
@@ -142,7 +142,7 @@
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Gói cước: </label>
                         <div class="control">
-                            <select id="packInput" class="form-control" name="GOI_CUOC">
+                            <select id="packInput" class="form-control">
                                 <option value="">----Chọn gói cước----</option>
 
                             </select>
@@ -153,7 +153,7 @@
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Loại gói cước: </label>
                         <div class="control">
-                            <select id="packTypeInput" class="form-control" name="packTypeInput">
+                            <select id="packTypeInput" class="form-control">
                                 <option value="">----Chọn gói cước----</option>
 
                             </select>
@@ -162,7 +162,7 @@
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Thời gian (tháng): </label>
                         <div class="control">
-                            <select id="timeInput" class="form-control" name="THOI_GIAN">
+                            <select id="timeInput" class="form-control" >
                                 <option value="">----Chọn thời gian----</option>
 
                             </select>
@@ -172,17 +172,17 @@
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Số lượng thiết bị: </label>
                         <div class="control">
-                            <input type="number" name="SO_LUONG" min=0 placeholder="Nhập số lượng thiết bị" id="deviceNumberInput" class="form-control">
+                            <input type="number" id="SO_LUONG" name="SO_LUONG" min=0 placeholder="Nhập số lượng thiết bị" id="deviceNumberInput" class="form-control">
                         </div>
                     </div>
 
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Giá thiết bị: </label>
                         <div class="control">
-                            <input class="input form-control" disabled type="text" name="GIA_THIET_BI">
+                            <input id="GIA_TB" class="input form-control" disabled type="text" name="GIA_THIET_BI">
+                            <span id="Sum"></span>
                         </div>
                     </div>
-
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Giá trước thuế: </label>
                         <div class="control">

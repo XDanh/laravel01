@@ -40,6 +40,10 @@ return new class extends Migration
             $table->string('SO_HD');
             $table->string('MA_TRA_CUU');
             $table->string('NGAY_XUAT_HOA_DON');
+            $table->integer('SO_LUONG');
+            $table->string('LOAI_GOI_CUOC');
+            $table->timestamps();
+
         });
     }
 

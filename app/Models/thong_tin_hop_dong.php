@@ -11,7 +11,6 @@ class Thong_tin_hop_dong extends Model
     protected $table = 'thong_tin_hop_dong';
     protected $fillable = [
         'TEN_KHACH_HANG',
-        'DIA_CHI',
         'MA_SO_THUE',
         'MBHXH',
         'NV',
@@ -23,6 +22,7 @@ class Thong_tin_hop_dong extends Model
         'MA_HOP_DONG',
         'TRANG_THAI_DON_HANG',
         'LOAI_DON_HANG',
+        'LOAI_GOI_CUOC',
         'DICH_VU',
         'GOI_CUOC',
         'THOI_GIAN',
@@ -38,5 +38,7 @@ class Thong_tin_hop_dong extends Model
         'SO_HD',
         'MA_TRA_CUU',
         'NGAY_XUAT_HOA_DON',
+
     ];
+
 }

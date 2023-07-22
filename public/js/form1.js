@@ -1,10 +1,19 @@
 import {
-  getProvinces,
-  handleProvinceChange,
-  handleDistrictChange,
-  handleWardChange
+    getProvinces,
+    handleProvinceChange,
+    handleDistrictChange,
+    handleWardChange,
+    provinceSelected,
+    districtSelected,
+    wardSelected,
+
 } from "/js/locationUtils.js";
-import { populateServices } from "./ajaxHelpers.js";
+import {
+    populateServices,
+    dichvu,
+    goicuoc,
+    loaigoi,
+} from "./ajaxHelpers.js";
 
 
 // Lấy danh sách TỈNH/THÀNH PHỐ và đổ vào dropdown #provinceInput
@@ -22,25 +31,35 @@ handleWardChange();
 populateServices();
 
 
-$("#idForm").on("submit",function(e){
+$("#idForm").on("submit", function(e) {
+    e.preventDefault(); // Avoid submitting the form in the traditional way.
 
-    e.preventDefault(); // avoid to execute the actual submit of the form.
     var form = $(this);
     var actionUrl = form.attr('action');
+
+    var formData = form.serialize(); // Serialize the form data.
+
+    // Add additional data to the formData object.
+    formData += "&TINH_TP=" + provinceSelected.name;
+    formData += "&QUAN_HUYEN=" + districtSelected.name;
+    formData += "&XA_PHUONG=" + wardSelected.name;
+    formData += "&DICH_VU=" + dichvu;
+    formData += "&GOI_CUOC=" + goicuoc;
+    formData += "&LOAI_GOI_CUOC=" + loaigoi;
     $.ajax({
-        type: "POST",
-        url: actionUrl,
-        data: form.serialize(), // serializes the form's elements.
-        success: function (data) {
-        console.log(data)
+      type: "POST",
+      url: actionUrl,
+      data: formData,
+      success: function(data) {
+        console.log(data);
         if (data.oke) {
-            toastr.success(data)
+          toastr.success(data.message); // Assuming your server sends back an "oke" property and a "message" property in the response.
         } else {
-            $.each(data, function (index, value) {
-
-            });
+          // Handle errors if needed.
         }
-
-        }
+      },
+      error: function(error) {
+        console.error("Error occurred:", error);
+      }
+    });
   });
-})
