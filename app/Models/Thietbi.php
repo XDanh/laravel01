@@ -10,9 +10,10 @@ class Thietbi extends Model
     use HasFactory;
     protected $table = 'loaitb';
     protected $fillable = [
-        'MaTB',
         'THIET_BI',
         'GIA_TB',
         'MaGC',
+        'MaTH',
+        'MaLoai',
     ];
 }

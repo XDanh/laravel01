@@ -23,23 +23,23 @@ INSERT INTO `dichvu` (`MaDV`, `DICH_VU`) VALUES
 
 -- Dumping data for table laravel.goicuoc: ~16 rows (approximately)
 /*!40000 ALTER TABLE `goicuoc` DISABLE KEYS */;
-INSERT INTO `goicuoc` (`MaDV`, `MaGC`, `GOI_CUOC`, `THOI_GIAN`) VALUES
-	(1, 1, 'OID Standard ', '0000-00-00'),
-	(1, 2, 'Staff ID Pro ', '0000-00-00'),
-	(1, 3, 'Device ID', '0000-00-00'),
-	(1, 4, 'Device ID (dùng cho HDDT VNPT)', '0000-00-00'),
-	(2, 5, 'VAN10', '0000-00-00'),
-	(2, 6, 'VAN100', '0000-00-00'),
-	(2, 7, 'VAN1000', '0000-00-00'),
-	(2, 8, 'VAN Max', '0000-00-00'),
-	(3, 9, 'CA+VAN10', '0000-00-00'),
-	(3, 10, 'CA+VAN100', '0000-00-00'),
-	(3, 11, 'CA+VAN1000', '0000-00-00'),
-	(3, 12, 'CA+VAN Max', '0000-00-00'),
-	(4, 13, 'Pharmacy', '0000-00-00'),
-	(4, 14, 'SmartCA Cá nhân cơ bản', '0000-00-00'),
-	(4, 15, 'SmartCA Nhân viên cơ bản', '0000-00-00'),
-	(4, 16, 'SmartCA Doanh nghiệp cơ bản', '0000-00-00');
+INSERT INTO `goicuoc` (`MaDV`, `MaGC`, `GOI_CUOC`) VALUES
+	(1, 1, 'OID Standard '),
+	(1, 2, 'Staff ID Pro '),
+	(1, 3, 'Device ID'),
+	(1, 4, 'Device ID (dùng cho HDDT VNPT)'),
+	(2, 5, 'VAN10'),
+	(2, 6, 'VAN100'),
+	(2, 7, 'VAN1000'),
+	(2, 8, 'VAN Max'),
+	(3, 9, 'CA+VAN10'),
+	(3, 10, 'CA+VAN100'),
+	(3, 11, 'CA+VAN1000'),
+	(3, 12, 'CA+VAN Max'),
+	(4, 13, 'Pharmacy'),
+	(4, 14, 'SmartCA Cá nhân cơ bản'),
+	(4, 15, 'SmartCA Nhân viên cơ bản'),
+	(4, 16, 'SmartCA Doanh nghiệp cơ bản');
 /*!40000 ALTER TABLE `goicuoc` ENABLE KEYS */;
 
 -- Dumping data for table laravel.loaitb: ~4 rows (approximately)

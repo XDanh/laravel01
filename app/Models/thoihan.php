@@ -11,6 +11,7 @@ class thoihan extends Model
     protected $table = 'thoihan';
     protected $fillable = [
         'MaTH',
+        'MaGC',
         'MaLoai',
         'THOI_HAN',
         'GIA_TRUOC_THUE',

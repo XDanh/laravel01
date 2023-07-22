@@ -6,6 +6,7 @@ use App\Http\Resources\ResourceUser;
 use App\Models\Dichvu;
 use App\Models\Goicuoc;
 use App\Models\Loaigoi;
+use App\Models\Nhanvien;
 use App\Models\Thietbi;
 use App\Models\thoihan;
 use App\Models\Thong_tin_hop_dong;
@@ -34,15 +35,21 @@ Route::get('/dichvu', function () {
 Route::post('/goicuoc', function (Request $request) {
     return new ResourceUser(Goicuoc::where('MaDV', $request->MaDV)->get());
 });
-Route::post('/thietbi', function (Request $request) {
-    return new ResourceUser(Thietbi::where('MaGC', $request->MaGC)->get());
+Route::get('/thietbi', function (Request $request) {
+    return new ResourceUser(Thietbi::where('MaGC', $request->input('MaGC'))
+                                    ->where('MaLoai',$request->input('MaLoai'))
+                                    ->where('MaTH',$request->input('MaTH'))
+                                    ->get());
 });
-Route::post('/loaigoi', function (Request $request) {
-    return new ResourceUser(Loaigoi::where('MaGC', $request->MaGC)->get());
+Route::get('/loaigoi', function (Request $request) {
+    return new ResourceUser(Loaigoi::where('MaGC', $request->input('MaGC'))->get());
 });
-Route::post('/thoihan', function (Request $request) {
-    return new ResourceUser(thoihan::where('MaLoai', $request->MaLoai)->get());
+Route::get('/thoihan', function (Request $request) {
+    return new ResourceUser(thoihan::where('MaLoai', $request->input('MaLoai'))->get());
 });
-Route::post('/contract', function (Request $request) {
-    return new ResourceUser(Thong_tin_hop_dong::where('id', $request->id)->get());
+Route::get('/contract', function (Request $request) {
+    return new ResourceUser(Thong_tin_hop_dong::where('id', $request->input('id'))->get());
+});
+Route::get('nhanvien', function () {
+    return new ResourceUser(Nhanvien::all());
 });

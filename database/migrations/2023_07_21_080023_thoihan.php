@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('thoihan',function(Blueprint $table){
             $table->id('MaTH');
             $table->foreignId('MaLoai');
+            $table->foreignId('MaGC');
             $table->integer('THOI_HAN');
             $table->text('GIA_TRUOC_THUE');
         });
