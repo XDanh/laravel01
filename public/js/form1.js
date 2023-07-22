@@ -22,28 +22,25 @@ handleWardChange();
 populateServices();
 
 
-$("#idForm").on('submit',function(e)){
-    
-} {
-  e.preventDefault(); // avoid to execute the actual submit of the form.
+$("#idForm").on("submit",function(e){
 
-  var form = $(this);
-  var actionUrl = form.attr('action');
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+    var form = $(this);
+    var actionUrl = form.attr('action');
+    $.ajax({
+        type: "POST",
+        url: actionUrl,
+        data: form.serialize(), // serializes the form's elements.
+        success: function (data) {
+        console.log(data)
+        if (data.oke) {
+            toastr.success(data)
+        } else {
+            $.each(data, function (index, value) {
 
-  $.ajax({
-    type: "POST",
-    url: actionUrl,
-    data: form.serialize(), // serializes the form's elements.
-    success: function (data) {
-      console.log(data.oke)
-      if (data.oke) {
-        toastr.success(data.oke)
-      } else {
-        $.each(data, function (index, value) {
+            });
+        }
 
-        });
-      }
-
-    }
+        }
   });
-});
+})

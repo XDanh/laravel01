@@ -32,15 +32,20 @@ function populatePacks(selectedDichVu, contractDataGoiCuoc, loaigoi = "") {
       if (data?.data.length > 0) {
         $("#packInput").empty(); // Xóa danh sách cũ trước khi đổ dữ liệu mới
         $.each(data.data, function (index, value) {
+            console.log(contractDataGoiCuoc)
           // Kiểm tra nếu giá trị trong danh sách trùng với contractData.GOI_CUOC, thì set là giá trị mặc định được chọn
+            if(contractDataGoiCuoc){
+                const isSelected = value.GOI_CUOC.toString().trim().toLowerCase() == contractDataGoiCuoc.toString().trim().toLowerCase() ? "selected" : "";
+                if (!!isSelected) {
+                    console.log(loaigoi)
+                    populatePackTypes(loaigoi, value.MaGC)
 
-          const isSelected = value.GOI_CUOC.toString().trim().toLowerCase() == contractDataGoiCuoc.toString().trim().toLowerCase() ? "selected" : "";
+                  }
+                  $("#packInput").prepend(`<option value=${value.MaGC} ${isSelected}>${value.GOI_CUOC}</option>`);
+            }
 
-          if (!!isSelected) {
-            console.log(loaigoi)
-            populatePackTypes(loaigoi, value.MaGC)
-          }
-          $("#packInput").prepend(`<option value=${value.MaGC} ${isSelected}>${value.GOI_CUOC}</option>`);
+
+
         });
       } else {
         $("#packInput").empty(); // Xóa danh sách cũ trước khi đổ dữ liệu mới

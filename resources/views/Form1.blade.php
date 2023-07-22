@@ -99,13 +99,6 @@
                     </div>
 
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
-                        <label class="label me-2">Ngày ký hợp đồng: </label>
-                        <div class="control">
-                            <input class="input form-control" type="date" name="NGAY_KY_HD">
-                        </div>
-                    </div>
-
-                    <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Mã số hợp đồng: </label>
                         <div class="control">
                             <input class="input form-control" type="text" placeholder="13HD" name="MA_HOP_DONG">
@@ -156,8 +149,16 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="inputBox p-3">
+                    <div class="field mb-3 align-items-center justify-content-between d-flex">
+                        <label class="label me-2">Loại gói cước: </label>
+                        <div class="control">
+                          <select id="packTypeInput" class="form-control" name="packTypeInput">
+                            <option value="">----Chọn gói cước----</option>
+
+                          </select>
+                        </div>
+                      </div>
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Thời gian (tháng): </label>
                         <div class="control">
@@ -208,7 +209,8 @@
         </form>
     </div>
     <script type="module" src="/js/form1.js">
-
+    </script>
+    <script type="module" src="/js/ajaxHelpers.js">
     </script>
 </body>
 
