@@ -29,6 +29,8 @@ function populatePacks(selectedDichVu, contractDataGoiCuoc, loaigoi = "") {
     success: function (data) {
       if (data?.data.length > 0) {
         $("#packInput").empty(); // Xóa danh sách cũ trước khi đổ dữ liệu mới
+        $("#packInput").prepend(`<option value="" >---Chọn gói cước---</option>`);
+
         $.each(data.data, function (index, value) {
           // Kiểm tra nếu giá trị trong danh sách trùng với contractData.GOI_CUOC, thì set là giá trị mặc định được chọn
           if (!contractDataGoiCuoc) {
@@ -36,7 +38,6 @@ function populatePacks(selectedDichVu, contractDataGoiCuoc, loaigoi = "") {
           } else {
             const isSelected = value.GOI_CUOC.toString().trim().toLowerCase() == contractDataGoiCuoc.toString().trim().toLowerCase() ? "selected" : "";
             if (!!isSelected) {
-              console.log(loaigoi)
               populatePackTypes(loaigoi, value.MaGC)
             }
             $("#packInput").prepend(`<option value=${value.MaGC} ${isSelected}>${value.GOI_CUOC}</option>`);
@@ -59,28 +60,37 @@ function populatePackTypes(selectedPackType = "", selectedpackID) {
     url: `http://127.0.0.1:8000/api/loaigoi?MaGC=${selectedpackID}`,
     type: "GET",
     success: function (data) {
-      data.data.forEach(type => {
-        if (type.LOAI_GOI === selectedPackType) {
-          populateTime(type.MaLoai, selectedpackID)
-        }
-        $("#packTypeInput").prepend(`<option value="${type.MaLoai}" ${type.LOAI_GOI === selectedPackType ? 'selected' : ''}>${type.LOAI_GOI} </option>`);
-      });
+      if (data.data) {
+        $("#packTypeInput").empty();
 
-      $("#packTypeInput").on("change", function (e) {
-        populateTime(e.target.value, selectedpackID)
-      })
+        $("#packTypeInput").prepend(`<option value="" >---Chọn loại gói cước---</option>`);
+
+        data.data.forEach(type => {
+          if (type.LOAI_GOI === selectedPackType) {
+            populateTime(type.MaLoai, selectedpackID)
+          }
+          $("#packTypeInput").append(`<option value="${type.MaLoai}" ${type.LOAI_GOI === selectedPackType ? 'selected' : ''}>${type.LOAI_GOI} </option>`);
+        });
+
+        $("#packTypeInput").on("change", function (e) {
+          populateTime(e.target.value, selectedpackID)
+        })
+      }
     }
   });
 }
 
 //THOI GIAN
 function populateTime(MaLoai, MaGC, selectedTime) {
+  console.log(MaLoai)
   $.ajax({
     url: `http://127.0.0.1:8000/api/thoihan?MaGC=${MaGC}&MaLoai=${MaLoai}`,
     type: "GET",
     success: function (data) {
       if (data.data) {
         $("#timeInput").empty();
+        $("#timeInput").prepend(`<option value="" >---Chọn thời gian---</option>`);
+
         data.data.forEach(time => {
           $("#timeInput").prepend(`<option value="${time.MaTH}" ${time.THOI_HAN === selectedTime ? 'selected' : ''}>${time.THOI_HAN} </option>`);
         })

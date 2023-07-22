@@ -153,16 +153,16 @@
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Loại gói cước: </label>
                         <div class="control">
-                          <select id="packTypeInput" class="form-control" name="packTypeInput">
-                            <option value="">----Chọn gói cước----</option>
+                            <select id="packTypeInput" class="form-control" name="packTypeInput">
+                                <option value="">----Chọn gói cước----</option>
 
-                          </select>
+                            </select>
                         </div>
-                      </div>
+                    </div>
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Thời gian (tháng): </label>
                         <div class="control">
-                            <select id="timeInut" class="form-control" name="THOI_GIAN">
+                            <select id="timeInput" class="form-control" name="THOI_GIAN">
                                 <option value="">----Chọn thời gian----</option>
 
                             </select>
