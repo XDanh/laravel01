@@ -186,7 +186,7 @@
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Giá trước thuế: </label>
                         <div class="control">
-                            <input class="input form-control" disabled type="text" name="GIA_TRUOC_THUE">
+                            <input class="input form-control" onchange="myFunction()" disabled type="text" name="GIA_TRUOC_THUE">
                         </div>
                     </div>
 

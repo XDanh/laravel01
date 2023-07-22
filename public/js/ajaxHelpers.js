@@ -75,6 +75,7 @@ function populatePackTypes(selectedPackType = "", selectedpackID) {
         $("#packTypeInput").on("change", function (e) {
           populateTime(e.target.value, selectedpackID)
         })
+
       }
     }
   });
@@ -87,6 +88,7 @@ function populateTime(MaLoai, MaGC, selectedTime) {
     url: `http://127.0.0.1:8000/api/thoihan?MaGC=${MaGC}&MaLoai=${MaLoai}`,
     type: "GET",
     success: function (data) {
+    console.log(data)
       if (data.data) {
         $("#timeInput").empty();
         $("#timeInput").prepend(`<option value="" >---Chọn thời gian---</option>`);
