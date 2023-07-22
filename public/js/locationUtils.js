@@ -72,6 +72,7 @@ export function handleProvinceChange() {
   $("#provinceInput").on("change", function (e) {
     let code = e.target.value;
     $("#districtInput").empty();
+    $("#districtInput").append(`<option value="">---Chọn Quận/ Huyện---</option>`);
 
     // Lọc danh sách các huyện dựa vào trường province_code
     let filteredDistricts = listDistrict.filter(district => district.province_code == code);
@@ -96,6 +97,7 @@ export function handleDistrictChange() {
   $("#districtInput").on("change", function (e) {
     const code = e.target.value;
     $("#wardInput").empty();
+    $("#wardInput").append(`<option value="">---Chọn Phường/ Xã---</option>`);
 
     for (let i = 0; i < listDistrict.length; i++) {
       if (listDistrict[i].code == code) {

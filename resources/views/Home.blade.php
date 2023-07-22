@@ -152,7 +152,7 @@
                     <label class="label me-2">Tỉnh/ Thành phố: </label>
                     <div class="control">
                       <select id="provinceInput" class="form-control">
-
+                        <option value="">---Chọn Tỉnh/ Thành phố---</option>
                       </select>
                     </div>
                   </div>
@@ -161,6 +161,7 @@
                     <label class="label me-2">Quận/ Huyện: </label>
                     <div class="control">
                       <select id="districtInput" class="form-control">
+                        <option value="">---Chọn Quận/ Huyện---</option>
 
                       </select>
                     </div>
@@ -170,6 +171,7 @@
                     <label class="label me-2">Phường/ Xã: </label>
                     <div class="control">
                       <select id="wardInput" class="form-control">
+                        <option value="">---Chọn Phường/ Xã---</option>
 
                       </select>
                     </div>
