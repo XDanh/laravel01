@@ -47,7 +47,7 @@ function populatePacks(selectedDichVu, contractDataGoiCuoc, loaigoi = "") {
           populatePackTypes("", e.target.value)
         })
       } else {
-        $("#packInput").empty(); // Xóa danh sách cũ trước khi đổ dữ liệu mới
+        $("#packInput").empty();
       }
     }
   });
@@ -79,9 +79,14 @@ function populateTime(MaLoai, MaGC, selectedTime) {
     url: `http://127.0.0.1:8000/api/thoihan?MaGC=${MaGC}&MaLoai=${MaLoai}`,
     type: "GET",
     success: function (data) {
-      data.data.forEach(time => {
-        $("#timeInput").prepend(`<option value="${time.MaTH}" ${time.THOI_HAN === selectedTime ? 'selected' : ''}>${time.THOI_HAN} </option>`);
-      })
+      if (data.data) {
+        $("#timeInput").empty();
+        data.data.forEach(time => {
+          $("#timeInput").prepend(`<option value="${time.MaTH}" ${time.THOI_HAN === selectedTime ? 'selected' : ''}>${time.THOI_HAN} </option>`);
+        })
+      } else {
+        $("#timeInput").empty();
+      }
     }
   })
 }
