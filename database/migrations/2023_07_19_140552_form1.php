@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('thong_tin_hop_dong', function (Blueprint $table) {
             $table->id();
             $table->string('TEN_KHACH_HANG');
-            $table->string('TINH/TP');
-            $table->string('QUAN/HUYEN');
-            $table->string('XA/PHUONG');
+            $table->string('TINH_TP');
+            $table->string('QUAN_HUYEN');
+            $table->string('XA_PHUONG');
             $table->string('SO_NHA');
             $table->string('MA_SO_THUE');
             $table->string('MBHXH');
@@ -31,7 +31,6 @@ return new class extends Migration
             $table->string('LOAI_TB');
             $table->string('GIA_THIET_BI');
             $table->string('GIA_TRUOC_THUE');
-            $table->string('VAT');
             $table->string('GIA_SAU_THUE');
             $table->string('GHI_CHU');
             $table->string('MA_GD');
