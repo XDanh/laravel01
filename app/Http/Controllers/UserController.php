@@ -18,9 +18,9 @@ class UserController extends Controller
     public function index(): JsonResponse
     {
 
-        return response()->json([
-            'thongtinhopdong' => new ResourceUser(thong_tin_hop_dong::select('NGAY_KY_HD','NV','LOAI_DON_HANG','MA_HOP_DONG','TEN_KHACH_HANG','MA_SO_THUE','GIA_SAU_THUE','TRANG_THAI_DON_HANG','DICH_VU')->get())
-        ]);
+        return response()->json(
+            new ResourceUser(thong_tin_hop_dong::select('id', 'NGAY_KY_HD', 'NV', 'LOAI_DON_HANG', 'MA_HOP_DONG', 'TEN_KHACH_HANG', 'MA_SO_THUE', 'GIA_SAU_THUE', 'TRANG_THAI_DON_HANG', 'DICH_VU')->get())
+        );
 
         /* return response()->json(new ResourceUser(Form2::all())); */
     }
