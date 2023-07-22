@@ -14,7 +14,15 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
 
+    public function index(): JsonResponse
+    {
 
+        return response()->json(
+            new ResourceUser(thong_tin_hop_dong::select('id', 'NGAY_KY_HD', 'NV', 'LOAI_DON_HANG', 'MA_HOP_DONG', 'TEN_KHACH_HANG', 'MA_SO_THUE', 'GIA_SAU_THUE', 'TRANG_THAI_DON_HANG', 'DICH_VU')->get())
+        );
+
+        /* return response()->json(new ResourceUser(Form2::all())); */
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -55,20 +63,19 @@ class UserController extends Controller
             'SO_SERI' => 'required',
             'SO_HD' => 'required',
             'MA_TRA_CUU' => 'required',
-            'NGAY_XUAT_HOA_DON' => 'required', */
-        ]);
+            'NGAY_XUAT_HOA_DON' => 'required', */]);
         $formattedValue = str_pad($this->temp, 3, '0', STR_PAD_LEFT);
 
         $ext = $request->file('pdf')->extension();
-        $filename = date("ymd").'-'.$formattedValue.'.'.$ext;
+        $filename = date("ymd") . '-' . $formattedValue . '.' . $ext;
 
         $this->temp++;
-        $request->file('pdf')->move(public_path('pdf'),$filename);
-/*         $request->file('pdf')->move(public_path('storage',$filename));
+        $request->file('pdf')->move(public_path('pdf'), $filename);
+        /*         $request->file('pdf')->move(public_path('storage',$filename));
  */
 
 
-       /*  if ($validator->fails()) {
+        /*  if ($validator->fails()) {
 
             return response()->json($validator->errors());
         }

@@ -71,6 +71,7 @@
                 <p><strong>Loại đơn hàng: </strong> <span id="viewLoaidonhang"></span></p>
                 <p><strong>Dịch vụ: </strong> <span id="viewDichvu"></span></p>
                 <p><strong>Gói cước: </strong> <span id="viewGoicuoc"></span></p>
+                <p><strong>Loại gói cước: </strong> <span id="viewLoaigoicuoc"></span></p>
               </div>
               <div>
                 <p><strong>Thời gian (tháng): </strong> <span id="viewThoigian"></span></p>
@@ -144,8 +145,6 @@
                       <input id="MaBHXH" class="input form-control" type="text" placeholder="Nhập mã BHXH" name="MaBHXH">
                     </div>
                   </div>
-
-
                 </div>
 
                 <div class="inputBox p-3">
@@ -247,6 +246,15 @@
                     <label class="label me-2">Gói cước: </label>
                     <div class="control">
                       <select id="packInput" class="form-control">
+
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Loại gói cước: </label>
+                    <div class="control">
+                      <select id="packTypeInput" class="form-control" name="packTypeInput">
 
                       </select>
                     </div>
