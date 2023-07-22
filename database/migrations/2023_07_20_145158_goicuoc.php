@@ -15,7 +15,6 @@ return new class extends Migration
             $table->foreignId('MaDV');
             $table->id('MaGC');
             $table->string('GOI_CUOC');
-            $table->date('THOI_GIAN');
         });
     }
 

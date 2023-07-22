@@ -22,10 +22,9 @@ class Thong_tin_hop_dong extends Model
         'DICH_VU',
         'GOI_CUOC',
         'THOI_GIAN',
-        'LOAI_TB',
+        'SO_LUONG',
         'GIA_THIET_BI',
         'GIA_TRUOC_THUE',
-        'VAT',
         'GIA_SAU_THUE',
         'GHI_CHU',
         'MA_GD',
@@ -35,5 +34,9 @@ class Thong_tin_hop_dong extends Model
         'SO_HD',
         'MA_TRA_CUU',
         'NGAY_XUAT_HOA_DON',
+        'MA_TINH',
+        'MA_HUYEN',
+        'MA_XA',
+        'SO_NHA',
     ];
 }

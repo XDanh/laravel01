@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('loaitb',function(Blueprint $table){
-            $table->string('THIET_BI');
-            $table->integer('GIA_TB');
-            $table->foreignId('MaGC');
-            $table->foreignId('MaLoai');
-            $table->foreignId('MaTH');
-            $table->timestamps();
-
+        Schema::create('nhanvien',function(Blueprint $table){
+            $table->id('MaNV');
+            $table->string('TEN_NV');
         });
     }
 
@@ -27,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('loaitb');
+        Schema::dropIfExists('nhanvien');
     }
 };

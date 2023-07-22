@@ -40,61 +40,46 @@ class UserController extends Controller
     {
         /*   return response()->json([$request->all()]); */
         $validator = Validator::make($request->all(), [
-            'TenKH' => 'required',
-            'DiaChi' => 'required',
-            'MaThue' => 'required|max:13',
-            'MaBHXH' => 'min:13|max:13',
+            /* 'TEN_KHACH_HANG' => 'required',
+            'DIA_CHI' => 'required',
+            'MA_SO_THUE' => 'required|max:13',
+            'MBHXH' => 'max:13',
             'NV' => 'required',
-            'NgayKyHD' => 'required',
-            'MaHD' => 'required',
-            'TrangThaiDH' => 'required',
-            'LoaiDH' => 'required',
-            'DichVu' => 'required',
-            'GoiCuoc' => 'required',
-            'ThoiGian' => 'required',
-            'LoaiThietBi' => 'required',
-            'GhiChu' => 'required',
-            'MaGD' => 'required',
-            'MaThueBao' => 'required',
-            'Username' => 'required',
-            'SoSeri' => 'required',
-            'SoHD' => 'required',
-            'MaTraCuuHD' => 'required',
-            'NgayXuatDH' => 'required',
+            'NGAY_KY_HD' => 'required',
+            'MA_HOP_DONG' => 'required',
+            'TRANG_THAI_DON_HANG' => 'required',
+            'LOAI_DON_HANG' => 'required',
+            'DICH_VU' => 'required',
+            'GOI_CUOC' => 'required',
+            'THOI_GIAN' => 'required',
+            'LOAI_TB' => 'required',
+            'GIA_THIET_BI' => 'required',
+            'GIA_TRUOC_THUE' => 'required',
+            'VAT' => 'required',
+            'GIA_SAU_THUE' => 'required',
+            'GHI_CHU' => 'required',
+            'MA_GD' => 'required',
+            'MA_THUE_BAO' => 'required',
+            'USERNAME' => 'required',
+            'SO_SERI' => 'required',
+            'SO_HD' => 'required',
+            'MA_TRA_CUU' => 'required',
+            'NGAY_XUAT_HOA_DON' => 'required', */
         ]);
+        $file=$request->file('pdf');
+        $ext = $request->file('pdf')->extension();
+        $filename = date("m/d/y").'.'.$ext;
+        return response()->json(['oke' => $filename]);
+
+        /* $request->file('pdf')->move(public_path('pdf'),$filename);
 
         if ($validator->fails()) {
 
             return response()->json($validator->errors());
         }
-        Thong_tin_khach_hang::create([
-            'TenKH' => $request->TenKH,
-            'DiaChi' => $request->DiaChi,
-            'MaThue' => $request->MaThue,
-            'MaBHXH' => $request->MaBHXH,
-        ]);
-        $result = new ResourceUser(Thong_tin_khach_hang::all());
-        $MaKH = $result[0]['MaKH'];
-        Thong_tin_hop_dong::create([
-            'NV' => $request->NV,
-            'MaKH' => $MaKH,
-            'MaCT' => $request->MaCT,
-            'NgayKyHD' => $request->NgayKyHD,
-            'MaHD' => $request->MaHD,
-            'TrangThaiDH' => $request->TrangThaiDH,
-            'LoaiDH' => $request->LoaiDH,
-            'ThoiGian' => $request->ThoiGian,
-            'GhiChu' => $request->GhiChu,
-            'MaGD' => $request->MaGD,
-            'MaThueBao' => $request->MaThueBao,
-            'Username' => $request->Username,
-            'SoSeri' => $request->SoSeri,
-            'SoHD' => $request->SoHD,
-            'MaTraCuuHD' => $request->MaTraCuuHD,
-            'NgayXuatDH' => $request->NgayXuatDH,
-        ]);
+        $result = new ResourceUser(thong_tin_hop_dong::all());
 
-        return response()->json(['oke' => 'oke', 'status' => '200']);
+        return response()->json(['oke' => 'oke', 'status' => '200']); */
     }
 
     /**

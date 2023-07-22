@@ -20,4 +20,7 @@ Route::get('/', function () {
 Route::get('/form1', function () {
     return view('Form1');
 });
+Route::get('/formPDF', function () {
+    return view('formPDF');
+});
 /* Route::post('/customer', [Form1Controller::class,'store']); */
