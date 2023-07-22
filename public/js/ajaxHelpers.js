@@ -6,7 +6,6 @@ function populateServices(selectedDichVu, selectedGoiCuoc, loaigoi) {
     type: "GET",
     success: function (data) {
       $.each(data.data, function (index, value) {
-        console.log(value.DICH_VU === selectedDichVu)
         if (value.DICH_VU === selectedDichVu) {
           populatePacks(value.MaDV, selectedGoiCuoc, loaigoi)
         }
@@ -17,7 +16,6 @@ function populateServices(selectedDichVu, selectedGoiCuoc, loaigoi) {
       $("#serviceInput").on('change', function () {
         // Lấy giá trị mới khi option được chọn
         populatePacks($("#serviceInput").val(), selectedGoiCuoc, loaigoi)
-        console.log(loaigoi)
       });
     }
   });
@@ -32,19 +30,19 @@ function populatePacks(selectedDichVu, contractDataGoiCuoc, loaigoi = "") {
       if (data?.data.length > 0) {
         $("#packInput").empty(); // Xóa danh sách cũ trước khi đổ dữ liệu mới
         $.each(data.data, function (index, value) {
-            console.log(contractDataGoiCuoc)
           // Kiểm tra nếu giá trị trong danh sách trùng với contractData.GOI_CUOC, thì set là giá trị mặc định được chọn
-            if(contractDataGoiCuoc){
-                const isSelected = value.GOI_CUOC.toString().trim().toLowerCase() == contractDataGoiCuoc.toString().trim().toLowerCase() ? "selected" : "";
-                if (!!isSelected) {
-                    console.log(loaigoi)
-                    populatePackTypes(loaigoi, value.MaGC)
-
-                  }
-                  $("#packInput").prepend(`<option value=${value.MaGC} ${isSelected}>${value.GOI_CUOC}</option>`);
+          console.log(!!contractDataGoiCuoc)
+          if (!contractDataGoiCuoc) {
+            $("#packInput").prepend(`<option value=${value.MaGC}>${value.GOI_CUOC}</option>`);
+          } else {
+            console.log("1")
+            const isSelected = value.GOI_CUOC.toString().trim().toLowerCase() == contractDataGoiCuoc.toString().trim().toLowerCase() ? "selected" : "";
+            if (!!isSelected) {
+              console.log(loaigoi)
+              populatePackTypes(loaigoi, value.MaGC)
             }
-
-
+            $("#packInput").prepend(`<option value=${value.MaGC} ${isSelected}>${value.GOI_CUOC}</option>`);
+          }
 
         });
       } else {
