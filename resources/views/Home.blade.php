@@ -215,6 +215,7 @@
                     <label class="label me-2">Trạng thái đơn hàng: </label>
                     <div class="control">
                       <select id="orderStatusInput" class="form-control" name="trangthaidonhang">
+                        <option value="">---Chọn trạng thái đơn hàng---</option>
                         <option value="Chưa duyệt">Chưa duyệt</option>
                         <option value="Đã duyệt">Đã duyệt</option>
                         <option value="Từ chối">Từ chối</option>
