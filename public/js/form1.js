@@ -4,7 +4,7 @@ import {
   handleDistrictChange,
   handleWardChange
 } from "/js/locationUtils.js";
-import { populateServices, populatePacks } from "./ajaxHelpers.js";
+import { populateServices } from "./ajaxHelpers.js";
 
 
 // Lấy danh sách TỈNH/THÀNH PHỐ và đổ vào dropdown #provinceInput
