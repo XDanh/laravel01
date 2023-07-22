@@ -31,10 +31,10 @@ Route::resource('contracts', UserController::class);
 Route::get('/dichvu', function () {
     return new ResourceUser(Dichvu::all());
 });
-Route::post('/goicuoc', function (Request $request) {
-    return new ResourceUser(Goicuoc::where('MaDV', $request->MaDV)->get());
+Route::get('/goicuoc/{id}', function ($id) {
+    return new ResourceUser(Goicuoc::where('MaDV', $id)->get());
 });
-Route::post('/thietbi', function (Request $request) {
+Route::get('/thietbi', function (Request $request) {
     return new ResourceUser(Thietbi::where('MaGC', $request->MaGC)->get());
 });
 Route::post('/loaigoi', function (Request $request) {
@@ -43,6 +43,6 @@ Route::post('/loaigoi', function (Request $request) {
 Route::post('/thoihan', function (Request $request) {
     return new ResourceUser(thoihan::where('MaLoai', $request->MaLoai)->get());
 });
-Route::post('/contract', function (Request $request) {
+Route::get('/contract/{id}', function (Request $request) {
     return new ResourceUser(Thong_tin_hop_dong::where('id', $request->id)->get());
 });

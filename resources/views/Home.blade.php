@@ -100,6 +100,7 @@
             </div>
           </div>
           <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="btnUpdateOrder">Cập nhật đơn hàng</button>
             <button type="button" class="btn btn-primary" id="btnEdit">Sửa</button>
             <button type="button" class="btn btn-danger" id="btnDelete">Xóa</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -119,374 +120,307 @@
           <div class="modal-body">
             <h2>Thông tin khách hàng</h2>
 
-            <div class="d-flex justify-content-between flex-column flex-md-row">
-              <div class="inputBox p-3">
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Tên khách hàng: </label>
-                  <div class="control">
-                    <input id="TenKH" class="input form-control" type="text" placeholder="Nhập tên khách hàng" name="TenKH">
+            <div class="d-flex justify-content-between flex-column ">
+
+              <div class="d-flex justify-content-between flex-column flex-md-row">
+                <div class="inputBox p-3">
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Tên khách hàng: </label>
+                    <div class="control">
+                      <input id="TenKH" class="input form-control" type="text" placeholder="Nhập tên khách hàng" name="TenKH">
+                    </div>
                   </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Mã thuế: </label>
+                    <div class="control">
+                      <input id="MaThue" class="input form-control" type="text" placeholder="Nhập mã thuế" name="MaThue">
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Mã BHXH: </label>
+                    <div class="control">
+                      <input id="MaBHXH" class="input form-control" type="text" placeholder="Nhập mã BHXH" name="MaBHXH">
+                    </div>
+                  </div>
+
+
                 </div>
 
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Mã thuế: </label>
-                  <div class="control">
-                    <input id="MaThue" class="input form-control" type="text" placeholder="Nhập mã thuế" name="MaThue">
+                <div class="inputBox p-3">
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Tỉnh/ Thành phố: </label>
+                    <div class="control">
+                      <select id="provinceInput" class="form-control">
+
+                      </select>
+                    </div>
                   </div>
-                  <!-- <p class="help is-danger">{{ $errors->first('MaThue') }}</p> -->
-                </div>
 
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Mã BHXH: </label>
-                  <div class="control">
-                    <input id="MaBHXH" class="input form-control" type="text" placeholder="Nhập mã BHXH" name="MaBHXH">
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Quận/ Huyện: </label>
+                    <div class="control">
+                      <select id="districtInput" class="form-control">
+
+                      </select>
+                    </div>
                   </div>
-                </div>
 
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Địa chỉ: </label>
-                  <div class="control">
-                    <input id="diachi" class="input form-control" type="text" placeholder="Nhập địa chỉ" name="diachi">
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Phường/ Xã: </label>
+                    <div class="control">
+                      <select id="wardInput" class="form-control">
+
+                      </select>
+                    </div>
                   </div>
-                </div>
-              </div>
 
-              <!-- <div class="inputBox p-3">
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Tỉnh/ Thành phố: </label>
-                  <div class="control">
-                    <select id="provinceInput" class="form-control">
-
-                    </select>
-                  </div>
-                </div>
-
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Quận/ Huyện: </label>
-                  <div class="control">
-                    <select id="districtInput" class="form-control">
-
-                    </select>
-                  </div>
-                </div>
-
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Phường/ Xã: </label>
-                  <div class="control">
-                    <select id="wardInput" class="form-control">
-
-                    </select>
-                  </div>
-                </div>
-
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Số nhà: </label>
-                  <div class="control">
-                    <input class="input form-control" type="text" placeholder="e.g. 123" name="sonha">
-                  </div>
-                </div>
-              </div> -->
-            </div>
-
-            <h2>Thông tin hợp đồng</h2>
-
-            <div class="d-flex justify-content-between flex-column flex-md-row">
-              <div class="inputBox p-3">
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Nhân viên lập hợp đồng: </label>
-                  <div class="control">
-                    <select id="staffInput" class="form-control">
-
-                    </select>
-                  </div>
-                </div>
-
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Ngày ký hợp đồng: </label>
-                  <div class="control">
-                    <input id="ngaykyhd" class="input form-control" type="date" name="ngaykyhd">
-                  </div>
-                </div>
-
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Mã số hợp đồng: </label>
-                  <div class="control">
-                    <input id="mahd" class="input form-control" type="text" placeholder="13HD" name="mahd">
-                  </div>
-                </div>
-
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Trạng thái đơn hàng: </label>
-                  <div class="control">
-                    <select id="orderStatusInput" class="form-control" name="trangthaidonhang">
-                      <option value="0">Chưa duyệt</option>
-                      <option value="1">Đã duyệt</option>
-                      <option value="2">Từ chối</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Loại đơn hàng: </label>
-                  <div class="control">
-                    <select id="orderTypeInput" class="form-control" name="loaidonhang">
-                      <option value="L1">Loại 1</option>
-                      <option value="L2">Loại 2</option>
-                      <option value="L3">Loại 3</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Dịch vụ: </label>
-                  <div class="control">
-                    <select id="serviceInput" class="form-control">
-
-                    </select>
-                  </div>
-                </div>
-
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Gói cước: </label>
-                  <div class="control">
-                    <select id="packInput" class="form-control">
-
-                    </select>
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Số nhà: </label>
+                    <div class="control">
+                      <input class="input form-control" type="text" placeholder="e.g. 123" name="sonha">
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div class="inputBox p-3">
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Thời gian (tháng): </label>
-                  <div class="control">
-                    <select id="timeInut" class="form-control">
+              <h2>Thông tin hợp đồng</h2>
 
-                    </select>
+              <div class="d-flex justify-content-between flex-column flex-md-row">
+                <div class="inputBox p-3">
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Nhân viên lập hợp đồng: </label>
+                    <div class="control">
+                      <select id="staffInput" class="form-control">
+
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Ngày ký hợp đồng: </label>
+                    <div class="control">
+                      <input id="ngaykyhd" class="input form-control" type="date" name="ngaykyhd">
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Mã số hợp đồng: </label>
+                    <div class="control">
+                      <input id="mahd" class="input form-control" type="text" placeholder="13HD" name="mahd">
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Trạng thái đơn hàng: </label>
+                    <div class="control">
+                      <select id="orderStatusInput" class="form-control" name="trangthaidonhang">
+                        <option value="Chưa duyệt">Chưa duyệt</option>
+                        <option value="Đã duyệt">Đã duyệt</option>
+                        <option value="Từ chối">Từ chối</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Loại đơn hàng: </label>
+                    <div class="control">
+                      <select id="orderTypeInput" class="form-control" name="loaidonhang">
+                        <option value="L1">Loại 1</option>
+                        <option value="L2">Loại 2</option>
+                        <option value="L3">Loại 3</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Dịch vụ: </label>
+                    <div class="control">
+                      <select id="serviceInput" class="form-control">
+
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Gói cước: </label>
+                    <div class="control">
+                      <select id="packInput" class="form-control">
+
+                      </select>
+                    </div>
                   </div>
                 </div>
 
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Loại thiết bị: </label>
-                  <div class="control">
-                    <select id="orderTypeInput" class="form-control">
-                      <option value=0>Không</option>
-                      <option value=1>Doanh nghiệp</option>
-                      <option value=2>Cá nhân</option>
-                      <option value=3>Hộ kinh doanh</option>
-                    </select>
-                  </div>
-                </div>
+                <div class="inputBox p-3">
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Thời gian (tháng): </label>
+                    <div class="control">
+                      <select id="timeInput" class="form-control">
 
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Giá thiết bị: </label>
-                  <div class="control">
-                    <input id="giathietbi" class="input form-control" disabled type="text" name="giathietbi">
+                      </select>
+                    </div>
                   </div>
-                </div>
 
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Giá trước thuế: </label>
-                  <div class="control">
-                    <input id="giatruocthue" class="input form-control" disabled type="text" name="giatruocthue">
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Số lượng thiết bị: </label>
+                    <div class="control">
+                      <input type="number" min=0 placeholder="Nhập số lượng thiết bị" id="deviceNumberInput" class="form-control">
+                    </div>
                   </div>
-                </div>
 
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">VAT: </label>
-                  <div class="control">
-                    <input id="giatruocthue" class="input form-control" disabled type="text" name="giatruocthue">
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Giá thiết bị: </label>
+                    <div class="control">
+                      <input id="giathietbi" class="input form-control" disabled type="text" name="giathietbi">
+                    </div>
                   </div>
-                </div>
 
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Giá sau thuế: </label>
-                  <div class="control">
-                    <input id="giasauthue" class="input form-control" disabled type="text" name="giasauthue">
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Giá trước thuế: </label>
+                    <div class="control">
+                      <input id="giatruocthue" class="input form-control" disabled type="text" name="giatruocthue">
+                    </div>
                   </div>
-                </div>
 
-                <div class="field mb-3 align-items-center justify-content-between d-flex">
-                  <label class="label me-2">Ghi chú: </label>
-                  <div class="control">
-                    <input id="ghichu" class="input form-control" type="text" name="ghichu">
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">VAT: </label>
+                    <div class="control">
+                      <input id="giatruocthue" class="input form-control" disabled type="text" name="giatruocthue">
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Giá sau thuế: </label>
+                    <div class="control">
+                      <input id="giasauthue" class="input form-control" disabled type="text" name="giasauthue">
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Ghi chú: </label>
+                    <div class="control">
+                      <input id="ghichu" class="input form-control" type="text" name="ghichu">
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-
-
-
-
-            <!-- <div class="form-group">
-              <label for="inputTenKH">Tên khách hàng</label>
-              <input type="text" class="form-control" id="inputTenKH">
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="button" class="btn btn-primary" id="btnSaveChanges">Lưu thay đổi</button>
             </div>
-            <div class="form-group">
-              <label for="inputDiaChi">Địa chỉ</label>
-              <input type="text" class="form-control" id="inputDiaChi">
-            </div> -->
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            <button type="button" class="btn btn-primary" id="btnSaveChanges">Lưu thay đổi</button>
+        </div>
+      </div>
+
+      <!-- Modal for Delete Confirmation -->
+      <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận xóa</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Bạn có chắc chắn muốn xóa khách hàng này?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+              <button type="button" class="btn btn-danger" id="btnConfirmDelete">Xóa</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Modal for Delete Confirmation -->
-    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+    <!-- Modal for Update -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLable" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận xóa</h5>
+            <h5 class="modal-title" id="updateModalLable">Chỉnh sửa khách hàng</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <p>Bạn có chắc chắn muốn xóa khách hàng này?</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-            <button type="button" class="btn btn-danger" id="btnConfirmDelete">Xóa</button>
+            <div class="d-flex justify-content-between flex-column ">
+
+              <div class="d-flex justify-content-between flex-column flex-md-row">
+                <div class="inputBox p-3">
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Mã giao dịch: </label>
+                    <div class="control">
+                      <input id="magd" class="input form-control" type="text" placeholder="Nhập mã giao dịch" name="magd">
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Mã thuê bao: </label>
+                    <div class="control">
+                      <input id="mathuebao" class="input form-control" type="text" placeholder="Nhập mã thuê bao" name="mathuebao">
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Username: </label>
+                    <div class="control">
+                      <input id="username" class="input form-control" type="text" placeholder="Nhập username" name="username">
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Số seri: </label>
+                    <div class="control">
+                      <input id="seri" class="input form-control" type="text" placeholder="Nhập số seri" name="seri">
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Số hóa đơn: </label>
+                    <div class="control">
+                      <input id="sohd" class="input form-control" type="text" placeholder="Nhập số hóa đơn" name="sohd">
+                      <p>Nếu nhập nhiều số hoá đơn ngăn cách bằng dấu ;</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="inputBox p-3">
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Mã tra cứu hóa đơn: </label>
+                    <div class="control">
+                      <input id="matracuuhd" class="input form-control" type="text" placeholder="Nhập mã tra cứu hóa đơn" name="matracuuhd">
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Ngày xuất hóa đơn: </label>
+                    <div class="control">
+                      <input id="ngayxuathd" class="input form-control" type="text" placeholder="Nhập ngày xuất hóa đơn" name="ngayxuathd">
+                    </div>
+                  </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Upload file: </label>
+                    <div class="control">
+                      <input id="uploadfile" class="input form-control" type="file" multiple name="uploadfile">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="button" class="btn btn-primary" id="btnSaveChanges">Cập nhật</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    $(document).ready(function() {
-      $.ajax({
-        url: "http://127.0.0.1:8000/api/contracts",
-        type: "GET",
-        success: function(data) {
-          console.log(data)
-          if (data) {
-            var contracts = data[0]
-            $("#contracts").dataTable({
-              data: contracts,
-              ordering: true,
-              select: true,
-              columns: [{
-                  data: "NV" || null
-                },
-                {
-                  data: "TEN_KHACH_HANG" || null
-                },
-                {
-                  data: "MA_HOP_DONG" || null
-                },
-                {
-                  data: "MA_SO_THUE" || null
-                },
-                {
-                  data: "NGAY_KY_HD" || null
-                },
-                {
-                  data: "DICH_VU" || null
-                },
-                {
-                  data: "LOAI_DON_HANG" || null
-                },
-                {
-                  data: "GIA_SAU_THUE" || null
-                },
-                {
-                  data: "TRANG_THAI_DON_HANG" || null
-                },
-                {
-                  data: null,
-                  defaultContent: '<button type="button" class="btn btn-detail btn-info">Xem chi tiết</button>'
-                }
-              ]
-            });
+    <script type="module" src="/js/home.js">
 
-            $("#contracts").on("click", ".btn-detail", function() {
-              var data = $("#contracts").DataTable().row($(this).parents("tr")).data();
-              $.ajax({
-                url: `http://127.0.0.1:8000/api/contract/${data.id}`,
-                type: "GET",
-                success: function(contract) {
-                  console.log(contract)
-                  $("#viewTenKH").text(contract.TEN_KHACH_HANG || "Không có");
-                  $("#viewDiaChi").text(contract.DIA_CHI || "Không có");
-                  $("#viewMasothue").text(contract.MA_SO_THUE || "Không có");
-                  $("#viewBHXH").text(contract.BHXH || "Không có");
-                  $("#viewNhanvien").text(contract.NHAN_VIEN_LAP_HOP_DONG || "Không có")
-                  $("#viewNgaykyhd").text(contract.NGAY_KY_HOP_DONG || "Không có")
-                  $("#viewMasohd").text(contract.MA_SO_HOP_DONG || "Không có")
-                  $("#viewTrangthaidonhang").text(contract.TRANG_THAI_DON_HANG || "Không có")
-                  $("#viewLoaidonhang").text(contract.LOAI_DON_HANG || "Không có")
-                  $("#viewDichvu").text(contract.DICH_VU || "Không có")
-                  $("#viewGoicuoc").text(contract.GOI_CUOC || "Không có")
-                  $("#viewThoigian").text(contract.THOI_GIAN || "Không có")
-                  $("#viewLoaithietbi").text(contract.LOAI_THIET_BI || "Không có")
-                  $("#viewGiathietbi").text(contract.LOAI_GOI || "Không có")
-                  $("#viewGiatruocthe").text(contract.GIA_TRUOC_THUE || "Không có")
-                  $("#viewVAT").text(contract.VAT || "Không có")
-                  $("#viewGiasauthe").text(contract.GIA_SAU_THUE || "Không có")
-                  $("#viewGhichu").text(contract.GHI_CHU || "Không có")
-                  $("#viewMagiaodich").text(contract.MA_GIAO_DICH || "Không có")
-                  $("#viewMathuebao").text(contract.MA_THUE_BAO || "Không có")
-                  $("#viewUsername").text(contract.USERNAME || "Không có")
-                  $("#viewSoseri").text(contract.SO_SERI || "Không có")
-                  $("#viewSohd").text(contract.SO_HOA_DON || "Không có")
-                  $("#viewMatracuuhoadon").text(contract.NGAY_TRA_CUU_HOA_DON || "Không có")
-                  $("#viewNgayxuathoadon").text(contract.NGAY_XUAT_HOA_DON || "Không có")
-
-                  $("#viewDetailModal").modal("show");
-                }
-              })
-
-
-              // handle edit btn
-              $("#btnEdit").on("click", function() {
-                var dataEdit = $("#contracts").DataTable().row($("#contracts tr.selected")).data();
-
-                $("#TenKH").val("")
-                $("#MaThue").val("")
-                $("#MaBHXH").val("")
-                $("#diachi").val("")
-                $("#provinceInput").val("")
-                $("#districtInput").val("")
-                $("#wardInput").val("")
-                $("#staffInput").val("")
-                $("#ngaykyhd").val("")
-                $("#mahd").val("")
-                $("#orderStatusInput").val("")
-                $("#orderTypeInput").val("")
-                $("#serviceInput").val("")
-                $("#packInput").val("")
-                $("#timeInut").val("")
-                $("#orderTypeInput").val("")
-                $("#giathietbi").val("")
-                $("#giatruocthue").val("")
-                $("#giatruocthue").val("")
-                $("#giasauthue").val("")
-                $("#ghichu").val("")
-
-                $("#editModal").modal("show");
-              });
-
-              // handle delete btn
-              $("#btnDelete").on("click", function() {
-                var dataDelete = $("#contracts").DataTable().row($("#contracts tr.selected")).data();
-                $("#deleteConfirmationModal").modal("show");
-
-                $("#btnConfirmDelete").on("click", function() {
-                  console.log(data.id)
-                  $("#deleteConfirmationModal").modal("hide");
-                  $("#viewDetailModal").modal("hide");
-                  var dataDeleted = $("#contracts").DataTable().row($("#contracts tr.selected")).data();
-                });
-              });
-            });
-          }
-        }
-      });
-    });
-  </script>
+    </script>
 </body>
 
 </html>
