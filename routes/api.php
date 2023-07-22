@@ -32,14 +32,14 @@ Route::resource('contracts', UserController::class);
 Route::get('/dichvu', function () {
     return new ResourceUser(Dichvu::all());
 });
-Route::post('/goicuoc', function (Request $request) {
-    return new ResourceUser(Goicuoc::where('MaDV', $request->MaDV)->get());
+Route::get('/goicuoc/{id}', function ($id) {
+    return new ResourceUser(Goicuoc::where('MaDV', $id)->get());
 });
 Route::get('/thietbi', function (Request $request) {
     return new ResourceUser(Thietbi::where('MaGC', $request->input('MaGC'))
-                                    ->where('MaLoai',$request->input('MaLoai'))
-                                    ->where('MaTH',$request->input('MaTH'))
-                                    ->get());
+        ->where('MaLoai', $request->input('MaLoai'))
+        ->where('MaTH', $request->input('MaTH'))
+        ->get());
 });
 Route::get('/loaigoi', function (Request $request) {
     return new ResourceUser(Loaigoi::where('MaGC', $request->input('MaGC'))->get());

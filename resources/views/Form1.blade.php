@@ -44,6 +44,13 @@
                             <input class="input form-control" type="text" placeholder="Nhập mã BHXH" name="MaBHXH">
                         </div>
                     </div>
+
+                    <div class="field mb-3 align-items-center justify-content-between d-flex">
+                        <label class="label me-2">Số nhà: </label>
+                        <div class="control">
+                            <input class="input form-control" type="text" placeholder="e.g. 123" name="sonha">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="inputBox p-3">
@@ -63,7 +70,6 @@
                                 <option value="">----Chọn Quận/ Huyện----</option>
                             </select>
                         </div>
-                        <!-- <p class="help is-danger">{{ $errors->first('DiaChi') }}</p> -->
                     </div>
 
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
@@ -73,16 +79,9 @@
                                 <option value="">----Chọn Phường/ Xã----</option>
                             </select>
                         </div>
-                        <!-- <p class="help is-danger">{{ $errors->first('DiaChi') }}</p> -->
                     </div>
 
-                    <div class="field mb-3 align-items-center justify-content-between d-flex">
-                        <label class="label me-2">Số nhà: </label>
-                        <div class="control">
-                            <input class="input form-control" type="text" placeholder="e.g. 123" name="sonha">
-                        </div>
-                        <!-- <p class="help is-danger">{{ $errors->first('TenKH') }}</p> -->
-                    </div>
+
                 </div>
             </div>
 
@@ -94,7 +93,7 @@
                         <label class="label me-2">Nhân viên lập hợp đồng: </label>
                         <div class="control">
                             <select id="staffInput" class="form-control">
-
+                                <option value="">----Chọn nhân viên----</option>
                             </select>
                         </div>
                     </div>
@@ -117,9 +116,10 @@
                         <label class="label me-2">Trạng thái đơn hàng: </label>
                         <div class="control">
                             <select id="orderStatusInput" class="form-control" name="trangthaidonhang">
-                                <option value="0">Chưa duyệt</option>
-                                <option value="1">Đã duyệt</option>
-                                <option value="2">Từ chối</option>
+                                <option value="">----Chọn trạng thái đơn hàng----</option>
+                                <option value="Chưa duyệt">Chưa duyệt</option>
+                                <option value="Đã duyệt">Đã duyệt</option>
+                                <option value="Từ chối">Từ chối</option>
                             </select>
                         </div>
                     </div>
@@ -128,6 +128,7 @@
                         <label class="label me-2">Loại đơn hàng: </label>
                         <div class="control">
                             <select id="orderTypeInput" class="form-control" name="loaidonhang">
+                                <option value="">----Chọn loại đơn hàng----</option>
                                 <option value="L1">Loại 1</option>
                                 <option value="L2">Loại 2</option>
                                 <option value="L3">Loại 3</option>
@@ -139,6 +140,7 @@
                         <label class="label me-2">Dịch vụ: </label>
                         <div class="control">
                             <select id="serviceInput" class="form-control">
+                                <option value="">----Chọn dịch vụ----</option>
 
                             </select>
                         </div>
@@ -148,6 +150,7 @@
                         <label class="label me-2">Gói cước: </label>
                         <div class="control">
                             <select id="packInput" class="form-control">
+                                <option value="">----Chọn gói cước----</option>
 
                             </select>
                         </div>
@@ -159,20 +162,16 @@
                         <label class="label me-2">Thời gian (tháng): </label>
                         <div class="control">
                             <select id="timeInut" class="form-control">
+                                <option value="">----Chọn thời gian----</option>
 
                             </select>
                         </div>
                     </div>
 
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
-                        <label class="label me-2">Loại thiết bị: </label>
+                        <label class="label me-2">Số lượng thiết bị: </label>
                         <div class="control">
-                            <select id="orderTypeInput" class="form-control">
-                                <option value=0>Không</option>
-                                <option value=1>Doanh nghiệp</option>
-                                <option value=2>Cá nhân</option>
-                                <option value=3>Hộ kinh doanh</option>
-                            </select>
+                            <input type="number" min=0 placeholder="Nhập số lượng thiết bị" id="deviceNumberInput" class="form-control">
                         </div>
                     </div>
 
@@ -185,13 +184,6 @@
 
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Giá trước thuế: </label>
-                        <div class="control">
-                            <input class="input form-control" disabled type="text" name="giatruocthue">
-                        </div>
-                    </div>
-
-                    <div class="field mb-3 align-items-center justify-content-between d-flex">
-                        <label class="label me-2">VAT: </label>
                         <div class="control">
                             <input class="input form-control" disabled type="text" name="giatruocthue">
                         </div>
@@ -215,124 +207,8 @@
             <button class="btn btn-success" type="submit">submit</button>
         </form>
     </div>
-    <script>
-        var listProvince = []
-        var listWard = []
-        var listDistrict = []
-        var provinceSelected
-        var districtSelected
-        var wardSelected
+    <script type="module" src="/js/form1.js">
 
-        //GET PROVINCE
-        $(document).ready(function() {
-            $.ajax({
-                type: "GET",
-                url: "https://provinces.open-api.vn/api/p/",
-                success: function(data) {
-                    listProvince = data
-                    $.each(data, function(index, value) {
-                        $("#provinceInput").prepend(`<option value=${value.code}>${value.name}</option>`);
-                    })
-                }
-            })
-        })
-
-        //GET DISTRICT
-        $(document).ready(function() {
-            $.ajax({
-                type: "GET",
-                url: "https://provinces.open-api.vn/api/d/",
-                success: function(data) {
-                    listDistrict = data
-                }
-            })
-        })
-
-        //GET WARD
-        $(document).ready(function() {
-            $.ajax({
-                type: "GET",
-                url: "https://provinces.open-api.vn/api/w/",
-                success: function(data) {
-                    listWard = data
-                }
-            })
-        })
-
-        //HANDLE CHANGE PROVINCE
-        $("#provinceInput").on("change", function(e) {
-            code = e.target.value
-            $("#districtInput").empty()
-
-            for (let i = 0; i < listProvince.length; i++) {
-                if (listProvince[i].code == code) {
-                    for (let j = 0; j < listDistrict.length; j++) {
-                        if (listDistrict[j].province_code == code) {
-                            $("#districtInput").append(`<option value=${listDistrict[j].code}>${listDistrict[j].name}</option>`);
-                        }
-                    }
-                    provinceSelected = listProvince[i]
-                    console.log(listProvince[i])
-                    break;
-                }
-            }
-        })
-
-        //HANDLE CHANGE DISTRICT
-        $("#districtInput").on("change", function(e) {
-            code = e.target.value
-            $("#wardInput").empty()
-
-            for (let i = 0; i < listDistrict.length; i++) {
-                if (listDistrict[i].code == code) {
-                    for (let j = 0; j < listWard.length; j++) {
-                        if (listWard[j].district_code == code) {
-                            $("#wardInput").append(`<option value=${listWard[j].code}>${listWard[j].name}</option>`);
-                        }
-                    }
-                    districtSelected = listDistrict[i]
-                    console.log(districtSelected)
-                    break;
-                }
-            }
-        })
-
-        //HANDLE CHANGE DISTRICT
-        $("#wardInput").on("change", function(e) {
-            code = e.target.value
-
-            for (let i = 0; i < listWard.length; i++) {
-                if (listWard[i].code == code) {
-                    wardSelected = listWard[i]
-                    console.log(wardSelected)
-                    break;
-                }
-            }
-        })
-
-        $("#idForm").submit(function(e) {
-            e.preventDefault(); // avoid to execute the actual submit of the form.
-
-            var form = $(this);
-            var actionUrl = form.attr('action');
-
-            $.ajax({
-                type: "POST",
-                url: actionUrl,
-                data: form.serialize(), // serializes the form's elements.
-                success: function(data) {
-                    console.log(data.oke)
-                    if (data.oke) {
-                        toastr.success(data.oke)
-                    } else {
-                        $.each(data, function(index, value) {
-                            toastr.error(value)
-                        });
-                    }
-
-                }
-            });
-        });
     </script>
 </body>
 
