@@ -186,14 +186,14 @@
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Giá trước thuế: </label>
                         <div class="control">
-                            <input class="input form-control" onchange="myFunction()" disabled type="text" name="GIA_TRUOC_THUE">
+                            <input id="GIA_TRUOC_THUE" class="input form-control" disabled type="text" name="GIA_TRUOC_THUE">
                         </div>
                     </div>
 
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Giá sau thuế: </label>
                         <div class="control">
-                            <input class="input form-control" disabled type="text" name="GIA_SAU_THUE">
+                            <input id="GIA_SAU_THUE" class="input form-control" disabled type="text" name="GIA_SAU_THUE">
                         </div>
                     </div>
 

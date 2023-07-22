@@ -39,7 +39,7 @@ class UserController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-          return response()->json([$request->all()]);
+
         $validator = Validator::make($request->all(), [
             /* 'TEN_KHACH_HANG' => 'required',
             'DIA_CHI' => 'required',
@@ -67,7 +67,7 @@ class UserController extends Controller
             'MA_TRA_CUU' => 'required',
             'NGAY_XUAT_HOA_DON' => 'required', */
         ]);
-
+        thong_tin_hop_dong::create($request->all());
 
 
         return response()->json(['oke' => 'oke', 'status' => '200']);

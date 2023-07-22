@@ -80,10 +80,13 @@ function populatePackTypes(selectedPackType = "", selectedpackID) {
     }
   });
 }
-
+const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'VND',
+    minimumFractionDigits: 0
+  })
 //THOI GIAN
 function populateTime(MaLoai, MaGC, selectedTime) {
-  console.log(MaLoai)
   $.ajax({
     url: `http://127.0.0.1:8000/api/thoihan?MaGC=${MaGC}&MaLoai=${MaLoai}`,
     type: "GET",
@@ -99,6 +102,17 @@ function populateTime(MaLoai, MaGC, selectedTime) {
       } else {
         $("#timeInput").empty();
       }
+      var AffterPrice  = $( "#GIA_SAU_THUE" ).val();
+
+      $("#timeInput").on("change", function () {
+        const selectedTime = $("#timeInput").val();
+
+        const selectedData = data.data.find(time => time.MaTH === parseInt(selectedTime));
+        const AfterVatPrice = Number(selectedData.GIA_TRUOC_THUE) + Number(selectedData.GIA_TRUOC_THUE)/10
+        $("#GIA_TRUOC_THUE").val(selectedData ? formatter.format(selectedData.GIA_TRUOC_THUE) : "");
+        $("#GIA_SAU_THUE").val(selectedData ? formatter.format(AfterVatPrice) : "");
+
+      });
     }
   })
 }

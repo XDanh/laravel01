@@ -47,14 +47,14 @@
             <h5 class="modal-title" id="viewDetailModalLabel">Chi tiết khách hàng</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body px-4">
             <h3>Thông tin khách hàng</h3>
             <div class="d-flex justify-content-between flex-column flex-md-row">
-              <div>
+              <div class="boxContent mb-2">
                 <p><strong>Tên khách hàng:</strong> <span id="viewTenKH"></span></p>
                 <p><strong>Địa chỉ:</strong> <span id="viewDiaChi"></span></p>
               </div>
-              <div>
+              <div class="boxContent mb-2">
                 <p><strong>Mã số thế:</strong> <span id="viewMasothue"></span></p>
                 <p><strong>Mã BHXH:</strong> <span id="viewBHXH"></span></p>
               </div>
@@ -63,7 +63,7 @@
             <h3>Thông tin hợp đồng</h3>
 
             <div class="d-flex justify-content-between flex-column flex-md-row">
-              <div>
+              <div class="boxContent mb-2">
                 <p><strong>Nhân viên lập hợp đồng: </strong> <span id="viewNhanvien"></span></p>
                 <p><strong>Ngày ký hợp đồng: </strong> <span id="viewNgaykyhd"></span></p>
                 <p><strong>Mã số hợp đồng: </strong> <span id="viewMasohd"></span></p>
@@ -73,7 +73,7 @@
                 <p><strong>Gói cước: </strong> <span id="viewGoicuoc"></span></p>
                 <p><strong>Loại gói cước: </strong> <span id="viewLoaigoicuoc"></span></p>
               </div>
-              <div>
+              <div class="boxContent mb-2">
                 <p><strong>Thời gian (tháng): </strong> <span id="viewThoigian"></span></p>
                 <p><strong>Loại thiết bị: </strong> <span id="viewLoaithietbi"></span></p>
                 <p><strong>Giá thiết bị: </strong> <span id="viewGiathietbi"></span></p>
@@ -87,13 +87,13 @@
             <h3>Thông số kỹ thuật</h3>
 
             <div class="d-flex justify-content-between flex-column flex-md-row">
-              <div>
+              <div class="boxContent mb-2">
                 <p><strong>Mã giao dịch: </strong> <span id="viewMagiaodich"></span></p>
                 <p><strong>Mã thuê bao: </strong> <span id="viewMathuebao"></span></p>
                 <p><strong>Username: </strong> <span id="viewUsername"></span></p>
                 <p><strong>Số seri: </strong> <span id="viewSoseri"></span></p>
               </div>
-              <div>
+              <div class="boxContent mb-2">
                 <p><strong>Số hóa đơn: </strong> <span id="viewSohd"></span></p>
                 <p><strong>Mã tra cứu hóa đơn: </strong> <span id="viewMatracuuhoadon"></span></p>
                 <p><strong>Ngày xuất hóa đơn: </strong> <span id="viewNgayxuathoadon"></span></p>
@@ -291,7 +291,7 @@
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Giá trước thuế: </label>
                     <div class="control">
-                      <input id="giatruocthue" class="input form-control" disabled type="text" name="giatruocthue">
+                      <input id="GIA_TRUOC_THUE" class="input form-control" disabled type="text" name="GIA_TRUOC_THUE">
                     </div>
                   </div>
 
@@ -305,7 +305,7 @@
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Giá sau thuế: </label>
                     <div class="control">
-                      <input id="giasauthue" class="input form-control" disabled type="text" name="giasauthue">
+                      <input id="GIA_SAU_THUE" class="input form-control" disabled type="text" name="GIA_SAU_THUE">
                     </div>
                   </div>
 
@@ -388,7 +388,7 @@
                   </div>
 
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
-                    <label class="label me-2">óSố ha đơn: </label>
+                    <label class="label me-2">Số hoa đơn: </label>
                     <div class="control">
                       <input id="sohd" class="input form-control" type="text" placeholder="Nhập số hóa đơn" name="SO_HOA_DON">
                       <p>Nếu nhập nhiều số hoá đơn ngăn cách bằng dấu ;</p>
