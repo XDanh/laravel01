@@ -20,7 +20,7 @@
 <body>
     <form action="{{ route('contracts.store') }}" id="idForm" enctype="multipart/form-data">
         @csrf
-        <input type="file" name="pdf" multiple>
+        <input type="file" name="pdf[]" multiple>
         <button type="submit">submit</button>
     </form>
 </body>

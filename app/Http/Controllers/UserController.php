@@ -9,6 +9,7 @@ use App\Models\thong_tin_khach_hang;
 use App\Models\thong_tin_hop_dong;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -58,23 +59,38 @@ class UserController extends Controller
             'MA_TRA_CUU' => 'required',
             'NGAY_XUAT_HOA_DON' => 'required', */
         ]);
-        $temp = new ResourceUser(count::all());
 
-        $formattedValue = str_pad($temp[0]['count_number'], 3, '0', STR_PAD_LEFT);
-        
-        $ext = $request->file('pdf')->extension();
-        $filename = date("ymd").'-'.$formattedValue.'.'.$ext;
+        if ($request->hasFile('pdf')) {
+            foreach ($request->file('pdf') as $file) {
+                
+                $temp = new ResourceUser(count::all());
 
-        $request->file('pdf')->move(public_path('pdf'),$filename);
-/*         $request->file('pdf')->move(public_path('storage',$filename));
- */
+                $formattedValue = str_pad($temp[0]['count_number'], 3, '0', STR_PAD_LEFT);
+
+                $ext = $file->extension();
+
+                $filename = date("ymd").'-'.$formattedValue.'.'.$ext;
+
+                $file->move(public_path('pdf'),$filename);
+
+                $number = $temp[0]['count_number']+1;
 
 
-       /*  if ($validator->fails()) {
+                $currentHour = (int)date('H');
 
-            return response()->json($validator->errors());
+                $currentMinute = (int)date('i');
+
+                if ($currentHour === 23 && $currentMinute === 59) {
+
+                    $number = 1;
+                }
+                DB::table('count')
+                    ->update(['count_number' =>  $number]);
+
+            }
+
         }
-        $result = new ResourceUser(thong_tin_hop_dong::all()); */
+
 
         return response()->json(['oke' => 'oke', 'status' => '200']);
     }
