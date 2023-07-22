@@ -77,3 +77,16 @@ Route::get('mahopdong',function(){
                     ->update(['count_number' =>  $number]);
     return response()->json($name);
 });
+Route::post('upload', function (Request $request) {
+    if ($request->hasFile('pdf')) {
+        foreach ($request->file('pdf') as $file) {
+
+            $ext = $file->extension();
+
+            $filename = $request->input('SO_HOA_DO').'.'.$ext;
+
+            $file->move(public_path('pdf'),$filename);
+        }
+
+    }
+});

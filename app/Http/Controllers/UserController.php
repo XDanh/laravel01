@@ -68,36 +68,6 @@ class UserController extends Controller
             'NGAY_XUAT_HOA_DON' => 'required', */
         ]);
 
-        if ($request->hasFile('pdf')) {
-            foreach ($request->file('pdf') as $file) {
-
-                $temp = new ResourceUser(count::all());
-
-                $formattedValue = str_pad($temp[0]['count_number'], 3, '0', STR_PAD_LEFT);
-
-                $ext = $file->extension();
-
-                $filename = date("ymd").'-'.$formattedValue.'.'.$ext;
-
-                $file->move(public_path('pdf'),$filename);
-
-                $number = $temp[0]['count_number']+1;
-
-
-                $currentHour = (int)date('H');
-
-                $currentMinute = (int)date('i');
-
-                if ($currentHour === 23 && $currentMinute === 59) {
-
-                    $number = 1;
-                }
-                DB::table('count')
-                    ->update(['count_number' =>  $number]);
-
-            }
-
-        }
 
 
         return response()->json(['oke' => 'oke', 'status' => '200']);

@@ -18,8 +18,9 @@
 </head>
 
 <body>
-    <form action="{{ route('contracts.store') }}" id="idForm" enctype="multipart/form-data">
+    <form action="/api/upload" id="idForm" enctype="multipart/form-data">
         @csrf
+        <input type="text" name="SO_HOA_DO" >
         <input type="file" name="pdf[]" multiple>
         <button type="submit">submit</button>
     </form>

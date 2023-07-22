@@ -386,9 +386,9 @@
                   </div>
 
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
-                    <label class="label me-2">Số hóa đơn: </label>
+                    <label class="label me-2">óSố ha đơn: </label>
                     <div class="control">
-                      <input id="sohd" class="input form-control" type="text" placeholder="Nhập số hóa đơn" name="sohd">
+                      <input id="sohd" class="input form-control" type="text" placeholder="Nhập số hóa đơn" name="SO_HOA_DON">
                       <p>Nếu nhập nhiều số hoá đơn ngăn cách bằng dấu ;</p>
                     </div>
                   </div>
