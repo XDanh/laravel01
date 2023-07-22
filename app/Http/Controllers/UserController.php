@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ResourceUser;
+use App\Models\count;
 use App\Models\Dichvu;
 use App\Models\thong_tin_khach_hang;
 use App\Models\thong_tin_hop_dong;
@@ -34,7 +35,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    private $temp = 1;
+
     public function store(Request $request): JsonResponse
     {
         /*   return response()->json([$request->all()]); */
@@ -64,12 +65,13 @@ class UserController extends Controller
             'SO_HD' => 'required',
             'MA_TRA_CUU' => 'required',
             'NGAY_XUAT_HOA_DON' => 'required', */]);
-        $formattedValue = str_pad($this->temp, 3, '0', STR_PAD_LEFT);
+        $temp = new ResourceUser(count::all());
+
+        $formattedValue = str_pad($temp[0]['count_number'], 3, '0', STR_PAD_LEFT);
 
         $ext = $request->file('pdf')->extension();
         $filename = date("ymd") . '-' . $formattedValue . '.' . $ext;
 
-        $this->temp++;
         $request->file('pdf')->move(public_path('pdf'), $filename);
         /*         $request->file('pdf')->move(public_path('storage',$filename));
  */
