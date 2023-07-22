@@ -1,5 +1,10 @@
-.inputBox {
+.inputBox,
+.boxContent {
   width: 100%;
+}
+
+.boxContent {
+  padding: 0 25px;
 }
 
 .inputBox>.field>.control {

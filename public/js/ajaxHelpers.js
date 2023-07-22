@@ -82,11 +82,11 @@ function populatePackTypes(selectedPackType = "", selectedpackID) {
 
 //THOI GIAN
 function populateTime(MaLoai, MaGC, selectedTime) {
-  console.log(MaLoai)
   $.ajax({
     url: `http://127.0.0.1:8000/api/thoihan?MaGC=${MaGC}&MaLoai=${MaLoai}`,
     type: "GET",
     success: function (data) {
+      console.log(data)
       if (data.data) {
         $("#timeInput").empty();
         $("#timeInput").prepend(`<option value="" >---Chọn thời gian---</option>`);
@@ -97,6 +97,14 @@ function populateTime(MaLoai, MaGC, selectedTime) {
       } else {
         $("#timeInput").empty();
       }
+
+      $("#timeInput").on("change", function () {
+        const selectedTime = $("#timeInput").val();
+
+        const selectedData = data.data.find(time => time.MaTH === parseInt(selectedTime));
+
+        $("#GIA_TRUOC_THUE").val(selectedData ? selectedData.GIA_TRUOC_THUE : "");
+      });
     }
   })
 }
