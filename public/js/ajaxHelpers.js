@@ -31,11 +31,9 @@ function populatePacks(selectedDichVu, contractDataGoiCuoc, loaigoi = "") {
         $("#packInput").empty(); // Xóa danh sách cũ trước khi đổ dữ liệu mới
         $.each(data.data, function (index, value) {
           // Kiểm tra nếu giá trị trong danh sách trùng với contractData.GOI_CUOC, thì set là giá trị mặc định được chọn
-          console.log(!!contractDataGoiCuoc)
           if (!contractDataGoiCuoc) {
             $("#packInput").prepend(`<option value=${value.MaGC}>${value.GOI_CUOC}</option>`);
           } else {
-            console.log("1")
             const isSelected = value.GOI_CUOC.toString().trim().toLowerCase() == contractDataGoiCuoc.toString().trim().toLowerCase() ? "selected" : "";
             if (!!isSelected) {
               console.log(loaigoi)
@@ -45,6 +43,9 @@ function populatePacks(selectedDichVu, contractDataGoiCuoc, loaigoi = "") {
           }
 
         });
+        $("#packInput").on("change", function (e) {
+          populatePackTypes("", e.target.value)
+        })
       } else {
         $("#packInput").empty(); // Xóa danh sách cũ trước khi đổ dữ liệu mới
       }
