@@ -8,22 +8,12 @@ use App\Models\thong_tin_khach_hang;
 use App\Models\thong_tin_hop_dong;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(): JsonResponse
-    {
 
-        return response()->json(
-            new ResourceUser(thong_tin_hop_dong::select('id', 'NGAY_KY_HD', 'NV', 'LOAI_DON_HANG', 'MA_HOP_DONG', 'TEN_KHACH_HANG', 'MA_SO_THUE', 'GIA_SAU_THUE', 'TRANG_THAI_DON_HANG', 'DICH_VU')->get())
-        );
-
-        /* return response()->json(new ResourceUser(Form2::all())); */
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -36,6 +26,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    private $temp = 1;
     public function store(Request $request): JsonResponse
     {
         /*   return response()->json([$request->all()]); */
@@ -66,20 +57,24 @@ class UserController extends Controller
             'MA_TRA_CUU' => 'required',
             'NGAY_XUAT_HOA_DON' => 'required', */
         ]);
-        $file=$request->file('pdf');
+        $formattedValue = str_pad($this->temp, 3, '0', STR_PAD_LEFT);
+
         $ext = $request->file('pdf')->extension();
-        $filename = date("m/d/y").'.'.$ext;
-        return response()->json(['oke' => $filename]);
+        $filename = date("ymd").'-'.$formattedValue.'.'.$ext;
 
-        /* $request->file('pdf')->move(public_path('pdf'),$filename);
+        $this->temp++;
+        $request->file('pdf')->move(public_path('pdf'),$filename);
+/*         $request->file('pdf')->move(public_path('storage',$filename));
+ */
 
-        if ($validator->fails()) {
+
+       /*  if ($validator->fails()) {
 
             return response()->json($validator->errors());
         }
-        $result = new ResourceUser(thong_tin_hop_dong::all());
+        $result = new ResourceUser(thong_tin_hop_dong::all()); */
 
-        return response()->json(['oke' => 'oke', 'status' => '200']); */
+        return response()->json(['oke' => 'oke', 'status' => '200']);
     }
 
     /**
