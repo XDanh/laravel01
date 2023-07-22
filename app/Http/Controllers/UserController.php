@@ -16,7 +16,15 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
 
+    public function index(): JsonResponse
+    {
 
+        return response()->json(
+            new ResourceUser(thong_tin_hop_dong::select('id', 'NGAY_KY_HD', 'NV', 'LOAI_DON_HANG', 'MA_HOP_DONG', 'TEN_KHACH_HANG', 'MA_SO_THUE', 'GIA_SAU_THUE', 'TRANG_THAI_DON_HANG', 'DICH_VU')->get())
+        );
+
+        /* return response()->json(new ResourceUser(Form2::all())); */
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -31,7 +39,7 @@ class UserController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        /*   return response()->json([$request->all()]); */
+          return response()->json([$request->all()]);
         $validator = Validator::make($request->all(), [
             /* 'TEN_KHACH_HANG' => 'required',
             'DIA_CHI' => 'required',
@@ -62,7 +70,7 @@ class UserController extends Controller
 
         if ($request->hasFile('pdf')) {
             foreach ($request->file('pdf') as $file) {
-                
+
                 $temp = new ResourceUser(count::all());
 
                 $formattedValue = str_pad($temp[0]['count_number'], 3, '0', STR_PAD_LEFT);

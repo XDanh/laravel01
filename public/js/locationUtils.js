@@ -6,54 +6,84 @@ export let districtSelected;
 export let wardSelected;
 
 // Hàm để lấy danh sách TỈNH/THÀNH PHỐ và đổ vào dropdown #provinceInput
-export function getProvinces() {
+export function getProvinces(selectedProvince, selectedDistrict, selectedWard) {
   $.ajax({
     type: "GET",
     url: "https://provinces.open-api.vn/api/p/",
     success: function (data) {
       listProvince = data;
+      let provinceCode
+      let districtCode
+
       $.each(data, function (index, value) {
-        $("#provinceInput").prepend(`<option value=${value.code}>${value.name}</option>`);
+        if (value.name === selectedProvince) {
+          provinceCode = value.code
+        }
+        const option = `<option value="${value.code}" ${value.name === selectedProvince ? 'selected' : ''}>${value.name}</option>`;
+        $("#provinceInput").prepend(option);
+      });
+
+      // Hàm để lấy danh sách QUẬN/HUYỆN và lưu vào biến listDistrict
+      $.ajax({
+        type: "GET",
+        url: "https://provinces.open-api.vn/api/d/",
+        success: function (data) {
+          listDistrict = data;
+
+          if (selectedDistrict) {
+            $("#districtInput").empty();
+            let filteredDistricts = data.filter(district => district.province_code == provinceCode);
+
+            // Thêm các huyện ở tỉnh tương ứng vào #districtInput
+            filteredDistricts.forEach(district => {
+
+              if (district.name === selectedDistrict && district.province_code === provinceCode) {
+                districtCode = district.code
+              }
+              $("#districtInput").append(`<option value="${district.code}" ${district.name === selectedDistrict ? 'selected' : ''}>${district.name} </option>`);
+            });
+          }
+
+          // Hàm để lấy danh sách XÃ/PHƯỜNG và lưu vào biến listWard
+          $.ajax({
+            type: "GET",
+            url: "https://provinces.open-api.vn/api/w/",
+            success: function (data) {
+              listWard = data;
+              if (selectedWard) {
+                $("#wardInput").empty();
+                let filteredWards = data.filter(ward => ward.district_code == districtCode);
+                filteredWards.forEach(ward => {
+                  if (ward.name === selectedDistrict && ward.district_code === districtCode) {
+                    districtCode = ward.code
+                  }
+                  $("#wardInput").append(`<option value="${ward.code}" ${ward.name === selectedDistrict ? 'selected' : ''}>${ward.name} </option>`);
+                });
+              }
+            }
+          });
+        }
       });
     }
   });
 }
 
-// Hàm để lấy danh sách QUẬN/HUYỆN và lưu vào biến listDistrict
-export function getDistricts() {
-  $.ajax({
-    type: "GET",
-    url: "https://provinces.open-api.vn/api/d/",
-    success: function (data) {
-      listDistrict = data;
-    }
-  });
-}
-
-// Hàm để lấy danh sách XÃ/PHƯỜNG và lưu vào biến listWard
-export function getWards() {
-  $.ajax({
-    type: "GET",
-    url: "https://provinces.open-api.vn/api/w/",
-    success: function (data) {
-      listWard = data;
-    }
-  });
-}
-
-// Hàm xử lý khi thay đổi TỈNH/THÀNH PHỐ
 export function handleProvinceChange() {
   $("#provinceInput").on("change", function (e) {
-    const code = e.target.value;
+    let code = e.target.value;
     $("#districtInput").empty();
 
+    // Lọc danh sách các huyện dựa vào trường province_code
+    let filteredDistricts = listDistrict.filter(district => district.province_code == code);
+
+    // Thêm các huyện ở tỉnh tương ứng vào #districtInput
+    filteredDistricts.forEach(district => {
+      $("#districtInput").append(`<option value="${district.code}">${district.name}</option>`);
+    });
+
+    // Lưu thông tin tỉnh đang được chọn (nếu cần)
     for (let i = 0; i < listProvince.length; i++) {
       if (listProvince[i].code == code) {
-        for (let j = 0; j < listDistrict.length; j++) {
-          if (listDistrict[j].province_code == code) {
-            $("#districtInput").append(`<option value=${listDistrict[j].code}>${listDistrict[j].name}</option>`);
-          }
-        }
         provinceSelected = listProvince[i];
         break;
       }

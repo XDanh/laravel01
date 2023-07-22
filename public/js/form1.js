@@ -1,13 +1,5 @@
 import {
-  listProvince,
-  listWard,
-  listDistrict,
-  provinceSelected,
-  districtSelected,
-  wardSelected,
   getProvinces,
-  getDistricts,
-  getWards,
   handleProvinceChange,
   handleDistrictChange,
   handleWardChange
@@ -17,12 +9,6 @@ import { populateServices, populatePacks } from "./ajaxHelpers.js";
 
 // Lấy danh sách TỈNH/THÀNH PHỐ và đổ vào dropdown #provinceInput
 getProvinces();
-
-// Lấy danh sách QUẬN/HUYỆN và lưu vào biến listDistrict
-getDistricts();
-
-// Lấy danh sách XÃ/PHƯỜNG và lưu vào biến listWard
-getWards();
 
 // Xử lý sự kiện thay đổi TỈNH/THÀNH PHỐ
 handleProvinceChange();
@@ -35,12 +21,10 @@ handleWardChange();
 
 populateServices();
 
-$("#serviceInput").on("change", function (e) {
-  populatePacks(e.target.value);
-})
 
-
-$("#idForm").submit(function (e) {
+$("#idForm").on('submit',function(e)){
+    
+} {
   e.preventDefault(); // avoid to execute the actual submit of the form.
 
   var form = $(this);
@@ -56,7 +40,7 @@ $("#idForm").submit(function (e) {
         toastr.success(data.oke)
       } else {
         $.each(data, function (index, value) {
-          toastr.error(value)
+
         });
       }
 

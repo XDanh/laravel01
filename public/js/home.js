@@ -1,14 +1,6 @@
-import { populateServices, populatePacks } from "./ajaxHelpers.js";
+import { populateServices, populatePackTypes } from "./ajaxHelpers.js";
 import {
-  listProvince,
-  listWard,
-  listDistrict,
-  provinceSelected,
-  districtSelected,
-  wardSelected,
   getProvinces,
-  getDistricts,
-  getWards,
   handleProvinceChange,
   handleDistrictChange,
   handleWardChange
@@ -70,13 +62,13 @@ $(document).ready(function () {
 $("#contracts").on("click", ".btn-detail", function () {
   var data = $("#contracts").DataTable().row($(this).parents("tr")).data();
   $.ajax({
-    url: `http://127.0.0.1:8000/api/contract/${data.id}`,
+    url: `http://127.0.0.1:8000/api/contract?id=${data.id}`,
     type: "GET",
     success: function (contract) {
       contractData = contract.data[0]
       $("#staffInput").append(`<option value=${contractData.NV}>${contractData.NV}</option>`);
       $("#viewTenKH").text(contract.data[0].TEN_KHACH_HANG || "Không có");
-      $("#viewDiaChi").text(contract.data[0].DIA_CHI || "Không có");
+      $("#viewDiaChi").text(`${contract.data[0].SO_NHA} - ${contract.data[0].XA_PHUONG} - ${contract.data[0].QUAN_HUYEN} - ${contract.data[0].TINH_TP}` || "Không có");
       $("#viewMasothue").text(contract.data[0].MA_SO_THUE || "Không có");
       $("#viewBHXH").text(contract.data[0].MBHXH || "Không có");
       $("#viewNhanvien").text(contract.data[0].NV || "Không có")
@@ -86,6 +78,7 @@ $("#contracts").on("click", ".btn-detail", function () {
       $("#viewLoaidonhang").text(contract.data[0].LOAI_DON_HANG || "Không có")
       $("#viewDichvu").text(contract.data[0].DICH_VU || "Không có")
       $("#viewGoicuoc").text(contract.data[0].GOI_CUOC || "Không có")
+      $("#viewLoaiGoicuoc").text(contract.data[0].LOAI_GC || "Không có")
       $("#viewThoigian").text(contract.data[0].THOI_GIAN || "Không có")
       $("#viewLoaithietbi").text(contract.data[0].LOAI_TB || "Không có")
       $("#viewGiathietbi").text(contract.data[0].GIA_THIET_BI || "Không có")
@@ -109,10 +102,10 @@ $("#contracts").on("click", ".btn-detail", function () {
   // handle edit btn
   // Hàm để đổ dữ liệu vào các trường nhập liệu của giao diện
   function populateFields(contractData) {
+    console.log(contractData)
     $("#TenKH").val(contractData.TEN_KHACH_HANG);
     $("#MaThue").val(contractData.MA_SO_THUE);
     $("#MaBHXH").val(contractData.MBHXH);
-    $("#diachi").val(contractData.DIA_CHI);
     $("#staffInput").val(contractData.NV);
     $("#ngaykyhd").val(contractData.NGAY_KY_HD);
     $("#mahd").val(contractData.MA_HOP_DONG);
@@ -132,14 +125,7 @@ $("#contracts").on("click", ".btn-detail", function () {
   // Sự kiện khi click vào nút #btnEdit
   $("#btnEdit").on("click", function () {
     // Lấy danh sách TỈNH/THÀNH PHỐ và đổ vào dropdown #provinceInput
-    getProvinces();
-
-    // Lấy danh sách QUẬN/HUYỆN và lưu vào biến listDistrict
-    getDistricts();
-
-    // Lấy danh sách XÃ/PHƯỜNG và lưu vào biến listWard
-    getWards();
-
+    getProvinces(contractData.TINH_TP, contractData.QUAN_HUYEN, contractData.XA_PHUONG);
     // Xử lý sự kiện thay đổi TỈNH/THÀNH PHỐ
     handleProvinceChange();
 
@@ -151,10 +137,9 @@ $("#contracts").on("click", ".btn-detail", function () {
 
     populateFields(contractData);
 
-    populateServices();
-
-    populatePacks(contractData.DICH_VU, contractData.GOI_CUOC);
-
+    populateServices(contractData.DICH_VU, contractData.GOI_CUOC, contractData.LOAI_GC);
+    console.log(contractData.LOAI_GC)
+    populatePackTypes(contractData.GOI_CUOC, contractData.LOAI_GC)
     $("#editModal").modal("show");
   });
 
