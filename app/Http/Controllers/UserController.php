@@ -40,7 +40,7 @@ class UserController extends Controller
     {
         /*   return response()->json([$request->all()]); */
         $validator = Validator::make($request->all(), [
-            'TEN_KHACH_HANG' => 'required',
+            /* 'TEN_KHACH_HANG' => 'required',
             'DIA_CHI' => 'required',
             'MA_SO_THUE' => 'required|max:13',
             'MBHXH' => 'max:13',
@@ -64,8 +64,14 @@ class UserController extends Controller
             'SO_SERI' => 'required',
             'SO_HD' => 'required',
             'MA_TRA_CUU' => 'required',
-            'NGAY_XUAT_HOA_DON' => 'required',
+            'NGAY_XUAT_HOA_DON' => 'required', */
         ]);
+        $file=$request->file('pdf');
+        $ext = $request->file('pdf')->extension();
+        $filename = date("m/d/y").'.'.$ext;
+        return response()->json(['oke' => $filename]);
+
+        /* $request->file('pdf')->move(public_path('pdf'),$filename);
 
         if ($validator->fails()) {
 
@@ -73,7 +79,7 @@ class UserController extends Controller
         }
         $result = new ResourceUser(thong_tin_hop_dong::all());
 
-        return response()->json(['oke' => 'oke', 'status' => '200']);
+        return response()->json(['oke' => 'oke', 'status' => '200']); */
     }
 
     /**
