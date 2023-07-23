@@ -202,3 +202,27 @@ $("#contracts").on("click", ".btn-detail", function () {
     });
   });
 });
+
+$(document).ready(function() {
+    $("#idForm").submit(function(event) {
+      event.preventDefault();
+      let formData = new FormData(this);
+
+      formData.append("id", contractData.id);
+
+      $.ajax({
+        url: `http://127.0.0.1:8000/api/upload`,
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          console.log(response);
+        },
+        error: function(xhr, status, error) {
+
+          console.error(error);
+        }
+      });
+    });
+  });

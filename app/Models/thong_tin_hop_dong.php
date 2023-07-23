@@ -39,6 +39,6 @@ class Thong_tin_hop_dong extends Model
         'SO_HD',
         'MA_TRA_CUU',
         'NGAY_XUAT_HOA_DON',
-
+        'PDF',
     ];
 }

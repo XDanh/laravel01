@@ -354,75 +354,78 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div class="d-flex justify-content-between flex-column ">
+            <form action="/api/upload" id="idForm" enctype="multipart/form-data" method="POST">
+                @csrf
+                <div class="d-flex justify-content-between flex-column ">
 
-              <div class="d-flex justify-content-between flex-column flex-md-row">
-                <div class="inputBox p-3">
-                  <div class="field mb-3 align-items-center justify-content-between d-flex">
-                    <label class="label me-2">Mã giao dịch: </label>
-                    <div class="control">
-                      <input id="magd" class="input form-control" type="text" placeholder="Nhập mã giao dịch" name="magd">
+                    <div class="d-flex justify-content-between flex-column flex-md-row">
+                      <div class="inputBox p-3">
+                        <div class="field mb-3 align-items-center justify-content-between d-flex">
+                          <label class="label me-2">Mã giao dịch: </label>
+                          <div class="control">
+                            <input id="magd" class="input form-control" type="text" placeholder="Nhập mã giao dịch" name="MA_GD">
+                          </div>
+                        </div>
+
+                        <div class="field mb-3 align-items-center justify-content-between d-flex">
+                          <label class="label me-2">Mã thuê bao: </label>
+                          <div class="control">
+                            <input id="mathuebao" class="input form-control" type="text" placeholder="Nhập mã thuê bao" name="MA_THUE_BAO">
+                          </div>
+                        </div>
+
+                        <div class="field mb-3 align-items-center justify-content-between d-flex">
+                          <label class="label me-2">Username: </label>
+                          <div class="control">
+                            <input id="username" class="input form-control" type="text" placeholder="Nhập username" name="USERNAME">
+                          </div>
+                        </div>
+
+                        <div class="field mb-3 align-items-center justify-content-between d-flex">
+                          <label class="label me-2">Số seri: </label>
+                          <div class="control">
+                            <input id="seri" class="input form-control" type="text" placeholder="Nhập số seri" name="SO_SERI">
+                          </div>
+                        </div>
+
+                        <div class="field mb-3 align-items-center justify-content-between d-flex">
+                          <label class="label me-2">Số hoa đơn: </label>
+                          <div class="control">
+                            <input id="sohd" class="input form-control" type="text" placeholder="Nhập số hóa đơn" name="SO_HD">
+                            <p>Nếu nhập nhiều số hoá đơn ngăn cách bằng dấu ;</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="inputBox p-3">
+                        <div class="field mb-3 align-items-center justify-content-between d-flex">
+                          <label class="label me-2">Mã tra cứu hóa đơn: </label>
+                          <div class="control">
+                            <input id="matracuuhd" class="input form-control" type="text" placeholder="Nhập mã tra cứu hóa đơn" name="MA_TRA_CUU">
+                          </div>
+                        </div>
+
+                        <div class="field mb-3 align-items-center justify-content-between d-flex">
+                          <label class="label me-2">Ngày xuất hóa đơn: </label>
+                          <div class="control">
+                            <input id="ngayxuathd" class="input form-control" type="text" placeholder="Nhập ngày xuất hóa đơn" name="NGAY_XUAT_HOA_DON">
+                          </div>
+                        </div>
+
+                        <div class="field mb-3 align-items-center justify-content-between d-flex">
+                          <label class="label me-2">Upload file: </label>
+                          <div class="control">
+                            <input type="file" name="pdf[]" multiple class="input form-control">
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-
-                  <div class="field mb-3 align-items-center justify-content-between d-flex">
-                    <label class="label me-2">Mã thuê bao: </label>
-                    <div class="control">
-                      <input id="mathuebao" class="input form-control" type="text" placeholder="Nhập mã thuê bao" name="mathuebao">
-                    </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary" id="btnSaveChanges">Cập nhật</button>
                   </div>
-
-                  <div class="field mb-3 align-items-center justify-content-between d-flex">
-                    <label class="label me-2">Username: </label>
-                    <div class="control">
-                      <input id="username" class="input form-control" type="text" placeholder="Nhập username" name="username">
-                    </div>
-                  </div>
-
-                  <div class="field mb-3 align-items-center justify-content-between d-flex">
-                    <label class="label me-2">Số seri: </label>
-                    <div class="control">
-                      <input id="seri" class="input form-control" type="text" placeholder="Nhập số seri" name="seri">
-                    </div>
-                  </div>
-
-                  <div class="field mb-3 align-items-center justify-content-between d-flex">
-                    <label class="label me-2">Số hoa đơn: </label>
-                    <div class="control">
-                      <input id="sohd" class="input form-control" type="text" placeholder="Nhập số hóa đơn" name="SO_HOA_DON">
-                      <p>Nếu nhập nhiều số hoá đơn ngăn cách bằng dấu ;</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="inputBox p-3">
-                  <div class="field mb-3 align-items-center justify-content-between d-flex">
-                    <label class="label me-2">Mã tra cứu hóa đơn: </label>
-                    <div class="control">
-                      <input id="matracuuhd" class="input form-control" type="text" placeholder="Nhập mã tra cứu hóa đơn" name="matracuuhd">
-                    </div>
-                  </div>
-
-                  <div class="field mb-3 align-items-center justify-content-between d-flex">
-                    <label class="label me-2">Ngày xuất hóa đơn: </label>
-                    <div class="control">
-                      <input id="ngayxuathd" class="input form-control" type="text" placeholder="Nhập ngày xuất hóa đơn" name="ngayxuathd">
-                    </div>
-                  </div>
-
-                  <div class="field mb-3 align-items-center justify-content-between d-flex">
-                    <label class="label me-2">Upload file: </label>
-                    <div class="control">
-                      <input id="uploadfile" class="input form-control" type="file" multiple name="uploadfile">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-              <button type="button" class="btn btn-primary" id="btnSaveChanges">Cập nhật</button>
-            </div>
+            </form>
           </div>
         </div>
       </div>

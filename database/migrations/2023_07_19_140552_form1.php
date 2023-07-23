@@ -42,6 +42,7 @@ return new class extends Migration
             $table->string('NGAY_XUAT_HOA_DON');
             $table->integer('SO_LUONG');
             $table->string('LOAI_GOI_CUOC');
+            $table->string('PDF');
             $table->timestamps();
 
         });
