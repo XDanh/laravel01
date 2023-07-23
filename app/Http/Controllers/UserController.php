@@ -39,7 +39,7 @@ class UserController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        /*         return response()->json($request->all());
+        /*        return response()->json($request->all());
  */
         $validator = Validator::make($request->all(), [
             /* 'TEN_KHACH_HANG' => 'required',
