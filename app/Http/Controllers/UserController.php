@@ -39,7 +39,7 @@ class UserController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-               /* return response()->json($request->all()); */
+        // return response()->json($request->all());
 
         $validator = Validator::make($request->all(), [
             'TEN_KHACH_HANG' => 'required',
@@ -66,7 +66,7 @@ class UserController extends Controller
             'GHI_CHU' => 'required',
             'PDF' => 'required'
         ]);
-            $temp = new ResourceUser(count::all());
+        $temp = new ResourceUser(count::all());
 
         $number = $temp[0]['count_number'];
 
@@ -74,25 +74,24 @@ class UserController extends Controller
 
         $dateDB = $temp[0]['date'];
 
-    /*     return response()->json([$currentTime,$dateDB]);
+        /*     return response()->json([$currentTime,$dateDB]);
     */
         if ($currentTime !== $dateDB) {
 
-        $number = 1;
-        $formattedValue = str_pad($number, 3, '0', STR_PAD_LEFT);
+            $number = 1;
+            $formattedValue = str_pad($number, 3, '0', STR_PAD_LEFT);
 
-        $name = date("ymd").$formattedValue;
-        DB::table('count')
-        ->update(['count_number' =>  $number,'date' => $currentTime]);
+            $name = date("ymd") . $formattedValue;
+            DB::table('count')
+                ->update(['count_number' =>  $number, 'date' => $currentTime]);
+        } else {
+            $number = $temp[0]['count_number'] + 1;
+            $formattedValue = str_pad($number, 3, '0', STR_PAD_LEFT);
 
-    }else{
-        $number = $temp[0]['count_number']+1;
-        $formattedValue = str_pad($number, 3, '0', STR_PAD_LEFT);
-
-        $name = date("ymd").$formattedValue;
-        DB::table('count')
-            ->update(['count_number' =>  $number]);
-    }
+            $name = date("ymd") . $formattedValue;
+            DB::table('count')
+                ->update(['count_number' =>  $number]);
+        }
         $request->merge(['MA_HOP_DONG' => $name]);
         thong_tin_hop_dong::create($request->all());
 
@@ -121,8 +120,9 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id): JsonResponse
     {
-/*         return response()->json($request->all());
- */        Thong_tin_hop_dong::where('id', $id)->update([
+        /*         return response()->json($request->all());
+ */
+        Thong_tin_hop_dong::where('id', $id)->update([
             'DICH_VU' => $request->input('DICH_VU'),
             'GHI_CHU' => $request->input('GHI_CHU'),
             'GIA_SAU_THUE' => $request->input('GIA_SAU_THUE'),

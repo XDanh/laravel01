@@ -145,7 +145,6 @@ $("#contracts").on("click", ".btn-detail", function () {
 
   // Sự kiện khi click vào nút #btnEdit
   $("#btnEdit").on("click", function () {
-    console.log(contractData)
 
     // Lấy danh sách TỈNH/THÀNH PHỐ và đổ vào dropdown #provinceInput
     getProvinces(contractData.TINH_TP, contractData.QUAN_HUYEN, contractData.XA_PHUONG);
@@ -185,18 +184,18 @@ $("#contracts").on("click", ".btn-detail", function () {
     formData += "&GIA_TRUOC_THUE=" + giatruoc;
     formData += "&id=" + contractData.id;
     $.ajax({
-        url: `http://127.0.0.1:8000/api/contracts/${contractData.id}`,
-        type: "PUT",
-        data: formData,
-        success: function (response) {
-          console.log(response);
-        },
-        error: function (xhr, status, error) {
+      url: `http://127.0.0.1:8000/api/contracts/${contractData.id}`,
+      type: "PUT",
+      data: formData,
+      success: function (response) {
+        console.log(response);
+      },
+      error: function (xhr, status, error) {
 
-            console.error(error);
-          }
-        });
-      });
+        console.error(error);
+      }
+    });
+  });
 
 
   // nút cập nhật đơn hàng
@@ -219,26 +218,27 @@ $("#contracts").on("click", ".btn-detail", function () {
   });
 
 
-$(document).ready(function() {
-    $("#idForm").submit(function(event) {
+  $(document).ready(function () {
+    $("#idForm").submit(function (event) {
       event.preventDefault();
       let formData = new FormData(this);
 
       formData.append("id", contractData.id);
 
-    $.ajax({
-      url: `http://127.0.0.1:8000/api/upload`,
-      type: "POST",
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: function (response) {
-        console.log(response);
-      },
-      error: function (xhr, status, error) {
+      $.ajax({
+        url: `http://127.0.0.1:8000/api/upload`,
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          console.log(response);
+        },
+        error: function (xhr, status, error) {
 
           console.error(error);
         }
       });
     });
-})})
+  })
+})
