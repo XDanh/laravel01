@@ -130,7 +130,7 @@ $("#contracts").on("click", ".btn-detail", function () {
     $("#serviceInput").val(contractData.DICH_VU);
     $("#packInput").val(contractData.GOI_CUOC);
     $("#timeInput").val(contractData.THOI_GIAN);
-    $("#GIA_THIET_BI").val(formatter.format(Number(contractData.GIA_THIET_BI)));
+    $("#GIA_TB").val(formatter.format(Number(contractData.GIA_THIET_BI)));
     $("#GHI_CHU").val(contractData.GHI_CHU);
     $("#SO_LUONG").val(contractData.SO_LUONG);
     $("#SO_NHA").val(contractData.SO_NHA);
@@ -203,26 +203,26 @@ $("#contracts").on("click", ".btn-detail", function () {
   });
 });
 
-$(document).ready(function() {
-    $("#idForm").submit(function(event) {
-      event.preventDefault();
-      let formData = new FormData(this);
+$(document).ready(function () {
+  $("#idForm").submit(function (event) {
+    event.preventDefault();
+    let formData = new FormData(this);
 
-      formData.append("id", contractData.id);
+    formData.append("id", contractData.id);
 
-      $.ajax({
-        url: `http://127.0.0.1:8000/api/upload`,
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(response) {
-          console.log(response);
-        },
-        error: function(xhr, status, error) {
+    $.ajax({
+      url: `http://127.0.0.1:8000/api/upload`,
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (response) {
+        console.log(response);
+      },
+      error: function (xhr, status, error) {
 
-          console.error(error);
-        }
-      });
+        console.error(error);
+      }
     });
   });
+});

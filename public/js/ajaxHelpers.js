@@ -1,4 +1,4 @@
-let temp = 0
+//let temp = 0
 export let dichvu = ""
 export let goicuoc = ""
 export let loaigoi = ""
@@ -20,6 +20,7 @@ function populateServices(selectedDichVu, selectedGoiCuoc, loaigoi, callPTime = 
       $.each(data.data, function (index, value) {
         if (value.DICH_VU === selectedDichVu) {
           populatePacks(value.MaDV, selectedGoiCuoc, loaigoi, callPTime, selectedTime)
+          dichvu = value.DICH_VU
         }
         const option = `<option value="${value.MaDV}" ${value.DICH_VU === selectedDichVu ? 'selected' : ''}>${value.DICH_VU}</option>`;
         $("#serviceInput").prepend(option);
@@ -47,6 +48,7 @@ function populatePacks(selectedDichVu, contractDataGoiCuoc, loaigoi = "", callPT
       if (data?.data.length > 0) {
         $("#packInput").empty(); // Xóa danh sách cũ trước khi đổ dữ liệu mới
         $("#packInput").prepend(`<option value="" >---Chọn gói cước---</option>`);
+        goicuoc = contractDataGoiCuoc
 
         $.each(data.data, function (index, value) {
           // Kiểm tra nếu giá trị trong danh sách trùng với contractData.GOI_CUOC, thì set là giá trị mặc định được chọn
@@ -83,6 +85,7 @@ function populatePackTypes(selectedPackType = "", selectedpackID, callPTime = tr
     url: `http://127.0.0.1:8000/api/loaigoi?MaGC=${selectedpackID}`,
     type: "GET",
     success: function (data) {
+      loaigoi = selectedPackType
       if (data.data) {
         $("#packTypeInput").empty();
 
@@ -125,16 +128,20 @@ const formatter = new Intl.NumberFormat('en-US', {
 
 //THOI GIAN
 function populateTime(MaLoai, MaGC, selectedDeadline) {
+  thoigian = selectedDeadline
   $.ajax({
     url: `http://127.0.0.1:8000/api/thoihan?MaGC=${MaGC}&MaLoai=${MaLoai}`,
     type: "GET",
     success: function (data) {
-
       if (data.data) {
         $("#timeInput").empty();
         $("#timeInput").prepend(`<option value="" >---Chọn thời gian---</option>`);
 
         data.data.forEach(time => {
+          if (time?.THOI_HAN.toString() === selectedDeadline) {
+            giatruoc = time.GIA_TRUOC_THUE
+            device(MaLoai, MaGC, time.MaTH, true)
+          }
           $("#timeInput").prepend(`<option value="${time.MaTH}" ${time?.THOI_HAN.toString() === selectedDeadline ? 'selected' : ''}>${time.THOI_HAN} </option>`);
         })
       } else {
@@ -144,37 +151,40 @@ function populateTime(MaLoai, MaGC, selectedDeadline) {
       $("#timeInput").on("change", function (e) {
         const selectedTime = $("#timeInput").val();
         const selectedData = data.data.find(time => time.MaTH === parseInt(selectedTime));
-        temp = selectedData?.GIA_TRUOC_THUE || 0
+        //temp = selectedData?.GIA_TRUOC_THUE || 0
+        giatruoc = selectedData?.GIA_TRUOC_THUE || 0
         $("#GIA_TRUOC_THUE").val(selectedData ? formatter.format(selectedData?.GIA_TRUOC_THUE) : "");
         device(MaLoai, MaGC, e.target.value)
         thoigian = selectedData?.THOI_HAN
-        giatr = selectedData?.GIA_TRUOC_THUE
+        giatruoc = selectedData?.GIA_TRUOC_THUE
       });
     }
   })
 }
 //THIET BI
-function device(MaLoai, MaGC, MaTH) {
+function device(MaLoai, MaGC, MaTH, edit = false) {
   $.ajax({
     url: `http://127.0.0.1:8000/api/thietbi?MaGC=${MaGC}&MaLoai=${MaLoai}&MaTH=${MaTH}`,
     type: "GET",
     success: function (data) {
-      loaitb = data.data[0]?.THIET_BI
+      loaitb = data.data[0]?.THIET_BI.toString().trim()
       if (data.data[0]?.THIET_BI.toString().toLowerCase().trim() !== "mua") {
-        $('#SO_LUONG').attr("disabled", "disabled");
-        $('#SO_LUONG').val(0);
-        total = Number(temp) + Number(temp) / 10
-        $('#GIA_SAU_THUE').val(formatter.format(total))
-        $('#Sum').text(formatter.format(0))
-        giathietbi = 0
-
-
+        if (!edit) {
+          $('#SO_LUONG').attr("disabled", "disabled");
+          $('#SO_LUONG').val(0);
+          //total = Number(temp) + Number(temp) / 10
+          total = Number(giatruoc) + Number(giatruoc) / 10
+          $('#GIA_SAU_THUE').val(formatter.format(total))
+          $('#Sum').text(formatter.format(0))
+          giathietbi = 0
+        }
       } else {
         $('#SO_LUONG').removeAttr("disabled");
         $('#SO_LUONG').val(1);
         const giatb = Number(data.data[0]?.GIA_TB)
         $('#Sum').text(formatter.format(Number(data.data[0]?.GIA_TB)))
-        total = (giatb + Number(temp)) + (giatb + Number(temp)) / 10
+        //total = (giatb + Number(temp)) + (giatb + Number(temp)) / 10
+        total = (giatb + Number(giatruoc)) + (giatb + Number(giatruoc)) / 10
         $('#GIA_SAU_THUE').val(formatter.format(total))
         giathietbi = giatb
 
@@ -182,18 +192,25 @@ function device(MaLoai, MaGC, MaTH) {
       if (Number(data.data[0]?.GIA_TB)) {
         $('#GIA_TB').val(Number(data.data[0]?.GIA_TB))
       } else {
-        $('#GIA_TB').val(0)
+        if (!edit) {
+          $('#GIA_TB').val(0)
+        }
       }
 
       //IN TONG TIEN
-      $('#SO_LUONG').on('change', function (e) {
-        let DevicePrice = $('#GIA_TB').val() * e.target.value
-        $('#Sum').text(formatter.format(DevicePrice))
-        var sum_price = Number(DevicePrice) + Number(temp)
-        total = sum_price + sum_price / 10
-        $('#GIA_SAU_THUE').val(formatter.format(total))
-        giathietbi = DevicePrice
-      })
+      function getCost() {
+        $('#SO_LUONG').on('change', function (e) {
+          let DevicePrice = $('#GIA_TB').val() * e.target.value
+          $('#Sum').text(formatter.format(DevicePrice))
+          //var sum_price = Number(DevicePrice) + Number(temp)
+          var sum_price = Number(DevicePrice) + Number(giatruoc)
+          total = sum_price + sum_price / 10
+          $('#GIA_SAU_THUE').val(formatter.format(total))
+          giathietbi = DevicePrice
+          //giatruoc = temp
+        })
+      }
+      getCost()
     }
   })
 }
