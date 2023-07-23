@@ -20,7 +20,7 @@
 
 <body>
     <div class="container">
-        <a class="btn btn-primary" href="/">Trở lại</a>
+        <a class="btn btn-primary my-4" href="/">Trở lại</a>
 
         <h1>TẠO HỢP ĐỒNG</h1>
         <form action="{{ route('contracts.store') }}" method="POST" id="idForm">

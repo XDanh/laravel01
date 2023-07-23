@@ -69,8 +69,8 @@ Route::get('nhanvien', function () {
 
 Route::post('/upload', function (Request $request) {
 
-/*     return response()->json($request->all());
- */
+    /*     return response()->json($request->all());
+     */
     $id = $request->input('id');
 
     $oldPdfs = PDF::where('id', $id)->get();
@@ -97,11 +97,11 @@ Route::post('/upload', function (Request $request) {
             $file->move(public_path('pdf'), $filename);
             $pdfPaths[] = $pdfPath;
             /* return response()->json([
-                $request->input('id'),
-                $filename,
-                $pdfPath
-            ]); */
-            PDF::create(['id' => $request->input('id'), 'PDF' => $filename, 'PATH' => $pdfPath]);
+                    $request->input('id'),
+                    $filename,
+                    $pdfPath
+                ]); */
+            PDF::create(['id' => $request->input('id'), 'PDF' => $filename]);
         }
     }
     Thong_tin_hop_dong::where('id', $request->input('id'))

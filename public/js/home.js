@@ -36,10 +36,12 @@ $(document).ready(function () {
         var contracts = data
         $("#contracts").dataTable({
           data: contracts,
-          ordering: true,
-          select: true,
+          searching: true,
+          searchPlugins: true,
           columns: [{
-            data: "MA_HOP_DONG" || null
+            data: "MA_HOP_DONG" || null,
+            searchable: true,
+            orderable: true
           },
           {
             data: "TEN_KHACH_HANG" || null
@@ -113,157 +115,181 @@ $("#contracts").on("click", ".btn-detail", function () {
       $("#viewMatracuuhoadon").text(contract.data.thongtinhopdong[0]?.MA_TRA_CUU || "Không có")
       $("#viewNgayxuathoadon").text(contract.data.thongtinhopdong[0]?.NGAY_XUAT_HOA_DON || "Không có")
       contract.data.PDF.forEach(item => {
-        $("#pdfLink").append(`<a class="me-2" href="http://127.0.0.1:8000/api/pdf/${item.PDF}" target="_blank">PDF File</a>`);
+        $("#pdfLink").append(`<a class="me-2" href="http://127.0.0.1:8000/api/pdf/${item.PDF}" target="_blank">${item.PDF}</a>`);
       })
       $("#viewDetailModal").modal("show");
 
     }
   })
-  $('#btnConfirmDelete').on('click',function(e){
-    e.preventDefault();
+})
+$('#btnConfirmDelete').on('click', function (e) {
+  e.preventDefault();
 
-    $.ajax({
-        url:`http://127.0.0.1:8000/api/contracts/${contractData.id}`,
-        type:'DELETE',
-        success:function(data){
-            toastr.success("Xóa thành công");
-            setTimeout(function() {
-                location.reload();
-              }, 500);
-            console.log(data);
-        }
-    })
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/contracts/${contractData.id}`,
+    type: 'DELETE',
+    success: function (data) {
+      toastr.success("Xóa thành công");
+      setTimeout(function () {
+        location.reload();
+      }, 500);
+      console.log(data);
+    }
+  })
 })
 
-  // handle edit btn
-  function populateFields(contractData) {
-    $("#TEN_KHACH_HANG").val(contractData.TEN_KHACH_HANG);
-    $("#MA_SO_THUE").val(contractData.MA_SO_THUE);
-    $("#MBHXH").val(contractData.MBHXH);
-    $("#staffInput").val(contractData.NV);
-    $("#NGAY_KY_HD").val(contractData.NGAY_KY_HD);
-    $("#mahd").val(contractData.MA_HOP_DONG);
-    $("#orderStatusInput").val(contractData.TRANG_THAI_DON_HANG);
-    $("#orderTypeInput").val(contractData.LOAI_DON_HANG);
-    $("#serviceInput").val(contractData.DICH_VU);
-    $("#packInput").val(contractData.GOI_CUOC);
-    $("#timeInput").val(contractData.THOI_GIAN);
-    $("#GIA_TB").val(formatter.format(Number(contractData.GIA_THIET_BI)));
-    $("#GHI_CHU").val(contractData.GHI_CHU);
-    $("#SO_LUONG").val(contractData.SO_LUONG);
-    $("#SO_NHA").val(contractData.SO_NHA);
-    $("#GIA_TRUOC_THUE").val(formatter.format(Number(contractData.GIA_TRUOC_THUE)));
-    $("#GIA_SAU_THUE").val(formatter.format(Number(contractData.GIA_SAU_THUE)));
+// handle edit btn
+function populateFields(contractData) {
+  $("#TEN_KHACH_HANG").val(contractData.TEN_KHACH_HANG);
+  $("#MA_SO_THUE").val(contractData.MA_SO_THUE);
+  $("#MBHXH").val(contractData.MBHXH);
+  $("#staffInput").val(contractData.NV);
+  $("#NGAY_KY_HD").val(contractData.NGAY_KY_HD);
+  $("#mahd").val(contractData.MA_HOP_DONG);
+  $("#orderStatusInput").val(contractData.TRANG_THAI_DON_HANG);
+  $("#orderTypeInput").val(contractData.LOAI_DON_HANG);
+  $("#serviceInput").val(contractData.DICH_VU);
+  $("#packInput").val(contractData.GOI_CUOC);
+  $("#timeInput").val(contractData.THOI_GIAN);
+  $("#GIA_TB").val(formatter.format(Number(contractData.GIA_THIET_BI)));
+  $("#GHI_CHU").val(contractData.GHI_CHU);
+  $("#SO_LUONG").val(contractData.SO_LUONG);
+  $("#SO_NHA").val(contractData.SO_NHA);
+  $("#GIA_TRUOC_THUE").val(formatter.format(Number(contractData.GIA_TRUOC_THUE)));
+  $("#GIA_SAU_THUE").val(formatter.format(Number(contractData.GIA_SAU_THUE)));
+}
+
+
+// Sự kiện khi click vào nút #btnEdit
+$("#btnEdit").on("click", function () {
+
+  // Lấy danh sách TỈNH/THÀNH PHỐ và đổ vào dropdown #provinceInput
+  getProvinces(contractData.TINH_TP, contractData.QUAN_HUYEN, contractData.XA_PHUONG);
+  // Xử lý sự kiện thay đổi TỈNH/THÀNH PHỐ
+  handleProvinceChange();
+
+  // Xử lý sự kiện thay đổi QUẬN/HUYỆN
+  handleDistrictChange();
+
+  // Xử lý sự kiện thay đổi XÃ/PHƯỜNG
+  handleWardChange();
+
+  populateFields(contractData);
+
+  populateServices(contractData.DICH_VU, contractData.GOI_CUOC, contractData.LOAI_GOI_CUOC, false, contractData.THOI_GIAN);
+
+  $("#editModal").modal("show");
+});
+
+//Nút lưu thay đổi
+$("#idFormSave").on("submit", function (e) {
+  e.preventDefault();
+
+  var form = $(this);
+
+  var formData = form.serialize();
+  formData += "&TINH_TP=" + provinceSelected.name;
+  formData += "&QUAN_HUYEN=" + districtSelected.name;
+  formData += "&XA_PHUONG=" + wardSelected.name;
+  formData += "&DICH_VU=" + dichvu;
+  formData += "&GOI_CUOC=" + goicuoc;
+  formData += "&LOAI_GOI_CUOC=" + loaigoi;
+  formData += "&GIA_SAU_THUE=" + total;
+  formData += "&GIA_THIET_BI=" + giathietbi;
+  formData += "&LOAI_TB=" + loaitb;
+  formData += "&THOI_GIAN=" + thoigian;
+  formData += "&GIA_TRUOC_THUE=" + giatruoc;
+  formData += "&id=" + contractData.id;
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/contracts/${contractData.id}`,
+    type: "PUT",
+    data: formData,
+    success: function (response) {
+      if (response.mess == "oke") {
+        toastr.success("Chỉnh sửa thành công");
+        setTimeout(function () {
+          location.reload();
+        }, 500);
+
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error(error);
+    }
+  });
+});
+
+
+// nút cập nhật đơn hàng
+$("#btnUpdateOrder").on("click", function () {
+  if (contractData?.MA_GD) {
+    $("#magd").val(contractData?.MA_GD)
+  }
+  if (contractData?.MA_THUE_BAO) {
+    $("#mathuebao").val(contractData?.MA_THUE_BAO)
+  }
+  if (contractData?.USERNAME) {
+    $("#username").val(contractData?.USERNAME)
+  }
+  if (contractData?.SO_SERI) {
+    $("#seri").val(contractData?.SO_SERI)
+  }
+  if (contractData?.SO_HD) {
+    $("#sohd").val(contractData?.SO_HD)
+  }
+  if (contractData?.MA_TRA_CUU) {
+    $("#matracuuhd").val(contractData?.MA_TRA_CUU)
+  }
+  if (contractData?.NGAY_XUAT_HOA_DON) {
+    $("#ngayxuathd").val(contractData?.NGAY_XUAT_HOA_DON)
   }
 
+  $("#updateModal").modal("show");
+})
 
-  // Sự kiện khi click vào nút #btnEdit
-  $("#btnEdit").on("click", function () {
+// handle delete btn
+$("#btnDelete").on("click", function () {
+  var dataDelete = $("#contracts").DataTable().row($("#contracts tr.selected")).data();
+  $("#deleteConfirmationModal").modal("show");
 
-    // Lấy danh sách TỈNH/THÀNH PHỐ và đổ vào dropdown #provinceInput
-    getProvinces(contractData.TINH_TP, contractData.QUAN_HUYEN, contractData.XA_PHUONG);
-    // Xử lý sự kiện thay đổi TỈNH/THÀNH PHỐ
-    handleProvinceChange();
-
-    // Xử lý sự kiện thay đổi QUẬN/HUYỆN
-    handleDistrictChange();
-
-    // Xử lý sự kiện thay đổi XÃ/PHƯỜNG
-    handleWardChange();
-
-    populateFields(contractData);
-
-    populateServices(contractData.DICH_VU, contractData.GOI_CUOC, contractData.LOAI_GOI_CUOC, false, contractData.THOI_GIAN);
-
-    $("#editModal").modal("show");
+  $("#btnConfirmDelete").on("click", function () {
+    console.log(data.id)
+    $("#deleteConfirmationModal").modal("hide");
+    $("#viewDetailModal").modal("hide");
+    var dataDeleted = $("#contracts").DataTable().row($("#contracts tr.selected")).data();
   });
+});
 
-  //Nút lưu thay đổi
-  $("#idFormSave").on("submit", function (e) {
-    e.preventDefault();
 
-    var form = $(this);
+//CẬP NHẬT ĐƠN HÀNG
+$(document).ready(function () {
+  $("#idFormUpdate").on('submit', function (event) {
+    event.preventDefault();
+    let formData = new FormData(this);
+    formData.append("id", contractData.id);
 
-    var formData = form.serialize();
-    formData += "&TINH_TP=" + provinceSelected.name;
-    formData += "&QUAN_HUYEN=" + districtSelected.name;
-    formData += "&XA_PHUONG=" + wardSelected.name;
-    formData += "&DICH_VU=" + dichvu;
-    formData += "&GOI_CUOC=" + goicuoc;
-    formData += "&LOAI_GOI_CUOC=" + loaigoi;
-    formData += "&GIA_SAU_THUE=" + total;
-    formData += "&GIA_THIET_BI=" + giathietbi;
-    formData += "&LOAI_TB=" + loaitb;
-    formData += "&THOI_GIAN=" + thoigian;
-    formData += "&GIA_TRUOC_THUE=" + giatruoc;
-    formData += "&id=" + contractData.id;
+    /*       console.log(formData)
+     */
     $.ajax({
-      url: `http://127.0.0.1:8000/api/contracts/${contractData.id}`,
-      type: "PUT",
+      url: `http://127.0.0.1:8000/api/upload`,
+      type: "POST",
       data: formData,
+      processData: false,
+      contentType: false,
       success: function (response) {
-        if (response.mess == "oke") {
-          toastr.success("Chỉnh sửa thành công");
-          setTimeout(function() {
-            location.reload();
-          }, 500);
+        console.log(response);
+        setTimeout(function () {
+          location.reload();
+        }, 500);
 
-        }
       },
       error: function (xhr, status, error) {
+
         console.error(error);
       }
     });
   });
-
-
-  // nút cập nhật đơn hàng
-  $("#btnUpdateOrder").on("click", function () {
-    $("#updateModal").modal("show");
-  })
-
-  // handle delete btn
-  $("#btnDelete").on("click", function () {
-    var dataDelete = $("#contracts").DataTable().row($("#contracts tr.selected")).data();
-    $("#deleteConfirmationModal").modal("show");
-
-    $("#btnConfirmDelete").on("click", function () {
-      console.log(data.id)
-      $("#deleteConfirmationModal").modal("hide");
-      $("#viewDetailModal").modal("hide");
-      var dataDeleted = $("#contracts").DataTable().row($("#contracts tr.selected")).data();
-    });
-  });
-
-
-  //CẬP NHẬT ĐƠN HÀNG
-  $(document).ready(function () {
-    $("#idFormUpdate").on('submit',function (event) {
-      event.preventDefault();
-      let formData = new FormData(this);
-        formData.append("id", contractData.id);
-
-/*       console.log(formData)
- */
-      $.ajax({
-        url: `http://127.0.0.1:8000/api/upload`,
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-          console.log(response);
-          setTimeout(function() {
-            location.reload();
-          }, 500);
-
-        },
-        error: function (xhr, status, error) {
-
-          console.error(error);
-        }
-      });
-    });
-  })
 })
+
+
 

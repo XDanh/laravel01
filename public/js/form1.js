@@ -109,7 +109,8 @@ $("#idForm").on("submit", function (e) {
       success: function (data) {
         if (data.oke) {
           toastr.success("Tạo hợp đồng thành công");
-          location.reload()
+          //location.reload()
+          window.location.href = "/";
         } else {
           // Handle errors if needed.
         }
