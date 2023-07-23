@@ -2,6 +2,7 @@ let temp = 0
 export let dichvu = ""
 export let goicuoc = ""
 export let loaigoi = ""
+export let total = 0
 
 //DICH VU
 function populateServices(selectedDichVu, selectedGoiCuoc, loaigoi) {
@@ -20,11 +21,11 @@ function populateServices(selectedDichVu, selectedGoiCuoc, loaigoi) {
       $("#serviceInput").on('change', function () {
         // Lấy giá trị mới khi option được chọn
         for (let i = 0; i < data.data.length; i++) {
-            if (data.data[i].MaDV == $("#serviceInput").val()) {
-                dichvu = data.data[i].DICH_VU
-                console.log(data.data[i].DICH_VU);
-            }
+          if (data.data[i].MaDV == $("#serviceInput").val()) {
+            dichvu = data.data[i].DICH_VU
+            console.log(data.data[i].DICH_VU);
           }
+        }
         populatePacks($("#serviceInput").val(), selectedGoiCuoc, loaigoi)
       });
     }
@@ -55,12 +56,12 @@ function populatePacks(selectedDichVu, contractDataGoiCuoc, loaigoi = "") {
 
         });
         $("#packInput").on("change", function (e) {
-            for (let i = 0; i < data.data.length; i++) {
-                if (data.data[i].MaGC == $("#packInput").val()) {
-                    goicuoc = data.data[i].GOI_CUOC
-                    console.log(data.data[i].GOI_CUOC);
-                }
-              }
+          for (let i = 0; i < data.data.length; i++) {
+            if (data.data[i].MaGC == $("#packInput").val()) {
+              goicuoc = data.data[i].GOI_CUOC
+              console.log(data.data[i].GOI_CUOC);
+            }
+          }
           populatePackTypes("", e.target.value)
         })
       } else {
@@ -89,11 +90,11 @@ function populatePackTypes(selectedPackType = "", selectedpackID) {
         });
 
         $("#packTypeInput").on("change", function (e) {
-            for (let i = 0; i < data.data.length; i++) {
-                if (data.data[i].MaLoai == $("#packTypeInput").val()) {
-                    loaigoi = data.data[i].LOAI_GOI
-                }
-              }
+          for (let i = 0; i < data.data.length; i++) {
+            if (data.data[i].MaLoai == $("#packTypeInput").val()) {
+              loaigoi = data.data[i].LOAI_GOI
+            }
+          }
           populateTime(e.target.value, selectedpackID)
         })
 
@@ -103,10 +104,10 @@ function populatePackTypes(selectedPackType = "", selectedpackID) {
   });
 }
 const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency:'VND',
-    minimumFractionDigits: 0
-  })
+  style: 'currency',
+  currency: 'VND',
+  minimumFractionDigits: 0
+})
 //THOI GIAN
 function populateTime(MaLoai, MaGC, selectedTime) {
   $.ajax({
@@ -124,53 +125,56 @@ function populateTime(MaLoai, MaGC, selectedTime) {
       } else {
         $("#timeInput").empty();
       }
-      var AffterPrice  = $( "#GIA_SAU_THUE" ).val();
+      var AffterPrice = $("#GIA_SAU_THUE").val();
 
       $("#timeInput").on("change", function (e) {
         const selectedTime = $("#timeInput").val();
         const selectedData = data.data.find(time => time.MaTH === parseInt(selectedTime));
-        temp = selectedData.GIA_TRUOC_THUE||0
-        $("#GIA_TRUOC_THUE").val(selectedData ? formatter.format(selectedData.GIA_TRUOC_THUE) : "");
-        device(MaLoai,MaGC,e.target.value)
+        temp = selectedData?.GIA_TRUOC_THUE || 0
+        $("#GIA_TRUOC_THUE").val(selectedData ? formatter.format(selectedData?.GIA_TRUOC_THUE) : "");
+        device(MaLoai, MaGC, e.target.value)
       });
     }
   })
 }
 //THIET BI
 function device(MaLoai, MaGC, MaTH) {
-
-    $.ajax({
-      url: `http://127.0.0.1:8000/api/thietbi?MaGC=${MaGC}&MaLoai=${MaLoai}&MaTH=${MaTH}`,
-      type: "GET",
-      success: function (data) {
-/*       console.log(Number(data.data[0].GIA_TB) )
- */        if (data.data[0]?.THIET_BI !== "Mua") {
-            $('#SO_LUONG').attr("disabled", "disabled");
-
-            }else{
-
-                $('#SO_LUONG').val(1);
-            }
-            myfion()
-      if( Number(data.data[0]?.GIA_TB)){
-            $('#GIA_TB').val(Number(data.data[0]?.GIA_TB))
-      }else{
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/thietbi?MaGC=${MaGC}&MaLoai=${MaLoai}&MaTH=${MaTH}`,
+    type: "GET",
+    success: function (data) {
+      console.log(data.data[0]?.THIET_BI.toString().toLowerCase().trim())
+      if (data.data[0]?.THIET_BI.toString().toLowerCase().trim() !== "mua") {
+        $('#SO_LUONG').attr("disabled", "disabled");
+        $('#SO_LUONG').val(0);
+        console.log("temp", temp)
+        total = Number(temp) + Number(temp) / 10
+        console.log("total", total)
+        $('#GIA_SAU_THUE').val(formatter.format(total))
+      } else {
+        $('#SO_LUONG').removeAttr("disabled");
+        $('#SO_LUONG').val(1);
+        const giatb = $('#GIA_TB').val()
+        total = (Number(giatb) + Number(temp)) + (Number(giatb) + Number(temp)) / 10
+        $('#GIA_SAU_THUE').val(formatter.format(total))
+      }
+      if (Number(data.data[0]?.GIA_TB)) {
+        $('#GIA_TB').val(Number(data.data[0]?.GIA_TB))
+      } else {
         $('#GIA_TB').val(0)
       }
 
-    }
-    })
-  }
-function myfion(){
-    $('#SO_LUONG').on('change',function(e){
-        let BeforeVatPrice = $('#GIA_TRUOC_THUE').val()
-        let DevicePrice = $('#GIA_TB').val()*e.target.value
-        $('#Sum').text(e.target.value,' x ',$('#GIA_TB').val(),' = ',DevicePrice)
-/*         console.log(Number(DevicePrice+BeforeVatPrice)/10)
- */        var sum_price = Number(DevicePrice)+Number(temp)
-        $('#GIA_SAU_THUE').val(formatter.format(sum_price+sum_price/10))
-        console.log(sum_price);
-
+      //IN TONG TIEN
+      $('#SO_LUONG').on('change', function (e) {
+        let DevicePrice = $('#GIA_TB').val() * e.target.value
+        $('#Sum').text(e.target.value, ' x ', $('#GIA_TB').val(), ' = ', DevicePrice)
+        var sum_price = Number(DevicePrice) + Number(temp)
+        total = sum_price + sum_price / 10
+        $('#GIA_SAU_THUE').val(formatter.format(total))
+        console.log(total)
       })
+    }
+  })
 }
+
 export { populateServices, populatePacks, populatePackTypes, populateTime };
