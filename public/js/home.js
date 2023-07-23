@@ -26,6 +26,7 @@ const formatter = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 0
 })
 
+//DATA TABLE VIEW
 $(document).ready(function () {
   $.ajax({
     url: "http://127.0.0.1:8000/api/contracts",
@@ -38,13 +39,13 @@ $(document).ready(function () {
           ordering: true,
           select: true,
           columns: [{
-            data: "NV" || null
+            data: "MA_HOP_DONG" || null
           },
           {
             data: "TEN_KHACH_HANG" || null
           },
           {
-            data: "MA_HOP_DONG" || null
+            data: "NV" || null
           },
           {
             data: "MA_SO_THUE" || null
@@ -75,15 +76,15 @@ $(document).ready(function () {
   });
 });
 
-// SHOW DETAIL
+
 $("#contracts").on("click", ".btn-detail", function () {
   var data = $("#contracts").DataTable().row($(this).parents("tr")).data();
   $.ajax({
     url: `http://127.0.0.1:8000/api/contract?id=${data.id}`,
     type: "GET",
     success: function (contract) {
+      // SHOW DETAIL
       contractData = contract.data.thongtinhopdong[0]
-      console.log(contract.data.PDF[0]?.PDF);
       $("#staffInput").append(`<option value=${contractData?.NV}>${contractData?.NV}</option>`);
       $("#viewTenKH").text(contract.data.thongtinhopdong[0]?.TEN_KHACH_HANG || "Không có");
       $("#viewDiaChi").text(`${contract.data.thongtinhopdong[0]?.SO_NHA} - ${contract.data.thongtinhopdong[0]?.XA_PHUONG} - ${contract.data.thongtinhopdong[0]?.QUAN_HUYEN} - ${contract.data.thongtinhopdong[0]?.TINH_TP}` || "Không có");
@@ -121,7 +122,6 @@ $("#contracts").on("click", ".btn-detail", function () {
 
 
   // handle edit btn
-  // Hàm để đổ dữ liệu vào các trường nhập liệu của giao diện
   function populateFields(contractData) {
     $("#TEN_KHACH_HANG").val(contractData.TEN_KHACH_HANG);
     $("#MA_SO_THUE").val(contractData.MA_SO_THUE);
@@ -188,10 +188,13 @@ $("#contracts").on("click", ".btn-detail", function () {
       type: "PUT",
       data: formData,
       success: function (response) {
-        console.log(response);
+        if (response.mess == "oke") {
+          toastr.success("Chỉnh sửa thành công");
+          $("#editModal").modal("hide");
+          $("#viewDetailModal").modal("hide");
+        }
       },
       error: function (xhr, status, error) {
-
         console.error(error);
       }
     });
@@ -200,7 +203,6 @@ $("#contracts").on("click", ".btn-detail", function () {
 
   // nút cập nhật đơn hàng
   $("#btnUpdateOrder").on("click", function () {
-    var contract = $("#contracts").DataTable().row($("#contracts tr.selected")).data();
     $("#updateModal").modal("show");
   })
 
@@ -218,12 +220,15 @@ $("#contracts").on("click", ".btn-detail", function () {
   });
 
 
+  //CẬP NHẬT ĐƠN HÀNG
   $(document).ready(function () {
-    $("#idForm").submit(function (event) {
+    $("#idFormUpdate").submit(function (event) {
       event.preventDefault();
       let formData = new FormData(this);
 
       formData.append("id", contractData.id);
+
+      console.log(formData)
 
       $.ajax({
         url: `http://127.0.0.1:8000/api/upload`,

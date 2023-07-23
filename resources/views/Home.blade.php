@@ -13,6 +13,10 @@
   <link href="https://cdn.datatables.net/v/bs5/dt-1.13.5/sl-1.7.0/datatables.min.css" rel="stylesheet">
   <script src="https://cdn.datatables.net/v/bs5/dt-1.13.5/sl-1.7.0/datatables.min.js"></script>
 
+  <!-- toastr -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
   <link rel="stylesheet" href="/css/app.css">
   <link rel="stylesheet" href="/css/dataTable.css">
 </head>
@@ -23,9 +27,9 @@
     <table id="contracts" class="table table-striped" class="display">
       <thead>
         <tr>
-          <th>Tên nhân viên</th>
-          <th>Tên khách hàng</th>
           <th>Mã hợp đồng</th>
+          <th>Tên khách hàng</th>
+          <th>Tên nhân viên</th>
           <th>Mã số thế</th>
           <th>Ngày ký</th>
           <th>Dịch vụ</th>
@@ -81,7 +85,7 @@
                 <p><strong>Giá trước thuế: </strong> <span id="viewGiatruocthe"></span></p>
                 <p><strong>Giá sau thuế: </strong> <span id="viewGiasauthe"></span></p>
                 <p><strong>PDF: </strong><span id="pdfLink"></span>
-                </span>
+                  </span>
 
                 </p>
 
@@ -124,7 +128,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form action="{{ route('contracts.store') }}"  id="idFormSave">
+            <form action="{{ route('contracts.store') }}" id="idFormSave">
               @csrf
               <h3>Thông tin khách hàng</h3>
 
@@ -358,7 +362,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form action="/api/upload" id="idForm" enctype="multipart/form-data" method="POST">
+            <form action="/api/upload" id="idFormUpdate" enctype="multipart/form-data" method="POST">
               @csrf
               <div class="d-flex justify-content-between flex-column ">
 
@@ -396,6 +400,12 @@
                       <label class="label me-2">Số hoa đơn: </label>
                       <div class="control">
                         <input id="sohd" class="input form-control" type="text" placeholder="Nhập số hóa đơn" name="SO_HD">
+
+                      </div>
+                    </div>
+                    <div class="field mb-3 align-items-center justify-content-between d-flex">
+                      <label class="label me-2"></label>
+                      <div class="control">
                         <p>Nếu nhập nhiều số hoá đơn ngăn cách bằng dấu ;</p>
                       </div>
                     </div>
@@ -439,13 +449,12 @@
 
     </script>
     <script>
-        function openPDF() {
+      function openPDF() {
 
-            var pdfURL = document.getElementById("pdfLink1").getAttribute("data-pdfurl");
-            console.log(pdfURL);
-            window.open(pdfURL);
-        }
-
+        var pdfURL = document.getElementById("pdfLink1").getAttribute("data-pdfurl");
+        console.log(pdfURL);
+        window.open(pdfURL);
+      }
     </script>
 </body>
 

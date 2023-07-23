@@ -53,11 +53,11 @@ Route::get('/thoihan', function (Request $request) {
 Route::get('/contract', function (Request $request) {
 
     return new ResourceUser([
-        'thongtinhopdong'=>Thong_tin_hop_dong::where('id', $request->input('id'))->get(),
+        'thongtinhopdong' => Thong_tin_hop_dong::where('id', $request->input('id'))->get(),
         'PDF' => PDF::where('id', $request->input('id'))->get('PDF')
     ]);
 });
-Route::get('/pdf/{filename}',function($filename){
+Route::get('/pdf/{filename}', function ($filename) {
     $pdfPath = public_path('pdf') . '/' . $filename;
 
     return response()->file($pdfPath);
@@ -68,13 +68,13 @@ Route::get('nhanvien', function () {
 
 Route::post('/upload', function (Request $request) {
 
-/*     return response()->json($request->input('NGAY_XUAT_HOA_DON'));
- */
+    return response()->json($request->input('NGAY_XUAT_HOA_DON'));
+
     $files = $request->file('pdf');
     $count = count($files);
     $splitStrings = explode(';', $request->input('SO_HD'));
     if (count($files) !== count($splitStrings)) {
-        return response()->json(['mess'=>'Số lượng tệp tin và số lượng tên không tương ứng.','status'=>'202']);
+        return response()->json(['mess' => 'Số lượng tệp tin và số lượng tên không tương ứng.', 'status' => '202']);
     }
     $pdfPaths = [];
     if ($request->hasFile('pdf')) {
@@ -90,21 +90,20 @@ Route::post('/upload', function (Request $request) {
                 $filename,
                 $pdfPath
             ]); */
-            PDF::create(['id'=>$request->input('id'),'PDF' => $filename,'PATH' => $pdfPath]);
-
+            PDF::create(['id' => $request->input('id'), 'PDF' => $filename, 'PATH' => $pdfPath]);
         }
     }
     Thong_tin_hop_dong::where('id', $request->input('id'))
-                        ->update([
-                            'MA_GD' => $request->input('MA_GD'),
-                            'MA_THUE_BAO' => $request->input('MA_THUE_BAO'),
-                            'USERNAME' => $request->input('USERNAME'),
-                            'SO_SERI' => $request->input('SO_SERI'),
-                            'SO_HD' => $request->input('SO_HD'),
-                            'MA_TRA_CUU' => $request->input('MA_TRA_CUU'),
-                            'NGAY_XUAT_HOA_DON' => $request->input('NGAY_XUAT_HOA_DON'),
-                            'PDF' => $request->input('NGAY_XUAT_HOA_DON'),
-                        ]);
+        ->update([
+            'MA_GD' => $request->input('MA_GD'),
+            'MA_THUE_BAO' => $request->input('MA_THUE_BAO'),
+            'USERNAME' => $request->input('USERNAME'),
+            'SO_SERI' => $request->input('SO_SERI'),
+            'SO_HD' => $request->input('SO_HD'),
+            'MA_TRA_CUU' => $request->input('MA_TRA_CUU'),
+            'NGAY_XUAT_HOA_DON' => $request->input('NGAY_XUAT_HOA_DON'),
+            'PDF' => $request->input('NGAY_XUAT_HOA_DON'),
+        ]);
 
     return response()->json(['oke' => 'oke', 'status' => '200']);
 });
