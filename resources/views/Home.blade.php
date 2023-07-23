@@ -76,9 +76,9 @@
               <div class="boxContent mb-2">
                 <p><strong>Thời gian (tháng): </strong> <span id="viewThoigian"></span></p>
                 <p><strong>Loại thiết bị: </strong> <span id="viewLoaithietbi"></span></p>
+                <p><strong>Số lượng: </strong> <span id="viewSoluong"></span></p>
                 <p><strong>Giá thiết bị: </strong> <span id="viewGiathietbi"></span></p>
                 <p><strong>Giá trước thuế: </strong> <span id="viewGiatruocthe"></span></p>
-                <p><strong>VAT: </strong> <span id="viewVAT"></span></p>
                 <p><strong>Giá sau thuế: </strong> <span id="viewGiasauthe"></span></p>
                 <p><strong>Ghi chú: </strong> <span id="viewGhichu"></span></p>
               </div>
@@ -145,6 +145,13 @@
                       <input id="MaBHXH" class="input form-control" type="text" placeholder="Nhập mã BHXH" name="MaBHXH">
                     </div>
                   </div>
+
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2">Số nhà: </label>
+                    <div class="control">
+                      <input class="input form-control" type="text" placeholder="e.g. 123" id="SO_NHA" name="SO_NHA">
+                    </div>
+                  </div>
                 </div>
 
                 <div class="inputBox p-3">
@@ -177,12 +184,7 @@
                     </div>
                   </div>
 
-                  <div class="field mb-3 align-items-center justify-content-between d-flex">
-                    <label class="label me-2">Số nhà: </label>
-                    <div class="control">
-                      <input class="input form-control" type="text" placeholder="e.g. 123" name="sonha">
-                    </div>
-                  </div>
+
                 </div>
               </div>
 
@@ -292,13 +294,6 @@
                     <label class="label me-2">Giá trước thuế: </label>
                     <div class="control">
                       <input id="GIA_TRUOC_THUE" class="input form-control" disabled type="text" name="GIA_TRUOC_THUE">
-                    </div>
-                  </div>
-
-                  <div class="field mb-3 align-items-center justify-content-between d-flex">
-                    <label class="label me-2">VAT: </label>
-                    <div class="control">
-                      <input id="giatruocthue" class="input form-control" disabled type="text" name="giatruocthue">
                     </div>
                   </div>
 

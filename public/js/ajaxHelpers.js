@@ -7,15 +7,19 @@ export let giathietbi = 0
 export let thoigian = ""
 export let loaitb = ""
 export let giatruoc = 0
+
+export let maloai1 = 0
+export let magoi1 = 0
+
 //DICH VU
-function populateServices(selectedDichVu, selectedGoiCuoc, loaigoi) {
+function populateServices(selectedDichVu, selectedGoiCuoc, loaigoi, callPTime = true, selectedTime = 0) {
   $.ajax({
     url: "http://127.0.0.1:8000/api/dichvu",
     type: "GET",
     success: function (data) {
       $.each(data.data, function (index, value) {
         if (value.DICH_VU === selectedDichVu) {
-          populatePacks(value.MaDV, selectedGoiCuoc, loaigoi)
+          populatePacks(value.MaDV, selectedGoiCuoc, loaigoi, callPTime, selectedTime)
         }
         const option = `<option value="${value.MaDV}" ${value.DICH_VU === selectedDichVu ? 'selected' : ''}>${value.DICH_VU}</option>`;
         $("#serviceInput").prepend(option);
@@ -35,7 +39,7 @@ function populateServices(selectedDichVu, selectedGoiCuoc, loaigoi) {
 }
 
 //GOI CUOC
-function populatePacks(selectedDichVu, contractDataGoiCuoc, loaigoi = "") {
+function populatePacks(selectedDichVu, contractDataGoiCuoc, loaigoi = "", callPTime = true, selectedTime) {
   $.ajax({
     url: `http://127.0.0.1:8000/api/goicuoc/${selectedDichVu}`,
     type: "GET",
@@ -51,7 +55,7 @@ function populatePacks(selectedDichVu, contractDataGoiCuoc, loaigoi = "") {
           } else {
             const isSelected = value.GOI_CUOC.toString().trim().toLowerCase() == contractDataGoiCuoc.toString().trim().toLowerCase() ? "selected" : "";
             if (!!isSelected) {
-              populatePackTypes(loaigoi, value.MaGC)
+              populatePackTypes(loaigoi, value.MaGC, callPTime, selectedTime)
             }
             $("#packInput").prepend(`<option value=${value.MaGC} ${isSelected}>${value.GOI_CUOC}</option>`);
           }
@@ -63,7 +67,8 @@ function populatePacks(selectedDichVu, contractDataGoiCuoc, loaigoi = "") {
               goicuoc = data.data[i].GOI_CUOC
             }
           }
-          populatePackTypes("", e.target.value)
+          populatePackTypes("", e.target.value, callPTime, selectedTime)
+
         })
       } else {
         $("#packInput").empty();
@@ -73,7 +78,7 @@ function populatePacks(selectedDichVu, contractDataGoiCuoc, loaigoi = "") {
 }
 
 //LOAI GOI CUOC
-function populatePackTypes(selectedPackType = "", selectedpackID) {
+function populatePackTypes(selectedPackType = "", selectedpackID, callPTime = true, selectedTime) {
   $.ajax({
     url: `http://127.0.0.1:8000/api/loaigoi?MaGC=${selectedpackID}`,
     type: "GET",
@@ -85,10 +90,18 @@ function populatePackTypes(selectedPackType = "", selectedpackID) {
 
         data.data.forEach(type => {
           if (type.LOAI_GOI === selectedPackType) {
-            populateTime(type.MaLoai, selectedpackID)
+            if (callPTime) {
+              populateTime(type.MaLoai, selectedpackID)
+            }
+            maloai1 = type.MaLoai
+            magoi1 = selectedpackID
           }
           $("#packTypeInput").append(`<option value="${type.MaLoai}" ${type.LOAI_GOI === selectedPackType ? 'selected' : ''}>${type.LOAI_GOI} </option>`);
         });
+
+        if (selectedTime) {
+          populateTime(maloai1, magoi1, selectedTime)
+        }
 
         $("#packTypeInput").on("change", function (e) {
           for (let i = 0; i < data.data.length; i++) {
@@ -99,18 +112,19 @@ function populatePackTypes(selectedPackType = "", selectedpackID) {
           populateTime(e.target.value, selectedpackID)
         })
 
-
       }
     }
   });
 }
+
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'VND',
   minimumFractionDigits: 0
 })
+
 //THOI GIAN
-function populateTime(MaLoai, MaGC, selectedTime) {
+function populateTime(MaLoai, MaGC, selectedDeadline) {
   $.ajax({
     url: `http://127.0.0.1:8000/api/thoihan?MaGC=${MaGC}&MaLoai=${MaLoai}`,
     type: "GET",
@@ -121,7 +135,7 @@ function populateTime(MaLoai, MaGC, selectedTime) {
         $("#timeInput").prepend(`<option value="" >---Chọn thời gian---</option>`);
 
         data.data.forEach(time => {
-          $("#timeInput").prepend(`<option value="${time.MaTH}" ${time.THOI_HAN === selectedTime ? 'selected' : ''}>${time.THOI_HAN} </option>`);
+          $("#timeInput").prepend(`<option value="${time.MaTH}" ${time?.THOI_HAN.toString() === selectedDeadline ? 'selected' : ''}>${time.THOI_HAN} </option>`);
         })
       } else {
         $("#timeInput").empty();
