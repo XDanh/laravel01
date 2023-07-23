@@ -1,9 +1,21 @@
-import { populateServices, populatePackTypes, populateTime, magoi1, maloai1 } from "./ajaxHelpers.js";
+import {
+  populateServices, dichvu,
+  goicuoc,
+  loaigoi,
+  total,
+  giathietbi,
+  thoigian,
+  loaitb,
+  giatruoc,
+} from "./ajaxHelpers.js";
 import {
   getProvinces,
   handleProvinceChange,
   handleDistrictChange,
-  handleWardChange
+  handleWardChange,
+  provinceSelected,
+  districtSelected,
+  wardSelected,
 } from "./locationUtils.js";
 
 var contractData
@@ -107,20 +119,20 @@ $("#contracts").on("click", ".btn-detail", function () {
   // handle edit btn
   // Hàm để đổ dữ liệu vào các trường nhập liệu của giao diện
   function populateFields(contractData) {
-    $("#TenKH").val(contractData.TEN_KHACH_HANG);
-    $("#MaThue").val(contractData.MA_SO_THUE);
-    $("#MaBHXH").val(contractData.MBHXH);
+    $("#TEN_KHACH_HANG").val(contractData.TEN_KHACH_HANG);
+    $("#MA_SO_THUE").val(contractData.MA_SO_THUE);
+    $("#MBHXH").val(contractData.MBHXH);
     $("#staffInput").val(contractData.NV);
-    $("#ngaykyhd").val(contractData.NGAY_KY_HD);
+    $("#NGAY_KY_HD").val(contractData.NGAY_KY_HD);
     $("#mahd").val(contractData.MA_HOP_DONG);
     $("#orderStatusInput").val(contractData.TRANG_THAI_DON_HANG);
     $("#orderTypeInput").val(contractData.LOAI_DON_HANG);
     $("#serviceInput").val(contractData.DICH_VU);
     $("#packInput").val(contractData.GOI_CUOC);
     $("#timeInput").val(contractData.THOI_GIAN);
-    $("#giathietbi").val(formatter.format(Number(contractData.GIA_THIET_BI)));
-    $("#ghichu").val(contractData.GHI_CHU);
-    $("#deviceNumberInput").val(contractData.SO_LUONG);
+    $("#GIA_THIET_BI").val(formatter.format(Number(contractData.GIA_THIET_BI)));
+    $("#GHI_CHU").val(contractData.GHI_CHU);
+    $("#SO_LUONG").val(contractData.SO_LUONG);
     $("#SO_NHA").val(contractData.SO_NHA);
     $("#GIA_TRUOC_THUE").val(formatter.format(Number(contractData.GIA_TRUOC_THUE)));
     $("#GIA_SAU_THUE").val(formatter.format(Number(contractData.GIA_SAU_THUE)));
@@ -148,6 +160,28 @@ $("#contracts").on("click", ".btn-detail", function () {
 
     $("#editModal").modal("show");
   });
+
+  //Nút lưu thay đổi
+  $("#idForm").on("submit", function (e) {
+    e.preventDefault();
+
+    var form = $(this);
+    var actionUrl = form.attr('action');
+
+    var formData = form.serialize();
+    formData += "&TINH_TP=" + provinceSelected.name;
+    formData += "&QUAN_HUYEN=" + districtSelected.name;
+    formData += "&XA_PHUONG=" + wardSelected.name;
+    formData += "&DICH_VU=" + dichvu;
+    formData += "&GOI_CUOC=" + goicuoc;
+    formData += "&LOAI_GOI_CUOC=" + loaigoi;
+    formData += "&GIA_SAU_THUE=" + total;
+    formData += "&GIA_THIET_BI=" + giathietbi;
+    formData += "&LOAI_TB=" + loaitb;
+    formData += "&THOI_GIAN=" + thoigian;
+    formData += "&GIA_TRUOC_THUE=" + giatruoc;
+    console.log(formData)
+  })
 
   // nút cập nhật đơn hàng
   $("#btnUpdateOrder").on("click", function () {
