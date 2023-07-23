@@ -40,5 +40,4 @@ class Thong_tin_hop_dong extends Model
         'NGAY_XUAT_HOA_DON',
 
     ];
-
 }

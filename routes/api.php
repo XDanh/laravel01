@@ -55,26 +55,26 @@ Route::get('/contract', function (Request $request) {
 Route::get('nhanvien', function () {
     return new ResourceUser(Nhanvien::all());
 });
-Route::get('mahopdong',function(){
+Route::get('mahopdong', function () {
     $temp = new ResourceUser(count::all());
 
-                $formattedValue = str_pad($temp[0]['count_number'], 3, '0', STR_PAD_LEFT);
+    $formattedValue = str_pad($temp[0]['count_number'], 3, '0', STR_PAD_LEFT);
 
-                $name = date("ymd").'-'.$formattedValue;
+    $name = date("ymd") . '-' . $formattedValue;
 
-                $number = $temp[0]['count_number']+1;
+    $number = $temp[0]['count_number'] + 1;
 
 
-                $currentHour = (int)date('H');
+    $currentHour = (int)date('H');
 
-                $currentMinute = (int)date('i');
+    $currentMinute = (int)date('i');
 
-                if ($currentHour === 23 && $currentMinute === 59) {
+    if ($currentHour === 23 && $currentMinute === 59) {
 
-                    $number = 1;
-                }
-                DB::table('count')
-                    ->update(['count_number' =>  $number]);
+        $number = 1;
+    }
+    DB::table('count')
+        ->update(['count_number' =>  $number]);
     return response()->json($name);
 });
 Route::post('upload', function (Request $request) {
@@ -83,10 +83,9 @@ Route::post('upload', function (Request $request) {
 
             $ext = $file->extension();
 
-            $filename = $request->input('SO_HOA_DO').'.'.$ext;
+            $filename = $request->input('SO_HOA_DO') . '.' . $ext;
 
-            $file->move(public_path('pdf'),$filename);
+            $file->move(public_path('pdf'), $filename);
         }
-
     }
 });

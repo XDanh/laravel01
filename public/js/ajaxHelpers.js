@@ -143,20 +143,22 @@ function device(MaLoai, MaGC, MaTH) {
     url: `http://127.0.0.1:8000/api/thietbi?MaGC=${MaGC}&MaLoai=${MaLoai}&MaTH=${MaTH}`,
     type: "GET",
     success: function (data) {
-      console.log(data.data[0]?.THIET_BI.toString().toLowerCase().trim())
+      console.log(data)
       if (data.data[0]?.THIET_BI.toString().toLowerCase().trim() !== "mua") {
         $('#SO_LUONG').attr("disabled", "disabled");
         $('#SO_LUONG').val(0);
-        console.log("temp", temp)
         total = Number(temp) + Number(temp) / 10
-        console.log("total", total)
         $('#GIA_SAU_THUE').val(formatter.format(total))
+        $('#Sum').text(formatter.format(0))
+
       } else {
         $('#SO_LUONG').removeAttr("disabled");
         $('#SO_LUONG').val(1);
-        const giatb = $('#GIA_TB').val()
-        total = (Number(giatb) + Number(temp)) + (Number(giatb) + Number(temp)) / 10
+        const giatb = Number(data.data[0]?.GIA_TB)
+        $('#Sum').text(formatter.format(Number(data.data[0]?.GIA_TB)))
+        total = (giatb + Number(temp)) + (giatb + Number(temp)) / 10
         $('#GIA_SAU_THUE').val(formatter.format(total))
+
       }
       if (Number(data.data[0]?.GIA_TB)) {
         $('#GIA_TB').val(Number(data.data[0]?.GIA_TB))
@@ -167,7 +169,7 @@ function device(MaLoai, MaGC, MaTH) {
       //IN TONG TIEN
       $('#SO_LUONG').on('change', function (e) {
         let DevicePrice = $('#GIA_TB').val() * e.target.value
-        $('#Sum').text(e.target.value, ' x ', $('#GIA_TB').val(), ' = ', DevicePrice)
+        $('#Sum').text(formatter.format(DevicePrice))
         var sum_price = Number(DevicePrice) + Number(temp)
         total = sum_price + sum_price / 10
         $('#GIA_SAU_THUE').val(formatter.format(total))
