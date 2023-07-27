@@ -1,18 +1,18 @@
 import {
-    getProvinces,
-    handleProvinceChange,
-    handleDistrictChange,
-    handleWardChange,
-    provinceSelected,
-    districtSelected,
-    wardSelected,
+  getProvinces,
+  handleProvinceChange,
+  handleDistrictChange,
+  handleWardChange,
+  provinceSelected,
+  districtSelected,
+  wardSelected,
 
 } from "/js/locationUtils.js";
 import {
-    populateServices,
-    dichvu,
-    goicuoc,
-    loaigoi,
+  populateServices,
+  dichvu,
+  goicuoc,
+  loaigoi,
 } from "./ajaxHelpers.js";
 let mahopdong = ""
 
@@ -36,8 +36,8 @@ $("#idForm").on("submit", function(e) {
 
     e.preventDefault(); // Avoid submitting the form in the traditional way.
 
-    var form = $(this);
-    var actionUrl = form.attr('action');
+  var form = $(this);
+  var actionUrl = form.attr('action');
 
     var formData = form.serialize(); // Serialize the form data.
     $.ajax({
@@ -70,5 +70,9 @@ $("#idForm").on("submit", function(e) {
       error: function(error) {
         console.error("Error occurred:", error);
       }
-    });
+    },
+    error: function (error) {
+      console.error("Error occurred:", error);
+    }
   });
+});

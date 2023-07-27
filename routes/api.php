@@ -93,10 +93,9 @@ Route::post('upload', function (Request $request) {
 
             $ext = $file->extension();
 
-            $filename = $request->input('SO_HOA_DO').'.'.$ext;
+            $filename = $request->input('SO_HOA_DO') . '.' . $ext;
 
-            $file->move(public_path('pdf'),$filename);
+            $file->move(public_path('pdf'), $filename);
         }
-
     }
 });

@@ -15,3 +15,7 @@
   /* white-space: nowrap; */
   width: 50%;
 }
+
+.total-cost-device {
+  width: fit-content;
+}

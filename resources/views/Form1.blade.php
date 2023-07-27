@@ -57,7 +57,7 @@
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Tỉnh/ Thành phố: </label>
                         <div class="control">
-                            <select id="provinceInput" class="form-control" >
+                            <select id="provinceInput" class="form-control">
                                 <option value="">----Chọn Tỉnh/ Thành phố----</option>
                             </select>
                         </div>
@@ -141,8 +141,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="inputBox p-3">
+
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Loại gói cước: </label>
                         <div class="control">
@@ -152,10 +151,13 @@
                             </select>
                         </div>
                     </div>
+                </div>
+                <div class="inputBox p-3">
+
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Thời gian (tháng): </label>
                         <div class="control">
-                            <select id="timeInput" class="form-control" >
+                            <select id="timeInput" class="form-control">
                                 <option value="">----Chọn thời gian----</option>
 
                             </select>
@@ -173,9 +175,18 @@
                         <label class="label me-2">Giá thiết bị: </label>
                         <div class="control">
                             <input id="GIA_TB" class="input form-control" disabled type="text" name="GIA_THIET_BI">
-                            <span id="Sum"></span>
                         </div>
                     </div>
+                    <div class="field mb-3 align-items-center justify-content-between d-flex">
+                        <label class="label me-2"></label>
+                        <div class="control">
+                            <div class="total-cost-device">
+                                <span>Total: </span>
+                                <span id="Sum"></span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Giá trước thuế: </label>
                         <div class="control">
