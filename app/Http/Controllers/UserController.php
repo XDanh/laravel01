@@ -121,7 +121,30 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id): JsonResponse
     {
-        Thong_tin_hop_dong::where('id', $id)->update($request->all());
+/*         return response()->json($request->all());
+ */        Thong_tin_hop_dong::where('id', $id)->update([
+            'DICH_VU' => $request->input('DICH_VU'),
+            'GHI_CHU' => $request->input('GHI_CHU'),
+            'GIA_SAU_THUE' => $request->input('GIA_SAU_THUE'),
+            'GIA_THIET_BI' => $request->input('GIA_THIET_BI'),
+            'GIA_TRUOC_THUE' => $request->input('GIA_TRUOC_THUE'),
+            'GOI_CUOC' => $request->input('GOI_CUOC'),
+            'LOAI_DON_HANG' => $request->input('LOAI_DON_HANG'),
+            'LOAI_GOI_CUOC' => $request->input('LOAI_GOI_CUOC'),
+            'LOAI_TB' => $request->input('LOAI_TB'),
+            'MA_SO_THUE' => $request->input('MA_SO_THUE'),
+            'MBHXH' => $request->input('MBHXH'),
+            'NGAY_KY_HD' => $request->input('NGAY_KY_HD'),
+            'NV' => $request->input('NV'),
+            'QUAN_HUYEN' => $request->input('QUAN_HUYEN'),
+            'SO_LUONG' => $request->input('SO_LUONG'),
+            'SO_NHA' => $request->input('SO_NHA'),
+            'TEN_KHACH_HANG' => $request->input('TEN_KHACH_HANG'),
+            'THOI_GIAN' => $request->input('THOI_GIAN'),
+            'TINH_TP' => $request->input('TINH_TP'),
+            'TRANG_THAI_DON_HANG' => $request->input('TRANG_THAI_DON_HANG'),
+            'XA_PHUONG' => $request->input('XA_PHUONG'),
+        ]);
 
         return response()->json(['mess' => 'oke', 'status' => '200']);
     }

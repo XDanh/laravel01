@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('MaGC');
             $table->integer('THOI_HAN');
             $table->text('GIA_TRUOC_THUE');
+            $table->timestamps();
+
         });
     }
 
@@ -25,6 +27,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('thoihan');
+
     }
 };

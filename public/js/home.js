@@ -166,11 +166,10 @@ $("#contracts").on("click", ".btn-detail", function () {
   });
 
   //Nút lưu thay đổi
-  $("#idForm").on("submit", function (e) {
+  $("#idFormSave").on("submit", function (e) {
     e.preventDefault();
 
     var form = $(this);
-    var actionUrl = form.attr('action');
 
     var formData = form.serialize();
     formData += "&TINH_TP=" + provinceSelected.name;
@@ -184,8 +183,21 @@ $("#contracts").on("click", ".btn-detail", function () {
     formData += "&LOAI_TB=" + loaitb;
     formData += "&THOI_GIAN=" + thoigian;
     formData += "&GIA_TRUOC_THUE=" + giatruoc;
-    console.log(formData)
-  })
+    formData += "&id=" + contractData.id;
+    $.ajax({
+        url: `http://127.0.0.1:8000/api/contracts/${contractData.id}`,
+        type: "PUT",
+        data: formData,
+        success: function (response) {
+          console.log(response);
+        },
+        error: function (xhr, status, error) {
+
+            console.error(error);
+          }
+        });
+      });
+
 
   // nút cập nhật đơn hàng
   $("#btnUpdateOrder").on("click", function () {
@@ -205,7 +217,7 @@ $("#contracts").on("click", ".btn-detail", function () {
       var dataDeleted = $("#contracts").DataTable().row($("#contracts tr.selected")).data();
     });
   });
-});
+
 
 $(document).ready(function() {
     $("#idForm").submit(function(event) {
@@ -229,4 +241,4 @@ $(document).ready(function() {
         }
       });
     });
-  });
+})})

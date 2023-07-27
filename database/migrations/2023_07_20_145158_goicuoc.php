@@ -15,6 +15,8 @@ return new class extends Migration
             $table->foreignId('MaDV');
             $table->id('MaGC');
             $table->string('GOI_CUOC');
+            $table->timestamps();
+
         });
     }
 
@@ -23,6 +25,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('goicuoc');
+
     }
 };

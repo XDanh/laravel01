@@ -124,7 +124,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form action="{{ route('contracts.store') }}" method="POST" id="idForm">
+            <form action="{{ route('contracts.store') }}"  id="idFormSave">
               @csrf
               <h3>Thông tin khách hàng</h3>
 
