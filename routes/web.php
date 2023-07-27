@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Form1Controller;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,19 @@ Route::get('/formPDF', function () {
     return view('formPDF');
 });
 /* Route::post('/customer', [Form1Controller::class,'store']); */
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    Route::get('/taohopdong',function(){
+        return view('createcontract');
+    })->name('createcontract');
+    Route::get('/danhsachhopdong',function(){
+        return view('showcontract');
+    })->name('showcontract');
+});

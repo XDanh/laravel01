@@ -69,7 +69,7 @@ $(document).ready(function () {
           },
           {
             data: null,
-            defaultContent: '<button type="button" class="btn btn-detail btn-info">Xem chi tiết</button>'
+            defaultContent: '<button type="button" class="btn-detail inline-flex items-center font-semibold text-xs uppercase tracking-widest text-blue">Xem chi tiết</button>'
           }
           ]
         });
