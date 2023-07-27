@@ -11,5 +11,6 @@ class count extends Model
     protected $table = 'count';
     protected $fillable = [
         'count_number',
+        'date'
     ];
 }

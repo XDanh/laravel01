@@ -14,7 +14,7 @@ import {
     goicuoc,
     loaigoi,
 } from "./ajaxHelpers.js";
-
+let mahopdong = ""
 
 // Lấy danh sách TỈNH/THÀNH PHỐ và đổ vào dropdown #provinceInput
 getProvinces();
@@ -31,14 +31,22 @@ handleWardChange();
 populateServices();
 
 
+
 $("#idForm").on("submit", function(e) {
+
     e.preventDefault(); // Avoid submitting the form in the traditional way.
 
     var form = $(this);
     var actionUrl = form.attr('action');
 
     var formData = form.serialize(); // Serialize the form data.
-
+    $.ajax({
+        url:`http://127.0.0.1:8000/api/mahopdong`,
+        type:'GET',
+        success:function(data){
+            mahopdong = data
+        }
+    })
     // Add additional data to the formData object.
     formData += "&TINH_TP=" + provinceSelected.name;
     formData += "&QUAN_HUYEN=" + districtSelected.name;
@@ -46,6 +54,7 @@ $("#idForm").on("submit", function(e) {
     formData += "&DICH_VU=" + dichvu;
     formData += "&GOI_CUOC=" + goicuoc;
     formData += "&LOAI_GOI_CUOC=" + loaigoi;
+    formData += "&MA_HOP_DONG=" + mahopdong;
     $.ajax({
       type: "POST",
       url: actionUrl,

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('count',function(Blueprint $table){
             $table->integer('count_number');
+            $table->date('date');
+
         });
     }
 

@@ -56,25 +56,35 @@ Route::get('nhanvien', function () {
     return new ResourceUser(Nhanvien::all());
 });
 Route::get('mahopdong',function(){
+
     $temp = new ResourceUser(count::all());
 
-                $formattedValue = str_pad($temp[0]['count_number'], 3, '0', STR_PAD_LEFT);
+    $number = $temp[0]['count_number'];
 
-                $name = date("ymd").'-'.$formattedValue;
+    $currentTime = date('Y-m-d');
 
-                $number = $temp[0]['count_number']+1;
+    $dateDB = $temp[0]['date'];
 
+/*     return response()->json([$currentTime,$dateDB]);
+ */
+    if ($currentTime !== $dateDB) {
 
-                $currentHour = (int)date('H');
+        $number = 1;
+        $formattedValue = str_pad($number, 3, '0', STR_PAD_LEFT);
 
-                $currentMinute = (int)date('i');
+        $name = date("ymd").$formattedValue;
+        DB::table('count')
+        ->update(['count_number' =>  $number,'date' => $currentTime]);
 
-                if ($currentHour === 23 && $currentMinute === 59) {
+    }else{
+        $number = $temp[0]['count_number']+1;
+        $formattedValue = str_pad($number, 3, '0', STR_PAD_LEFT);
 
-                    $number = 1;
-                }
-                DB::table('count')
-                    ->update(['count_number' =>  $number]);
+        $name = date("ymd").$formattedValue;
+        DB::table('count')
+            ->update(['count_number' =>  $number]);
+    }
+
     return response()->json($name);
 });
 Route::post('upload', function (Request $request) {

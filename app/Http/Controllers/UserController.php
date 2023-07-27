@@ -44,7 +44,7 @@ class UserController extends Controller
             /* 'TEN_KHACH_HANG' => 'required',
             'DIA_CHI' => 'required',
             'MA_SO_THUE' => 'required|max:13',
-            'MBHXH' => 'max:13',
+            'MBHXH' => 'max:13',yarn
             'NV' => 'required',
             'NGAY_KY_HD' => 'required',
             'MA_HOP_DONG' => 'required',

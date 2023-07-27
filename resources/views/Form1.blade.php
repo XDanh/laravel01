@@ -99,13 +99,6 @@
                     </div>
 
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
-                        <label class="label me-2">Mã số hợp đồng: </label>
-                        <div class="control">
-                            <input class="input form-control" type="text" placeholder="13HD" name="MA_HOP_DONG">
-                        </div>
-                    </div>
-
-                    <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Trạng thái đơn hàng: </label>
                         <div class="control">
                             <select id="orderStatusInput" class="form-control" name="TRANG_THAI_DON_HANG">
