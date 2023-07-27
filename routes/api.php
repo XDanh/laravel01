@@ -51,8 +51,17 @@ Route::get('/thoihan', function (Request $request) {
     return new ResourceUser(thoihan::where('MaLoai', $request->input('MaLoai'))->get());
 });
 Route::get('/contract', function (Request $request) {
-    return new ResourceUser(Thong_tin_hop_dong::where('id', $request->input('id'))->get());
+
+    return new ResourceUser([
+        'thongtinhopdong'=>Thong_tin_hop_dong::where('id', $request->input('id'))->get(),
+        'PDF' => PDF::where('id', $request->input('id'))->get('PDF')
+    ]);
 });
+Route::get('/pdf/{filename}',function($filename){
+    $pdfPath = public_path('pdf') . '/' . $filename;
+
+    return response()->file($pdfPath);
+})->name('pdf.show');
 Route::get('nhanvien', function () {
     return new ResourceUser(Nhanvien::all());
 });
@@ -67,13 +76,22 @@ Route::post('/upload', function (Request $request) {
     if (count($files) !== count($splitStrings)) {
         return response()->json(['mess'=>'Số lượng tệp tin và số lượng tên không tương ứng.','status'=>'202']);
     }
+    $pdfPaths = [];
     if ($request->hasFile('pdf')) {
         for ($i = 0; $i < $count; $i++) {
             $file = $files[$i];
             $ext = $file->extension();
             $filename = $splitStrings[$i] . '.' . $ext;
+            $pdfPath = public_path('pdf') . '/' . $filename;
             $file->move(public_path('pdf'), $filename);
-            PDF::create(['id'=>$request->input('id'),'PDF' => $filename]);
+            $pdfPaths[] = $pdfPath;
+            /* return response()->json([
+                $request->input('id'),
+                $filename,
+                $pdfPath
+            ]); */
+            PDF::create(['id'=>$request->input('id'),'PDF' => $filename,'PATH' => $pdfPath]);
+
         }
     }
     Thong_tin_hop_dong::where('id', $request->input('id'))

@@ -12,5 +12,6 @@ class PDF extends Model
     protected $fillable = [
         'id',
         'PDF',
+        'PATH'
     ];
 }

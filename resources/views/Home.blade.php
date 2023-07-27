@@ -80,6 +80,11 @@
                 <p><strong>Giá thiết bị: </strong> <span id="viewGiathietbi"></span></p>
                 <p><strong>Giá trước thuế: </strong> <span id="viewGiatruocthe"></span></p>
                 <p><strong>Giá sau thuế: </strong> <span id="viewGiasauthe"></span></p>
+                <p><strong>PDF: </strong><span id="pdfLink"></span>
+                </span>
+
+                </p>
+
                 <p><strong>Ghi chú: </strong> <span id="viewGhichu"></span></p>
               </div>
             </div>
@@ -303,7 +308,6 @@
                       <input id="GIA_SAU_THUE" class="input form-control" disabled type="text" name="GIA_SAU_THUE">
                     </div>
                   </div>
-
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Ghi chú: </label>
                     <div class="control">
@@ -428,6 +432,15 @@
     </div>
 
     <script type="module" src="/js/home.js">
+
+    </script>
+    <script>
+        function openPDF() {
+
+            var pdfURL = document.getElementById("pdfLink1").getAttribute("data-pdfurl");
+            console.log(pdfURL);
+            window.open(pdfURL);
+        }
 
     </script>
 </body>
