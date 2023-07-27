@@ -1,4 +1,4 @@
-import { populateServices, populatePackTypes } from "./ajaxHelpers.js";
+import { populateServices, populatePackTypes, populateTime, magoi1, maloai1 } from "./ajaxHelpers.js";
 import {
   getProvinces,
   handleProvinceChange,
@@ -8,12 +8,17 @@ import {
 
 var contractData
 
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'VND',
+  minimumFractionDigits: 0
+})
+
 $(document).ready(function () {
   $.ajax({
     url: "http://127.0.0.1:8000/api/contracts",
     type: "GET",
     success: function (data) {
-      console.log(data)
       if (data) {
         var contracts = data
         $("#contracts").dataTable({
@@ -66,33 +71,33 @@ $("#contracts").on("click", ".btn-detail", function () {
     type: "GET",
     success: function (contract) {
       contractData = contract.data[0]
-      $("#staffInput").append(`<option value=${contractData.NV}>${contractData.NV}</option>`);
-      $("#viewTenKH").text(contract.data[0].TEN_KHACH_HANG || "Không có");
-      $("#viewDiaChi").text(`${contract.data[0].SO_NHA} - ${contract.data[0].XA_PHUONG} - ${contract.data[0].QUAN_HUYEN} - ${contract.data[0].TINH_TP}` || "Không có");
-      $("#viewMasothue").text(contract.data[0].MA_SO_THUE || "Không có");
-      $("#viewBHXH").text(contract.data[0].MBHXH || "Không có");
-      $("#viewNhanvien").text(contract.data[0].NV || "Không có")
-      $("#viewNgaykyhd").text(contract.data[0].NGAY_KY_HD || "Không có")
-      $("#viewMasohd").text(contract.data[0].MA_HOP_DONG || "Không có")
-      $("#viewTrangthaidonhang").text(contract.data[0].TRANG_THAI_DON_HANG || "Không có")
-      $("#viewLoaidonhang").text(contract.data[0].LOAI_DON_HANG || "Không có")
-      $("#viewDichvu").text(contract.data[0].DICH_VU || "Không có")
-      $("#viewGoicuoc").text(contract.data[0].GOI_CUOC || "Không có")
-      $("#viewLoaiGoicuoc").text(contract.data[0].LOAI_GC || "Không có")
-      $("#viewThoigian").text(contract.data[0].THOI_GIAN || "Không có")
-      $("#viewLoaithietbi").text(contract.data[0].LOAI_TB || "Không có")
-      $("#viewGiathietbi").text(contract.data[0].GIA_THIET_BI || "Không có")
-      $("#viewGiatruocthe").text(contract.data[0].GIA_TRUOC_THUE || "Không có")
-      $("#viewVAT").text(contract.data[0].VAT || "Không có")
-      $("#viewGiasauthe").text(contract.data[0].GIA_SAU_THUE || "Không có")
-      $("#viewGhichu").text(contract.data[0].GHI_CHU || "Không có")
-      $("#viewMagiaodich").text(contract.data[0].MA_GD || "Không có")
-      $("#viewMathuebao").text(contract.data[0].MA_THUE_BAO || "Không có")
-      $("#viewUsername").text(contract.data[0].USERNAME || "Không có")
-      $("#viewSoseri").text(contract.data[0].SO_SERI || "Không có")
-      $("#viewSohd").text(contract.data[0].SO_HD || "Không có")
-      $("#viewMatracuuhoadon").text(contract.data[0].MA_TRA_CUU || "Không có")
-      $("#viewNgayxuathoadon").text(contract.data[0].NGAY_XUAT_HOA_DON || "Không có")
+      $("#staffInput").append(`<option value=${contractData?.NV}>${contractData?.NV}</option>`);
+      $("#viewTenKH").text(contract.data[0]?.TEN_KHACH_HANG || "Không có");
+      $("#viewDiaChi").text(`${contract.data[0]?.SO_NHA} - ${contract.data[0]?.XA_PHUONG} - ${contract.data[0]?.QUAN_HUYEN} - ${contract.data[0]?.TINH_TP}` || "Không có");
+      $("#viewMasothue").text(contract.data[0]?.MA_SO_THUE || "Không có");
+      $("#viewBHXH").text(contract.data[0]?.MBHXH || "Không có");
+      $("#viewNhanvien").text(contract.data[0]?.NV || "Không có")
+      $("#viewNgaykyhd").text(contract.data[0]?.NGAY_KY_HD || "Không có")
+      $("#viewMasohd").text(contract.data[0]?.MA_HOP_DONG || "Không có")
+      $("#viewTrangthaidonhang").text(contract.data[0]?.TRANG_THAI_DON_HANG || "Không có")
+      $("#viewLoaidonhang").text(contract.data[0]?.LOAI_DON_HANG || "Không có")
+      $("#viewDichvu").text(contract.data[0]?.DICH_VU || "Không có")
+      $("#viewGoicuoc").text(contract.data[0]?.GOI_CUOC || "Không có")
+      $("#viewLoaigoicuoc").text(contract.data[0]?.LOAI_GOI_CUOC || "Không có")
+      $("#viewThoigian").text(contract.data[0]?.THOI_GIAN || "Không có")
+      $("#viewLoaithietbi").text(contract.data[0]?.LOAI_TB || "Không có")
+      $("#viewSoluong").text(contract.data[0]?.SO_LUONG || "Không có")
+      $("#viewGiathietbi").text(formatter.format(Number(contract.data[0]?.GIA_THIET_BI)) || "Không có")
+      $("#viewGiatruocthe").text(formatter.format(Number(contract.data[0]?.GIA_TRUOC_THUE)) || "Không có")
+      $("#viewGiasauthe").text(formatter.format(Number(contract.data[0]?.GIA_SAU_THUE)) || "Không có")
+      $("#viewGhichu").text(contract.data[0]?.GHI_CHU || "Không có")
+      $("#viewMagiaodich").text(contract.data[0]?.MA_GD || "Không có")
+      $("#viewMathuebao").text(contract.data[0]?.MA_THUE_BAO || "Không có")
+      $("#viewUsername").text(contract.data[0]?.USERNAME || "Không có")
+      $("#viewSoseri").text(contract.data[0]?.SO_SERI || "Không có")
+      $("#viewSohd").text(contract.data[0]?.SO_HD || "Không có")
+      $("#viewMatracuuhoadon").text(contract.data[0]?.MA_TRA_CUU || "Không có")
+      $("#viewNgayxuathoadon").text(contract.data[0]?.NGAY_XUAT_HOA_DON || "Không có")
 
       $("#viewDetailModal").modal("show");
     }
@@ -102,7 +107,6 @@ $("#contracts").on("click", ".btn-detail", function () {
   // handle edit btn
   // Hàm để đổ dữ liệu vào các trường nhập liệu của giao diện
   function populateFields(contractData) {
-    console.log(contractData)
     $("#TenKH").val(contractData.TEN_KHACH_HANG);
     $("#MaThue").val(contractData.MA_SO_THUE);
     $("#MaBHXH").val(contractData.MBHXH);
@@ -114,16 +118,19 @@ $("#contracts").on("click", ".btn-detail", function () {
     $("#serviceInput").val(contractData.DICH_VU);
     $("#packInput").val(contractData.GOI_CUOC);
     $("#timeInput").val(contractData.THOI_GIAN);
-    $("#giathietbi").val(contractData.GIA_THIET_BI);
-    $("#giatruocthue").val(contractData.GIA_TRUOC_THUE);
-    $("#giasauthue").val(contractData.GIA_SAU_THUE);
+    $("#giathietbi").val(formatter.format(Number(contractData.GIA_THIET_BI)));
     $("#ghichu").val(contractData.GHI_CHU);
+    $("#deviceNumberInput").val(contractData.SO_LUONG);
+    $("#SO_NHA").val(contractData.SO_NHA);
+    $("#GIA_TRUOC_THUE").val(formatter.format(Number(contractData.GIA_TRUOC_THUE)));
+    $("#GIA_SAU_THUE").val(formatter.format(Number(contractData.GIA_SAU_THUE)));
   }
-
 
 
   // Sự kiện khi click vào nút #btnEdit
   $("#btnEdit").on("click", function () {
+    console.log(contractData)
+
     // Lấy danh sách TỈNH/THÀNH PHỐ và đổ vào dropdown #provinceInput
     getProvinces(contractData.TINH_TP, contractData.QUAN_HUYEN, contractData.XA_PHUONG);
     // Xử lý sự kiện thay đổi TỈNH/THÀNH PHỐ
@@ -137,16 +144,14 @@ $("#contracts").on("click", ".btn-detail", function () {
 
     populateFields(contractData);
 
-    populateServices(contractData.DICH_VU, contractData.GOI_CUOC, contractData.LOAI_GC);
-    console.log(contractData.LOAI_GC)
-    populatePackTypes(contractData.GOI_CUOC, contractData.LOAI_GC)
+    populateServices(contractData.DICH_VU, contractData.GOI_CUOC, contractData.LOAI_GOI_CUOC, false, contractData.THOI_GIAN);
+
     $("#editModal").modal("show");
   });
 
   // nút cập nhật đơn hàng
   $("#btnUpdateOrder").on("click", function () {
     var contract = $("#contracts").DataTable().row($("#contracts tr.selected")).data();
-    console.log(contract)
     $("#updateModal").modal("show");
   })
 
