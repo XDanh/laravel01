@@ -124,37 +124,38 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <h2>Thông tin khách hàng</h2>
-
-            <div class="d-flex justify-content-between flex-column ">
+            <form action="{{ route('contracts.store') }}" method="POST" id="idForm">
+              @csrf
+              <h3>Thông tin khách hàng</h3>
 
               <div class="d-flex justify-content-between flex-column flex-md-row">
                 <div class="inputBox p-3">
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Tên khách hàng: </label>
                     <div class="control">
-                      <input id="TenKH" class="input form-control" type="text" placeholder="Nhập tên khách hàng" name="TenKH">
+                      <input class="input form-control" id="TEN_KHACH_HANG" type="text" placeholder="Nhập tên khách hàng" name="TEN_KHACH_HANG">
                     </div>
                   </div>
 
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Mã thuế: </label>
                     <div class="control">
-                      <input id="MaThue" class="input form-control" type="text" placeholder="Nhập mã thuế" name="MaThue">
+                      <input class="input form-control" id="MA_SO_THUE" type="text" placeholder="Nhập mã thuế" name="MA_SO_THUE">
                     </div>
+                    <!-- <p class="help is-danger">{{ $errors->first('MA_SO_THUE') }}</p> -->
                   </div>
 
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Mã BHXH: </label>
                     <div class="control">
-                      <input id="MaBHXH" class="input form-control" type="text" placeholder="Nhập mã BHXH" name="MaBHXH">
+                      <input class="input form-control" id="MBHXH" type="text" placeholder="Nhập mã BHXH" name="MBHXH">
                     </div>
                   </div>
 
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Số nhà: </label>
                     <div class="control">
-                      <input class="input form-control" type="text" placeholder="e.g. 123" id="SO_NHA" name="SO_NHA">
+                      <input class="input form-control" id="SO_NHA" type="text" placeholder="e.g. 123" name="SO_NHA">
                     </div>
                   </div>
                 </div>
@@ -164,7 +165,7 @@
                     <label class="label me-2">Tỉnh/ Thành phố: </label>
                     <div class="control">
                       <select id="provinceInput" class="form-control">
-                        <option value="">---Chọn Tỉnh/ Thành phố---</option>
+                        <option value="">----Chọn Tỉnh/ Thành phố----</option>
                       </select>
                     </div>
                   </div>
@@ -173,8 +174,7 @@
                     <label class="label me-2">Quận/ Huyện: </label>
                     <div class="control">
                       <select id="districtInput" class="form-control">
-                        <option value="">---Chọn Quận/ Huyện---</option>
-
+                        <option value="">----Chọn Quận/ Huyện----</option>
                       </select>
                     </div>
                   </div>
@@ -183,8 +183,7 @@
                     <label class="label me-2">Phường/ Xã: </label>
                     <div class="control">
                       <select id="wardInput" class="form-control">
-                        <option value="">---Chọn Phường/ Xã---</option>
-
+                        <option value="">----Chọn Phường/ Xã----</option>
                       </select>
                     </div>
                   </div>
@@ -193,38 +192,29 @@
                 </div>
               </div>
 
-              <h2>Thông tin hợp đồng</h2>
+              <h3>Thông tin hợp đồng</h3>
 
               <div class="d-flex justify-content-between flex-column flex-md-row">
                 <div class="inputBox p-3">
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Nhân viên lập hợp đồng: </label>
                     <div class="control">
-                      <select id="staffInput" class="form-control">
-
+                      <select id="staffInput" class="form-control" name="NV">
+                        <option value="">----Chọn nhân viên----</option>
                       </select>
                     </div>
                   </div>
-
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Ngày ký hợp đồng: </label>
                     <div class="control">
-                      <input id="ngaykyhd" class="input form-control" type="date" name="ngaykyhd">
+                      <input class="input form-control" type="date" name="NGAY_KY_HD" id="NGAY_KY_HD">
                     </div>
                   </div>
-
-                  <div class="field mb-3 align-items-center justify-content-between d-flex">
-                    <label class="label me-2">Mã số hợp đồng: </label>
-                    <div class="control">
-                      <input id="mahd" class="input form-control" type="text" placeholder="13HD" name="mahd">
-                    </div>
-                  </div>
-
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Trạng thái đơn hàng: </label>
                     <div class="control">
-                      <select id="orderStatusInput" class="form-control" name="trangthaidonhang">
-                        <option value="">---Chọn trạng thái đơn hàng---</option>
+                      <select id="orderStatusInput" class="form-control" name="TRANG_THAI_DON_HANG">
+                        <option value="">----Chọn trạng thái đơn hàng----</option>
                         <option value="Chưa duyệt">Chưa duyệt</option>
                         <option value="Đã duyệt">Đã duyệt</option>
                         <option value="Từ chối">Từ chối</option>
@@ -235,7 +225,8 @@
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Loại đơn hàng: </label>
                     <div class="control">
-                      <select id="orderTypeInput" class="form-control" name="loaidonhang">
+                      <select id="orderTypeInput" class="form-control" name="LOAI_DON_HANG">
+                        <option value="">----Chọn loại đơn hàng----</option>
                         <option value="L1">Loại 1</option>
                         <option value="L2">Loại 2</option>
                         <option value="L3">Loại 3</option>
@@ -247,6 +238,7 @@
                     <label class="label me-2">Dịch vụ: </label>
                     <div class="control">
                       <select id="serviceInput" class="form-control">
+                        <option value="">----Chọn dịch vụ----</option>
 
                       </select>
                     </div>
@@ -256,6 +248,7 @@
                     <label class="label me-2">Gói cước: </label>
                     <div class="control">
                       <select id="packInput" class="form-control">
+                        <option value="">----Chọn gói cước----</option>
 
                       </select>
                     </div>
@@ -264,18 +257,20 @@
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Loại gói cước: </label>
                     <div class="control">
-                      <select id="packTypeInput" class="form-control" name="packTypeInput">
+                      <select id="packTypeInput" class="form-control">
+                        <option value="">----Chọn gói cước----</option>
 
                       </select>
                     </div>
                   </div>
                 </div>
-
                 <div class="inputBox p-3">
+
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Thời gian (tháng): </label>
                     <div class="control">
                       <select id="timeInput" class="form-control">
+                        <option value="">----Chọn thời gian----</option>
 
                       </select>
                     </div>
@@ -284,14 +279,23 @@
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Số lượng thiết bị: </label>
                     <div class="control">
-                      <input type="number" min=0 placeholder="Nhập số lượng thiết bị" id="deviceNumberInput" class="form-control">
+                      <input type="number" id="SO_LUONG" name="SO_LUONG" min=0 placeholder="Nhập số lượng thiết bị" class="form-control">
                     </div>
                   </div>
 
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Giá thiết bị: </label>
                     <div class="control">
-                      <input id="giathietbi" class="input form-control" disabled type="text" name="giathietbi">
+                      <input id="GIA_TB" class="input form-control" disabled type="text" name="GIA_THIET_BI">
+                    </div>
+                  </div>
+                  <div class="field mb-3 align-items-center justify-content-between d-flex">
+                    <label class="label me-2"></label>
+                    <div class="control">
+                      <div class="total-cost-device">
+                        <span>Total: </span>
+                        <span id="Sum"></span>
+                      </div>
                     </div>
                   </div>
 
@@ -311,16 +315,16 @@
                   <div class="field mb-3 align-items-center justify-content-between d-flex">
                     <label class="label me-2">Ghi chú: </label>
                     <div class="control">
-                      <input id="ghichu" class="input form-control" type="text" name="ghichu">
+                      <input class="input form-control" type="text" id="GHI_CHU" name="GHI_CHU">
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-              <button type="button" class="btn btn-primary" id="btnSaveChanges">Lưu thay đổi</button>
-            </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn btn-primary" id="btnSaveChange">Lưu thay đổi</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -355,76 +359,76 @@
           </div>
           <div class="modal-body">
             <form action="/api/upload" id="idForm" enctype="multipart/form-data" method="POST">
-                @csrf
-                <div class="d-flex justify-content-between flex-column ">
+              @csrf
+              <div class="d-flex justify-content-between flex-column ">
 
-                    <div class="d-flex justify-content-between flex-column flex-md-row">
-                      <div class="inputBox p-3">
-                        <div class="field mb-3 align-items-center justify-content-between d-flex">
-                          <label class="label me-2">Mã giao dịch: </label>
-                          <div class="control">
-                            <input id="magd" class="input form-control" type="text" placeholder="Nhập mã giao dịch" name="MA_GD">
-                          </div>
-                        </div>
-
-                        <div class="field mb-3 align-items-center justify-content-between d-flex">
-                          <label class="label me-2">Mã thuê bao: </label>
-                          <div class="control">
-                            <input id="mathuebao" class="input form-control" type="text" placeholder="Nhập mã thuê bao" name="MA_THUE_BAO">
-                          </div>
-                        </div>
-
-                        <div class="field mb-3 align-items-center justify-content-between d-flex">
-                          <label class="label me-2">Username: </label>
-                          <div class="control">
-                            <input id="username" class="input form-control" type="text" placeholder="Nhập username" name="USERNAME">
-                          </div>
-                        </div>
-
-                        <div class="field mb-3 align-items-center justify-content-between d-flex">
-                          <label class="label me-2">Số seri: </label>
-                          <div class="control">
-                            <input id="seri" class="input form-control" type="text" placeholder="Nhập số seri" name="SO_SERI">
-                          </div>
-                        </div>
-
-                        <div class="field mb-3 align-items-center justify-content-between d-flex">
-                          <label class="label me-2">Số hoa đơn: </label>
-                          <div class="control">
-                            <input id="sohd" class="input form-control" type="text" placeholder="Nhập số hóa đơn" name="SO_HD">
-                            <p>Nếu nhập nhiều số hoá đơn ngăn cách bằng dấu ;</p>
-                          </div>
-                        </div>
+                <div class="d-flex justify-content-between flex-column flex-md-row">
+                  <div class="inputBox p-3">
+                    <div class="field mb-3 align-items-center justify-content-between d-flex">
+                      <label class="label me-2">Mã giao dịch: </label>
+                      <div class="control">
+                        <input id="magd" class="input form-control" type="text" placeholder="Nhập mã giao dịch" name="MA_GD">
                       </div>
+                    </div>
 
-                      <div class="inputBox p-3">
-                        <div class="field mb-3 align-items-center justify-content-between d-flex">
-                          <label class="label me-2">Mã tra cứu hóa đơn: </label>
-                          <div class="control">
-                            <input id="matracuuhd" class="input form-control" type="text" placeholder="Nhập mã tra cứu hóa đơn" name="MA_TRA_CUU">
-                          </div>
-                        </div>
+                    <div class="field mb-3 align-items-center justify-content-between d-flex">
+                      <label class="label me-2">Mã thuê bao: </label>
+                      <div class="control">
+                        <input id="mathuebao" class="input form-control" type="text" placeholder="Nhập mã thuê bao" name="MA_THUE_BAO">
+                      </div>
+                    </div>
 
-                        <div class="field mb-3 align-items-center justify-content-between d-flex">
-                          <label class="label me-2">Ngày xuất hóa đơn: </label>
-                          <div class="control">
-                            <input id="ngayxuathd" class="input form-control" type="text" placeholder="Nhập ngày xuất hóa đơn" name="NGAY_XUAT_HOA_DON">
-                          </div>
-                        </div>
+                    <div class="field mb-3 align-items-center justify-content-between d-flex">
+                      <label class="label me-2">Username: </label>
+                      <div class="control">
+                        <input id="username" class="input form-control" type="text" placeholder="Nhập username" name="USERNAME">
+                      </div>
+                    </div>
 
-                        <div class="field mb-3 align-items-center justify-content-between d-flex">
-                          <label class="label me-2">Upload file: </label>
-                          <div class="control">
-                            <input type="file" name="pdf[]" multiple class="input form-control">
-                          </div>
-                        </div>
+                    <div class="field mb-3 align-items-center justify-content-between d-flex">
+                      <label class="label me-2">Số seri: </label>
+                      <div class="control">
+                        <input id="seri" class="input form-control" type="text" placeholder="Nhập số seri" name="SO_SERI">
+                      </div>
+                    </div>
+
+                    <div class="field mb-3 align-items-center justify-content-between d-flex">
+                      <label class="label me-2">Số hoa đơn: </label>
+                      <div class="control">
+                        <input id="sohd" class="input form-control" type="text" placeholder="Nhập số hóa đơn" name="SO_HD">
+                        <p>Nếu nhập nhiều số hoá đơn ngăn cách bằng dấu ;</p>
                       </div>
                     </div>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-primary" id="btnSaveChanges">Cập nhật</button>
+
+                  <div class="inputBox p-3">
+                    <div class="field mb-3 align-items-center justify-content-between d-flex">
+                      <label class="label me-2">Mã tra cứu hóa đơn: </label>
+                      <div class="control">
+                        <input id="matracuuhd" class="input form-control" type="text" placeholder="Nhập mã tra cứu hóa đơn" name="MA_TRA_CUU">
+                      </div>
+                    </div>
+
+                    <div class="field mb-3 align-items-center justify-content-between d-flex">
+                      <label class="label me-2">Ngày xuất hóa đơn: </label>
+                      <div class="control">
+                        <input id="ngayxuathd" class="input form-control" type="text" placeholder="Nhập ngày xuất hóa đơn" name="NGAY_XUAT_HOA_DON">
+                      </div>
+                    </div>
+
+                    <div class="field mb-3 align-items-center justify-content-between d-flex">
+                      <label class="label me-2">Upload file: </label>
+                      <div class="control">
+                        <input type="file" name="pdf[]" multiple class="input form-control">
+                      </div>
+                    </div>
                   </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn btn-primary" id="btnSaveChanges">Cập nhật</button>
+              </div>
             </form>
           </div>
         </div>

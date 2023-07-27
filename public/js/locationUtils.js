@@ -18,6 +18,7 @@ export function getProvinces(selectedProvince, selectedDistrict, selectedWard) {
       $.each(data, function (index, value) {
         if (value.name === selectedProvince) {
           provinceCode = value.code
+          provinceSelected = value
         }
         const option = `<option value="${value.code}" ${value.name === selectedProvince ? 'selected' : ''}>${value.name}</option>`;
         $("#provinceInput").prepend(option);
@@ -39,6 +40,7 @@ export function getProvinces(selectedProvince, selectedDistrict, selectedWard) {
 
               if (district.name === selectedDistrict && district.province_code === provinceCode) {
                 districtCode = district.code
+                districtSelected = district
               }
               $("#districtInput").append(`<option value="${district.code}" ${district.name === selectedDistrict ? 'selected' : ''}>${district.name} </option>`);
             });
@@ -57,7 +59,10 @@ export function getProvinces(selectedProvince, selectedDistrict, selectedWard) {
                   if (ward.name === selectedDistrict && ward.district_code === districtCode) {
                     districtCode = ward.code
                   }
-                  $("#wardInput").append(`<option value="${ward.code}" ${ward.name === selectedDistrict ? 'selected' : ''}>${ward.name} </option>`);
+                  if (ward.name === selectedWard) {
+                    wardSelected = ward
+                  }
+                  $("#wardInput").append(`<option value="${ward.code}" ${ward.name === selectedWard ? 'selected' : ''}>${ward.name} </option>`);
                 });
               }
             }
