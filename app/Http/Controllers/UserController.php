@@ -42,31 +42,30 @@ class UserController extends Controller
                /* return response()->json($request->all()); */
 
         $validator = Validator::make($request->all(), [
-            /* 'TEN_KHACH_HANG' => 'required',
-            'DIA_CHI' => 'required',
+            'TEN_KHACH_HANG' => 'required',
             'MA_SO_THUE' => 'required|max:13',
-            'MBHXH' => 'max:13',yarn
+            'MBHXH' => 'required|max:13',
             'NV' => 'required',
+            'TINH_TP' => 'required',
+            'QUAN_HUYEN' => 'required',
+            'XA_PHUONG' => 'required',
+            'SO_NHA' => 'required',
             'NGAY_KY_HD' => 'required',
+            'LOAI_TB' => 'required',
             'MA_HOP_DONG' => 'required',
             'TRANG_THAI_DON_HANG' => 'required',
             'LOAI_DON_HANG' => 'required',
+            'LOAI_GOI_CUOC' => 'required',
             'DICH_VU' => 'required',
             'GOI_CUOC' => 'required',
             'THOI_GIAN' => 'required',
-            'LOAI_TB' => 'required',
+            'SO_LUONG' => 'required',
             'GIA_THIET_BI' => 'required',
             'GIA_TRUOC_THUE' => 'required',
-            'VAT' => 'required',
             'GIA_SAU_THUE' => 'required',
             'GHI_CHU' => 'required',
-            'MA_GD' => 'required',
-            'MA_THUE_BAO' => 'required',
-            'USERNAME' => 'required',
-            'SO_SERI' => 'required',
-            'SO_HD' => 'required',
-            'MA_TRA_CUU' => 'required',
-            'NGAY_XUAT_HOA_DON' => 'required', */]);
+            'PDF' => 'required'
+        ]);
             $temp = new ResourceUser(count::all());
 
         $number = $temp[0]['count_number'];

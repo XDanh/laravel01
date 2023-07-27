@@ -41,11 +41,10 @@ $("#idForm").on("submit", function(e) {
 
     e.preventDefault(); // Avoid submitting the form in the traditional way.
 
-  var form = $(this);
-  var actionUrl = form.attr('action');
+    var form = $(this);
+    var actionUrl = form.attr('action');
 
-    var formData = form.serialize(); // Serialize the form data.
-    // Add additional data to the formData object.
+    var formData = form.serialize();
     formData += "&TINH_TP=" + provinceSelected.name;
     formData += "&QUAN_HUYEN=" + districtSelected.name;
     formData += "&XA_PHUONG=" + wardSelected.name;
@@ -57,7 +56,6 @@ $("#idForm").on("submit", function(e) {
     formData += "&LOAI_TB=" + loaitb;
     formData += "&THOI_GIAN=" + thoigian;
     formData += "&GIA_TRUOC_THUE=" + giatruoc;
-
     $.ajax({
       type: "POST",
       url: actionUrl,
