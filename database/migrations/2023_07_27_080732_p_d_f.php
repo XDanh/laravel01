@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pdf',function(Blueprint $table){
             $table->foreignId('id');
             $table->string('PDF');
+            $table->string('PATH');
             $table->timestamps();
 
         });

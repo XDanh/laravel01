@@ -95,13 +95,14 @@ Route::post('/upload', function (Request $request) {
             $filename = $splitStrings[$i] . '.' . $ext;
             $pdfPath = public_path('pdf') . '/' . $filename;
             $file->move(public_path('pdf'), $filename);
-            $pdfPaths[] = $pdfPath;
+/*             return response()->json($pdfPaths);
+ */
             /* return response()->json([
                     $request->input('id'),
                     $filename,
                     $pdfPath
                 ]); */
-            PDF::create(['id' => $request->input('id'), 'PDF' => $filename]);
+            PDF::create(['id' => $request->input('id'), 'PDF' => $filename,'PATH'=>$pdfPath]);
         }
     }
     Thong_tin_hop_dong::where('id', $request->input('id'))
@@ -113,7 +114,6 @@ Route::post('/upload', function (Request $request) {
             'SO_HD' => $request->input('SO_HD'),
             'MA_TRA_CUU' => $request->input('MA_TRA_CUU'),
             'NGAY_XUAT_HOA_DON' => $request->input('NGAY_XUAT_HOA_DON'),
-            'PDF' => $request->input('NGAY_XUAT_HOA_DON'),
         ]);
 
     return response()->json(['oke' => 'oke', 'status' => '200']);
