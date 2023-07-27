@@ -55,38 +55,7 @@ Route::get('/contract', function (Request $request) {
 Route::get('nhanvien', function () {
     return new ResourceUser(Nhanvien::all());
 });
-Route::get('mahopdong',function(){
 
-    $temp = new ResourceUser(count::all());
-
-    $number = $temp[0]['count_number'];
-
-    $currentTime = date('Y-m-d');
-
-    $dateDB = $temp[0]['date'];
-
-/*     return response()->json([$currentTime,$dateDB]);
- */
-    if ($currentTime !== $dateDB) {
-
-        $number = 1;
-        $formattedValue = str_pad($number, 3, '0', STR_PAD_LEFT);
-
-        $name = date("ymd").$formattedValue;
-        DB::table('count')
-        ->update(['count_number' =>  $number,'date' => $currentTime]);
-
-    }else{
-        $number = $temp[0]['count_number']+1;
-        $formattedValue = str_pad($number, 3, '0', STR_PAD_LEFT);
-
-        $name = date("ymd").$formattedValue;
-        DB::table('count')
-            ->update(['count_number' =>  $number]);
-    }
-
-    return response()->json($name);
-});
 Route::post('upload', function (Request $request) {
     if ($request->hasFile('pdf')) {
         foreach ($request->file('pdf') as $file) {

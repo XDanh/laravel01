@@ -3,7 +3,10 @@ export let dichvu = ""
 export let goicuoc = ""
 export let loaigoi = ""
 export let total = 0
-
+export let giathietbi = 0
+export let thoigian = ""
+export let loaitb = ""
+export let giatruoc = 0
 //DICH VU
 function populateServices(selectedDichVu, selectedGoiCuoc, loaigoi) {
   $.ajax({
@@ -23,7 +26,6 @@ function populateServices(selectedDichVu, selectedGoiCuoc, loaigoi) {
         for (let i = 0; i < data.data.length; i++) {
           if (data.data[i].MaDV == $("#serviceInput").val()) {
             dichvu = data.data[i].DICH_VU
-            console.log(data.data[i].DICH_VU);
           }
         }
         populatePacks($("#serviceInput").val(), selectedGoiCuoc, loaigoi)
@@ -59,7 +61,6 @@ function populatePacks(selectedDichVu, contractDataGoiCuoc, loaigoi = "") {
           for (let i = 0; i < data.data.length; i++) {
             if (data.data[i].MaGC == $("#packInput").val()) {
               goicuoc = data.data[i].GOI_CUOC
-              console.log(data.data[i].GOI_CUOC);
             }
           }
           populatePackTypes("", e.target.value)
@@ -125,7 +126,6 @@ function populateTime(MaLoai, MaGC, selectedTime) {
       } else {
         $("#timeInput").empty();
       }
-      var AffterPrice = $("#GIA_SAU_THUE").val();
 
       $("#timeInput").on("change", function (e) {
         const selectedTime = $("#timeInput").val();
@@ -133,6 +133,8 @@ function populateTime(MaLoai, MaGC, selectedTime) {
         temp = selectedData?.GIA_TRUOC_THUE || 0
         $("#GIA_TRUOC_THUE").val(selectedData ? formatter.format(selectedData?.GIA_TRUOC_THUE) : "");
         device(MaLoai, MaGC, e.target.value)
+        thoigian = selectedData?.THOI_HAN
+        giatr = selectedData?.GIA_TRUOC_THUE
       });
     }
   })
@@ -143,13 +145,15 @@ function device(MaLoai, MaGC, MaTH) {
     url: `http://127.0.0.1:8000/api/thietbi?MaGC=${MaGC}&MaLoai=${MaLoai}&MaTH=${MaTH}`,
     type: "GET",
     success: function (data) {
-      console.log(data)
+      loaitb = data.data[0]?.THIET_BI
       if (data.data[0]?.THIET_BI.toString().toLowerCase().trim() !== "mua") {
         $('#SO_LUONG').attr("disabled", "disabled");
         $('#SO_LUONG').val(0);
         total = Number(temp) + Number(temp) / 10
         $('#GIA_SAU_THUE').val(formatter.format(total))
         $('#Sum').text(formatter.format(0))
+        giathietbi = 0
+
 
       } else {
         $('#SO_LUONG').removeAttr("disabled");
@@ -158,6 +162,7 @@ function device(MaLoai, MaGC, MaTH) {
         $('#Sum').text(formatter.format(Number(data.data[0]?.GIA_TB)))
         total = (giatb + Number(temp)) + (giatb + Number(temp)) / 10
         $('#GIA_SAU_THUE').val(formatter.format(total))
+        giathietbi = giatb
 
       }
       if (Number(data.data[0]?.GIA_TB)) {
@@ -173,7 +178,7 @@ function device(MaLoai, MaGC, MaTH) {
         var sum_price = Number(DevicePrice) + Number(temp)
         total = sum_price + sum_price / 10
         $('#GIA_SAU_THUE').val(formatter.format(total))
-        console.log(total)
+        giathietbi = DevicePrice
       })
     }
   })

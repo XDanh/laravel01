@@ -39,8 +39,8 @@ class UserController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        /*        return response()->json($request->all());
- */
+               /* return response()->json($request->all()); */
+
         $validator = Validator::make($request->all(), [
             /* 'TEN_KHACH_HANG' => 'required',
             'DIA_CHI' => 'required',
@@ -67,6 +67,34 @@ class UserController extends Controller
             'SO_HD' => 'required',
             'MA_TRA_CUU' => 'required',
             'NGAY_XUAT_HOA_DON' => 'required', */]);
+            $temp = new ResourceUser(count::all());
+
+        $number = $temp[0]['count_number'];
+
+        $currentTime = date('Y-m-d');
+
+        $dateDB = $temp[0]['date'];
+
+    /*     return response()->json([$currentTime,$dateDB]);
+    */
+        if ($currentTime !== $dateDB) {
+
+        $number = 1;
+        $formattedValue = str_pad($number, 3, '0', STR_PAD_LEFT);
+
+        $name = date("ymd").$formattedValue;
+        DB::table('count')
+        ->update(['count_number' =>  $number,'date' => $currentTime]);
+
+    }else{
+        $number = $temp[0]['count_number']+1;
+        $formattedValue = str_pad($number, 3, '0', STR_PAD_LEFT);
+
+        $name = date("ymd").$formattedValue;
+        DB::table('count')
+            ->update(['count_number' =>  $number]);
+    }
+        $request->merge(['MA_HOP_DONG' => $name]);
         thong_tin_hop_dong::create($request->all());
 
 

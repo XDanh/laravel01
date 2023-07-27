@@ -19,6 +19,7 @@ class Thong_tin_hop_dong extends Model
         'XA_PHUONG',
         'SO_NHA',
         'NGAY_KY_HD',
+        'LOAI_TB',
         'MA_HOP_DONG',
         'TRANG_THAI_DON_HANG',
         'LOAI_DON_HANG',

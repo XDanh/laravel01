@@ -97,7 +97,12 @@
                             </select>
                         </div>
                     </div>
-
+                    <div class="field mb-3 align-items-center justify-content-between d-flex">
+                        <label class="label me-2">Ngày ký hợp đồng: </label>
+                        <div class="control">
+                            <input class="input form-control" type="date" name="NGAY_KY_HD" id="NGAY_KY_HD">
+                        </div>
+                    </div>
                     <div class="field mb-3 align-items-center justify-content-between d-flex">
                         <label class="label me-2">Trạng thái đơn hàng: </label>
                         <div class="control">

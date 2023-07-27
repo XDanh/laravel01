@@ -1,18 +1,23 @@
 import {
-  getProvinces,
-  handleProvinceChange,
-  handleDistrictChange,
-  handleWardChange,
-  provinceSelected,
-  districtSelected,
-  wardSelected,
+    getProvinces,
+    handleProvinceChange,
+    handleDistrictChange,
+    handleWardChange,
+    provinceSelected,
+    districtSelected,
+    wardSelected,
 
 } from "/js/locationUtils.js";
 import {
-  populateServices,
-  dichvu,
-  goicuoc,
-  loaigoi,
+    populateServices,
+    dichvu,
+    goicuoc,
+    loaigoi,
+    total,
+    giathietbi,
+    thoigian,
+    loaitb,
+    giatruoc,
 } from "./ajaxHelpers.js";
 let mahopdong = ""
 
@@ -40,13 +45,6 @@ $("#idForm").on("submit", function(e) {
   var actionUrl = form.attr('action');
 
     var formData = form.serialize(); // Serialize the form data.
-    $.ajax({
-        url:`http://127.0.0.1:8000/api/mahopdong`,
-        type:'GET',
-        success:function(data){
-            mahopdong = data
-        }
-    })
     // Add additional data to the formData object.
     formData += "&TINH_TP=" + provinceSelected.name;
     formData += "&QUAN_HUYEN=" + districtSelected.name;
@@ -54,7 +52,12 @@ $("#idForm").on("submit", function(e) {
     formData += "&DICH_VU=" + dichvu;
     formData += "&GOI_CUOC=" + goicuoc;
     formData += "&LOAI_GOI_CUOC=" + loaigoi;
-    formData += "&MA_HOP_DONG=" + mahopdong;
+    formData += "&GIA_SAU_THUE=" + total;
+    formData += "&GIA_THIET_BI=" + giathietbi;
+    formData += "&LOAI_TB=" + loaitb;
+    formData += "&THOI_GIAN=" + thoigian;
+    formData += "&GIA_TRUOC_THUE=" + giatruoc;
+
     $.ajax({
       type: "POST",
       url: actionUrl,
@@ -71,8 +74,7 @@ $("#idForm").on("submit", function(e) {
         console.error("Error occurred:", error);
       }
     },
-    error: function (error) {
-      console.error("Error occurred:", error);
-    }
-  });
-});
+    )
+})
+
+
