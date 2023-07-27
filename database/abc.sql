@@ -16,10 +16,10 @@
 /*!40000 ALTER TABLE `chitiet` DISABLE KEYS */;
 /*!40000 ALTER TABLE `chitiet` ENABLE KEYS */;
 
--- Dumping data for table laravel.count: ~0 rows (approximately)
+-- Dumping data for table laravel.count: ~1 rows (approximately)
 /*!40000 ALTER TABLE `count` DISABLE KEYS */;
-INSERT INTO `count` (`count_number`) VALUES
-	(18);
+INSERT INTO `count` (`count_number`, `date`) VALUES
+	(33, '2023-07-27');
 /*!40000 ALTER TABLE `count` ENABLE KEYS */;
 
 -- Dumping data for table laravel.dichvu: ~4 rows (approximately)
@@ -73,7 +73,7 @@ INSERT INTO `loaitb` (`THIET_BI`, `GIA_TB`, `MaGC`, `MaLoai`, `MaTH`, `created_a
 	('Mua', 165000, 2, 3, 6, NULL, NULL);
 /*!40000 ALTER TABLE `loaitb` ENABLE KEYS */;
 
--- Dumping data for table laravel.migrations: ~13 rows (approximately)
+-- Dumping data for table laravel.migrations: ~14 rows (approximately)
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(1, '2014_10_12_000000_create_users_table', 1),
@@ -88,14 +88,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(10, '2023_07_21_045042_form2', 1),
 	(11, '2023_07_21_080023_thoihan', 1),
 	(12, '2023_07_21_082357_loaigoi', 1),
-	(13, '2023_07_22_032956_nhanvien', 1);
+	(13, '2023_07_22_032956_nhanvien', 1),
+	(14, '2023_07_22_065742_count', 1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
--- Dumping data for table laravel.nhanvien: ~2 rows (approximately)
+-- Dumping data for table laravel.nhanvien: ~0 rows (approximately)
 /*!40000 ALTER TABLE `nhanvien` DISABLE KEYS */;
-INSERT INTO `nhanvien` (`MaNV`, `TEN_NV`) VALUES
-	(1, 'Danh'),
-	(2, 'Vu');
 /*!40000 ALTER TABLE `nhanvien` ENABLE KEYS */;
 
 -- Dumping data for table laravel.password_reset_tokens: ~0 rows (approximately)
@@ -117,10 +115,10 @@ INSERT INTO `thoihan` (`MaTH`, `MaLoai`, `MaGC`, `THOI_HAN`, `GIA_TRUOC_THUE`) V
 	(6, 2, 1, 36, '45244542');
 /*!40000 ALTER TABLE `thoihan` ENABLE KEYS */;
 
--- Dumping data for table laravel.thong_tin_hop_dong: ~0 rows (approximately)
+-- Dumping data for table laravel.thong_tin_hop_dong: ~13 rows (approximately)
 /*!40000 ALTER TABLE `thong_tin_hop_dong` DISABLE KEYS */;
-INSERT INTO `thong_tin_hop_dong` (`id`, `TEN_KHACH_HANG`, `DIA_CHI`, `MA_SO_THUE`, `MBHXH`, `NV`, `NGAY_KY_HD`, `MA_HOP_DONG`, `TRANG_THAI_DON_HANG`, `LOAI_DON_HANG`, `DICH_VU`, `GOI_CUOC`, `THOI_GIAN`, `LOAI_TB`, `GIA_THIET_BI`, `GIA_TRUOC_THUE`, `VAT`, `GIA_SAU_THUE`, `GHI_CHU`, `MA_GD`, `MA_THUE_BAO`, `USERNAME`, `SO_SERI`, `SO_HD`, `MA_TRA_CUU`, `NGAY_XUAT_HOA_DON`) VALUES
-	(1, '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1');
+INSERT INTO `thong_tin_hop_dong` (`id`, `TEN_KHACH_HANG`, `TINH_TP`, `QUAN_HUYEN`, `XA_PHUONG`, `SO_NHA`, `MA_SO_THUE`, `MBHXH`, `NV`, `NGAY_KY_HD`, `MA_HOP_DONG`, `TRANG_THAI_DON_HANG`, `LOAI_DON_HANG`, `DICH_VU`, `GOI_CUOC`, `THOI_GIAN`, `LOAI_TB`, `GIA_THIET_BI`, `GIA_TRUOC_THUE`, `GIA_SAU_THUE`, `GHI_CHU`, `MA_GD`, `MA_THUE_BAO`, `USERNAME`, `SO_SERI`, `SO_HD`, `MA_TRA_CUU`, `NGAY_XUAT_HOA_DON`, `SO_LUONG`, `created_at`, `updated_at`, `LOAI_GOI_CUOC`) VALUES
+	(27, 'Nguyễn Xuân Danh', 'Tỉnh Hải Dương', 'Thành phố Hải Dương', 'Phường Bình Hàn', '21', '123456', '654321', NULL, '2023-07-27', '230727033', 'Chưa duyệt', 'L1', 'VNPT CA', 'OID Standard', '12', 'Mua', '550000', '1157273', '1878000.3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2023-07-27 06:24:23', '2023-07-27 06:24:23', 'Tao Moi');
 /*!40000 ALTER TABLE `thong_tin_hop_dong` ENABLE KEYS */;
 
 -- Dumping data for table laravel.thong_tin_khach_hang: ~0 rows (approximately)
