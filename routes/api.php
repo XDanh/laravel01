@@ -14,6 +14,7 @@ use App\Models\thoihan;
 use App\Models\Thong_tin_hop_dong;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,7 +69,17 @@ Route::get('nhanvien', function () {
 
 Route::post('/upload', function (Request $request) {
 
-    return response()->json($request->input('NGAY_XUAT_HOA_DON'));
+/*     return response()->json($request->all());
+ */
+    $id = $request->input('id');
+
+    $oldPdfs = PDF::where('id', $id)->get();
+    foreach ($oldPdfs as $oldPdf) {
+        if (file_exists($oldPdf->PATH)) {
+            unlink($oldPdf->PATH);
+        }
+        $oldPdf->delete();
+    }
 
     $files = $request->file('pdf');
     $count = count($files);

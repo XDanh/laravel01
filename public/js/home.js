@@ -113,13 +113,27 @@ $("#contracts").on("click", ".btn-detail", function () {
       $("#viewMatracuuhoadon").text(contract.data.thongtinhopdong[0]?.MA_TRA_CUU || "Không có")
       $("#viewNgayxuathoadon").text(contract.data.thongtinhopdong[0]?.NGAY_XUAT_HOA_DON || "Không có")
       contract.data.PDF.forEach(item => {
-        $("#pdfLink").append(`<a href="http://127.0.0.1:8000/api/pdf/${item.PDF}" id="pdfLink1"   onclick="openPDF()" target="_blank">PDF File</a>`);
+        $("#pdfLink").append(`<a class="me-2" href="http://127.0.0.1:8000/api/pdf/${item.PDF}" target="_blank">PDF File</a>`);
       })
       $("#viewDetailModal").modal("show");
 
     }
   })
+  $('#btnConfirmDelete').on('click',function(e){
+    e.preventDefault();
 
+    $.ajax({
+        url:`http://127.0.0.1:8000/api/contracts/${contractData.id}`,
+        type:'DELETE',
+        success:function(data){
+            toastr.success("Xóa thành công");
+            setTimeout(function() {
+                location.reload();
+              }, 500);
+            console.log(data);
+        }
+    })
+})
 
   // handle edit btn
   function populateFields(contractData) {
@@ -190,8 +204,10 @@ $("#contracts").on("click", ".btn-detail", function () {
       success: function (response) {
         if (response.mess == "oke") {
           toastr.success("Chỉnh sửa thành công");
-          $("#editModal").modal("hide");
-          $("#viewDetailModal").modal("hide");
+          setTimeout(function() {
+            location.reload();
+          }, 500);
+
         }
       },
       error: function (xhr, status, error) {
@@ -222,14 +238,13 @@ $("#contracts").on("click", ".btn-detail", function () {
 
   //CẬP NHẬT ĐƠN HÀNG
   $(document).ready(function () {
-    $("#idFormUpdate").submit(function (event) {
+    $("#idFormUpdate").on('submit',function (event) {
       event.preventDefault();
       let formData = new FormData(this);
+        formData.append("id", contractData.id);
 
-      formData.append("id", contractData.id);
-
-      console.log(formData)
-
+/*       console.log(formData)
+ */
       $.ajax({
         url: `http://127.0.0.1:8000/api/upload`,
         type: "POST",
@@ -238,6 +253,10 @@ $("#contracts").on("click", ".btn-detail", function () {
         contentType: false,
         success: function (response) {
           console.log(response);
+          setTimeout(function() {
+            location.reload();
+          }, 500);
+
         },
         error: function (xhr, status, error) {
 
@@ -247,3 +266,4 @@ $("#contracts").on("click", ".btn-detail", function () {
     });
   })
 })
+

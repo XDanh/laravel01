@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('SO_NHA');
             $table->string('MA_SO_THUE');
             $table->string('MBHXH');
-            $table->string('NV');
+            $table->string('NV')->nullable($value = true);
             $table->string('NGAY_KY_HD');
             $table->string('MA_HOP_DONG');
             $table->string('TRANG_THAI_DON_HANG');
@@ -32,17 +32,17 @@ return new class extends Migration
             $table->string('GIA_THIET_BI');
             $table->string('GIA_TRUOC_THUE');
             $table->string('GIA_SAU_THUE');
-            $table->string('GHI_CHU');
-            $table->string('MA_GD');
-            $table->string('MA_THUE_BAO');
-            $table->string('USERNAME');
-            $table->string('SO_SERI');
-            $table->string('SO_HD');
-            $table->string('MA_TRA_CUU');
-            $table->string('NGAY_XUAT_HOA_DON');
-            $table->integer('SO_LUONG');
-            $table->string('LOAI_GOI_CUOC');
-            $table->string('PDF');
+            $table->string('GHI_CHU')->nullable($value = true);
+            $table->string('MA_GD')->nullable($value = true);
+            $table->string('MA_THUE_BAO')->nullable($value = true);
+            $table->string('USERNAME')->nullable($value = true);
+            $table->string('SO_SERI')->nullable($value = true);
+            $table->string('SO_HD')->nullable($value = true);
+            $table->string('MA_TRA_CUU')->nullable($value = true);
+            $table->string('NGAY_XUAT_HOA_DON')->nullable($value = true);
+            $table->integer('SO_LUONG')->nullable($value = true);
+            $table->string('LOAI_GOI_CUOC')->nullable($value = true);
+            $table->string('PDF')->nullable($value = true);
             $table->timestamps();
 
         });

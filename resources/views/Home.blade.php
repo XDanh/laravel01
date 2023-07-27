@@ -23,6 +23,7 @@
 
 <body>
   <div class="container">
+    <a class="btn btn-primary m-4" href="/form1">Tạo hợp đồng</a>
     <!-- Table view -->
     <table id="contracts" class="table table-striped" class="display">
       <thead>
@@ -112,7 +113,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" id="btnUpdateOrder">Cập nhật đơn hàng</button>
             <button type="button" class="btn btn-primary" id="btnEdit">Sửa</button>
-            <button type="button" class="btn btn-danger" id="btnDelete">Xóa</button>
+            <button  type="button" class="btn btn-danger" id="btnDelete" data-bs-toggle="deleteConfirmationModal">Xóa</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
           </div>
         </div>
@@ -334,23 +335,7 @@
       </div>
 
       <!-- Modal for Delete Confirmation -->
-      <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận xóa</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p>Bạn có chắc chắn muốn xóa khách hàng này?</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-              <button type="button" class="btn btn-danger" id="btnConfirmDelete">Xóa</button>
-            </div>
-          </div>
-        </div>
-      </div>
+
     </div>
 
     <!-- Modal for Update -->
@@ -444,18 +429,25 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="1000" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận xóa</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Bạn có chắc chắn muốn xóa hợp đồng này?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+              <button type="button" class="btn btn-danger" id="btnConfirmDelete">Xóa</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script type="module" src="/js/home.js"></script>
 
-    <script type="module" src="/js/home.js">
-
-    </script>
-    <script>
-      function openPDF() {
-
-        var pdfURL = document.getElementById("pdfLink1").getAttribute("data-pdfurl");
-        console.log(pdfURL);
-        window.open(pdfURL);
-      }
-    </script>
 </body>
 
 </html>
