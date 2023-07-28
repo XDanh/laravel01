@@ -32,7 +32,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 /* Route::resource('customer', Form1Controller::class); */
-Route::resource('contracts', UserController::class);
+Route::middleware('throttle:60,1')->group(function () {
+    Route::resource('contracts', UserController::class);
 Route::get('/dichvu', function () {
     return new ResourceUser(Dichvu::all());
 });
@@ -117,4 +118,6 @@ Route::post('/upload', function (Request $request) {
         ]);
 
     return response()->json(['oke' => 'oke', 'status' => '200']);
+});
+
 });
