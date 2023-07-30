@@ -14,17 +14,13 @@ return new class extends Migration
         Schema::create('thong_tin_hop_dong', function (Blueprint $table) {
             $table->id();
             $table->string('TEN_KHACH_HANG');
-            $table->string('TINH_TP');
-            $table->string('QUAN_HUYEN');
-            $table->string('XA_PHUONG');
-            $table->string('SO_NHA');
+            $table->string('DIA_CHI');
             $table->string('MA_SO_THUE');
             $table->string('MBHXH');
             $table->string('NV')->nullable($value = true);
             $table->string('NGAY_KY_HD');
             $table->string('MA_HOP_DONG');
             $table->string('TRANG_THAI_DON_HANG');
-            $table->string('LOAI_DON_HANG');
             $table->string('DICH_VU');
             $table->string('GOI_CUOC');
             $table->string('THOI_GIAN');
@@ -42,9 +38,7 @@ return new class extends Migration
             $table->string('NGAY_XUAT_HOA_DON')->nullable($value = true);
             $table->integer('SO_LUONG')->nullable($value = true);
             $table->string('LOAI_GOI_CUOC')->nullable($value = true);
-            $table->string('PDF')->nullable($value = true);
             $table->timestamps();
-
         });
     }
 

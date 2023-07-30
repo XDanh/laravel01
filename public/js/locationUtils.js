@@ -4,6 +4,7 @@ export let listDistrict = [];
 export let provinceSelected;
 export let districtSelected;
 export let wardSelected;
+export let address;
 
 // Hàm để lấy danh sách TỈNH/THÀNH PHỐ và đổ vào dropdown #provinceInput
 export function getProvinces(selectedProvince, selectedDistrict, selectedWard) {
@@ -28,21 +29,18 @@ export function getProvinces(selectedProvince, selectedDistrict, selectedWard) {
       $.ajax({
         type: "GET",
         url: "https://provinces.open-api.vn/api/d/",
-        success: function (data) {
-          listDistrict = data;
-
+        success: function (city) {
+          listDistrict = city;
           if (selectedDistrict) {
             $("#districtInput").empty();
-            let filteredDistricts = data.filter(district => district.province_code == provinceCode);
-
+            let filteredDistricts = city.filter(district => district.province_code === provinceCode);
             // Thêm các huyện ở tỉnh tương ứng vào #districtInput
             filteredDistricts.forEach(district => {
-
-              if (district.name === selectedDistrict && district.province_code === provinceCode) {
+              if (district?.name.toString().toLowerCase().trim() === selectedDistrict.toString().toLowerCase().trim() && district.province_code === provinceCode) {
                 districtCode = district.code
                 districtSelected = district
               }
-              $("#districtInput").append(`<option value="${district.code}" ${district.name === selectedDistrict ? 'selected' : ''}>${district.name} </option>`);
+              $("#districtInput").append(`<option value="${district.code}" ${district?.name.toString().toLowerCase().trim() === selectedDistrict.toString().toLowerCase().trim() ? 'selected' : ''}>${district.name} </option>`);
             });
           }
 
@@ -54,15 +52,16 @@ export function getProvinces(selectedProvince, selectedDistrict, selectedWard) {
               listWard = data;
               if (selectedWard) {
                 $("#wardInput").empty();
-                let filteredWards = data.filter(ward => ward.district_code == districtCode);
+                let filteredWards = data.filter(ward => ward.district_code === districtCode);
+
                 filteredWards.forEach(ward => {
-                  if (ward.name === selectedDistrict && ward.district_code === districtCode) {
+                  if (ward?.name.toString().toLowerCase().trim() === selectedDistrict.toString().toLowerCase().trim() && ward.district_code === districtCode) {
                     districtCode = ward.code
                   }
-                  if (ward.name === selectedWard) {
+                  if (ward?.name.toString().toLowerCase().trim() === selectedWard.toString().toLowerCase().trim()) {
                     wardSelected = ward
                   }
-                  $("#wardInput").append(`<option value="${ward.code}" ${ward.name === selectedWard ? 'selected' : ''}>${ward.name} </option>`);
+                  $("#wardInput").append(`<option value="${ward.code}" ${ward?.name.toString().toLowerCase().trim() === selectedWard.toString().toLowerCase().trim() ? 'selected' : ''}>${ward.name} </option>`);
                 });
               }
             }
@@ -131,3 +130,24 @@ export function handleWardChange() {
     }
   });
 }
+
+export function updateAddress() {
+  const SO_NHA = $("#SO_NHA").val();
+  const provinceInput = $("#provinceInput option:selected").text();
+  const districtInput = $("#districtInput option:selected").text();
+  const wardInput = $("#wardInput option:selected").text();
+
+  address = `${SO_NHA} - ${wardInput} - ${districtInput} - ${provinceInput}`;
+  $("#DIA_CHI").text(address);
+}
+
+// Thêm bộ lắng nghe sự kiện cho các trường "SO_NHA", "provinceInput", "districtInput", và "wardInput"
+export function setupEventListeners() {
+  $("#SO_NHA, #provinceInput, #districtInput, #wardInput").on("change", function () {
+    updateAddress();
+  });
+}
+
+$(document).ready(function () {
+  setupEventListeners();
+});

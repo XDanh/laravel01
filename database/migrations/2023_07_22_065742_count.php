@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('count',function(Blueprint $table){
-            $table->integer('count_number');
-            $table->date('date');
+        Schema::create('count', function (Blueprint $table) {
+            $table->integer('count_number')->default(1);
+            $table->date('date')->useCurrent();
             $table->timestamps();
-
         });
     }
 
@@ -25,6 +24,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('count');
-
     }
 };

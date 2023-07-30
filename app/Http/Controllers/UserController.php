@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ResourceUser;
 use App\Models\count;
 use App\Models\Dichvu;
-use App\Models\thong_tin_khach_hang;
-use App\Models\thong_tin_hop_dong;
+use App\Models\Thong_tin_khach_hang;
+use App\Models\Thong_tin_hop_dong;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +20,7 @@ class UserController extends Controller
     {
 
         return response()->json(
-            new ResourceUser(thong_tin_hop_dong::select('id', 'NGAY_KY_HD', 'NV', 'LOAI_DON_HANG', 'MA_HOP_DONG', 'TEN_KHACH_HANG', 'MA_SO_THUE', 'GIA_SAU_THUE', 'TRANG_THAI_DON_HANG', 'DICH_VU')->get())
+            new ResourceUser(Thong_tin_hop_dong::select('id', 'NGAY_KY_HD', 'NV', 'MA_HOP_DONG', 'TEN_KHACH_HANG', 'MA_SO_THUE', 'GIA_SAU_THUE', 'TRANG_THAI_DON_HANG', 'DICH_VU')->get())
         );
 
         /* return response()->json(new ResourceUser(Form2::all())); */
@@ -39,7 +39,7 @@ class UserController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        // return response()->json($request->all());
+        //return response()->json($request->all());
 
         $validator = Validator::make($request->all(), [
             'TEN_KHACH_HANG' => 'required',
@@ -54,7 +54,6 @@ class UserController extends Controller
             'LOAI_TB' => 'required',
             'MA_HOP_DONG' => 'required',
             'TRANG_THAI_DON_HANG' => 'required',
-            'LOAI_DON_HANG' => 'required',
             'LOAI_GOI_CUOC' => 'required',
             'DICH_VU' => 'required',
             'GOI_CUOC' => 'required',
@@ -93,7 +92,7 @@ class UserController extends Controller
                 ->update(['count_number' =>  $number]);
         }
         $request->merge(['MA_HOP_DONG' => $name]);
-        thong_tin_hop_dong::create($request->all());
+        Thong_tin_hop_dong::create($request->all());
 
 
         return response()->json(['oke' => 'oke', 'status' => '200']);
@@ -129,21 +128,17 @@ class UserController extends Controller
             'GIA_THIET_BI' => $request->input('GIA_THIET_BI'),
             'GIA_TRUOC_THUE' => $request->input('GIA_TRUOC_THUE'),
             'GOI_CUOC' => $request->input('GOI_CUOC'),
-            'LOAI_DON_HANG' => $request->input('LOAI_DON_HANG'),
             'LOAI_GOI_CUOC' => $request->input('LOAI_GOI_CUOC'),
             'LOAI_TB' => $request->input('LOAI_TB'),
             'MA_SO_THUE' => $request->input('MA_SO_THUE'),
             'MBHXH' => $request->input('MBHXH'),
             'NGAY_KY_HD' => $request->input('NGAY_KY_HD'),
             'NV' => $request->input('NV'),
-            'QUAN_HUYEN' => $request->input('QUAN_HUYEN'),
             'SO_LUONG' => $request->input('SO_LUONG'),
-            'SO_NHA' => $request->input('SO_NHA'),
             'TEN_KHACH_HANG' => $request->input('TEN_KHACH_HANG'),
             'THOI_GIAN' => $request->input('THOI_GIAN'),
-            'TINH_TP' => $request->input('TINH_TP'),
             'TRANG_THAI_DON_HANG' => $request->input('TRANG_THAI_DON_HANG'),
-            'XA_PHUONG' => $request->input('XA_PHUONG'),
+            'DIA_CHI' => $request->input('DIA_CHI'),
         ]);
 
         return response()->json(['mess' => 'oke', 'status' => '200']);

@@ -14,15 +14,11 @@ class Thong_tin_hop_dong extends Model
         'MA_SO_THUE',
         'MBHXH',
         'NV',
-        'TINH_TP',
-        'QUAN_HUYEN',
-        'XA_PHUONG',
-        'SO_NHA',
+        'DIA_CHI',
         'NGAY_KY_HD',
         'LOAI_TB',
         'MA_HOP_DONG',
         'TRANG_THAI_DON_HANG',
-        'LOAI_DON_HANG',
         'LOAI_GOI_CUOC',
         'DICH_VU',
         'GOI_CUOC',
@@ -39,6 +35,5 @@ class Thong_tin_hop_dong extends Model
         'SO_HD',
         'MA_TRA_CUU',
         'NGAY_XUAT_HOA_DON',
-        'PDF',
     ];
 }

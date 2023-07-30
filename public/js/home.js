@@ -13,18 +13,40 @@ import {
   handleProvinceChange,
   handleDistrictChange,
   handleWardChange,
-  provinceSelected,
-  districtSelected,
-  wardSelected,
+  address,
 } from "./locationUtils.js";
 
 var contractData
-var PDFname = ""
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'VND',
   minimumFractionDigits: 0
 })
+
+$("#timeInput").select2({
+  dropdownParent: $('#editModal')
+});
+$("#packTypeInput").select2({
+  dropdownParent: $('#editModal')
+});
+$("#packInput").select2({
+  dropdownParent: $('#editModal')
+});
+$("#serviceInput").select2({
+  dropdownParent: $('#editModal')
+});
+$("#staffInput").select2({
+  dropdownParent: $('#editModal')
+});
+$("#provinceInput").select2({
+  dropdownParent: $('#editModal')
+});
+$("#districtInput").select2({
+  dropdownParent: $('#editModal')
+});
+$("#wardInput").select2({
+  dropdownParent: $('#editModal')
+});
 
 //DATA TABLE VIEW
 $(document).ready(function () {
@@ -59,9 +81,6 @@ $(document).ready(function () {
             data: "DICH_VU" || null
           },
           {
-            data: "LOAI_DON_HANG" || null
-          },
-          {
             data: "GIA_SAU_THUE" || null
           },
           {
@@ -78,18 +97,30 @@ $(document).ready(function () {
   });
 });
 
+$("#closeEditModal").on("click", function () {
+  $("#editModal").modal("hide");
+})
+$("#closeUpdateModal").on("click", function () {
+  $("#updateModal").modal("hide");
+})
+$("#closeDetailModal").on("click", function () {
+  $("#viewDetailModal").modal("hide");
+})
+$("#closeDeleteModal").on("click", function () {
+  $("#deleteConfirmationModal").modal("hide");
+})
 
+// SHOW DETAIL
 $("#contracts").on("click", ".btn-detail", function () {
   var data = $("#contracts").DataTable().row($(this).parents("tr")).data();
   $.ajax({
     url: `http://127.0.0.1:8000/api/contract?id=${data.id}`,
     type: "GET",
     success: function (contract) {
-      // SHOW DETAIL
       contractData = contract.data.thongtinhopdong[0]
       $("#staffInput").append(`<option value=${contractData?.NV}>${contractData?.NV}</option>`);
       $("#viewTenKH").text(contract.data.thongtinhopdong[0]?.TEN_KHACH_HANG || "Không có");
-      $("#viewDiaChi").text(`${contract.data.thongtinhopdong[0]?.SO_NHA} - ${contract.data.thongtinhopdong[0]?.XA_PHUONG} - ${contract.data.thongtinhopdong[0]?.QUAN_HUYEN} - ${contract.data.thongtinhopdong[0]?.TINH_TP}` || "Không có");
+      $("#viewDiaChi").text(contract.data.thongtinhopdong[0]?.DIA_CHI || "Không có");
       $("#viewMasothue").text(contract.data.thongtinhopdong[0]?.MA_SO_THUE || "Không có");
       $("#viewBHXH").text(contract.data.thongtinhopdong[0]?.MBHXH || "Không có");
       $("#viewNhanvien").text(contract.data.thongtinhopdong[0]?.NV || "Không có")
@@ -122,6 +153,8 @@ $("#contracts").on("click", ".btn-detail", function () {
     }
   })
 })
+
+
 $('#btnConfirmDelete').on('click', function (e) {
   e.preventDefault();
 
@@ -140,6 +173,7 @@ $('#btnConfirmDelete').on('click', function (e) {
 
 // handle edit btn
 function populateFields(contractData) {
+  console.log(contractData)
   $("#TEN_KHACH_HANG").val(contractData.TEN_KHACH_HANG);
   $("#MA_SO_THUE").val(contractData.MA_SO_THUE);
   $("#MBHXH").val(contractData.MBHXH);
@@ -147,14 +181,10 @@ function populateFields(contractData) {
   $("#NGAY_KY_HD").val(contractData.NGAY_KY_HD);
   $("#mahd").val(contractData.MA_HOP_DONG);
   $("#orderStatusInput").val(contractData.TRANG_THAI_DON_HANG);
-  $("#orderTypeInput").val(contractData.LOAI_DON_HANG);
-  $("#serviceInput").val(contractData.DICH_VU);
-  $("#packInput").val(contractData.GOI_CUOC);
-  $("#timeInput").val(contractData.THOI_GIAN);
   $("#GIA_TB").val(formatter.format(Number(contractData.GIA_THIET_BI)));
   $("#GHI_CHU").val(contractData.GHI_CHU);
   $("#SO_LUONG").val(contractData.SO_LUONG);
-  $("#SO_NHA").val(contractData.SO_NHA);
+  $("#DIA_CHI").text(contractData.DIA_CHI);
   $("#GIA_TRUOC_THUE").val(formatter.format(Number(contractData.GIA_TRUOC_THUE)));
   $("#GIA_SAU_THUE").val(formatter.format(Number(contractData.GIA_SAU_THUE)));
 }
@@ -163,8 +193,15 @@ function populateFields(contractData) {
 // Sự kiện khi click vào nút #btnEdit
 $("#btnEdit").on("click", function () {
 
-  // Lấy danh sách TỈNH/THÀNH PHỐ và đổ vào dropdown #provinceInput
-  getProvinces(contractData.TINH_TP, contractData.QUAN_HUYEN, contractData.XA_PHUONG);
+  const arr = contractData?.DIA_CHI.split(" - ");
+  const [num, ward, city, province] = arr;
+  console.log("num:", num, "ward: ", ward, "city: ", city, "province: ", province)
+
+  if (num && ward && city && province) {
+    $("#SO_NHA").val(num);
+    // Lấy danh sách TỈNH/THÀNH PHỐ và đổ vào dropdown #provinceInput
+    getProvinces(province, city, ward);
+  }
   // Xử lý sự kiện thay đổi TỈNH/THÀNH PHỐ
   handleProvinceChange();
 
@@ -188,9 +225,7 @@ $("#idFormSave").on("submit", function (e) {
   var form = $(this);
 
   var formData = form.serialize();
-  formData += "&TINH_TP=" + provinceSelected.name;
-  formData += "&QUAN_HUYEN=" + districtSelected.name;
-  formData += "&XA_PHUONG=" + wardSelected.name;
+
   formData += "&DICH_VU=" + dichvu;
   formData += "&GOI_CUOC=" + goicuoc;
   formData += "&LOAI_GOI_CUOC=" + loaigoi;
@@ -200,6 +235,8 @@ $("#idFormSave").on("submit", function (e) {
   formData += "&THOI_GIAN=" + thoigian;
   formData += "&GIA_TRUOC_THUE=" + giatruoc;
   formData += "&id=" + contractData.id;
+  formData += "&DIA_CHI=" + address;
+
   $.ajax({
     url: `http://127.0.0.1:8000/api/contracts/${contractData.id}`,
     type: "PUT",

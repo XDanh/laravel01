@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pdf',function(Blueprint $table){
-            $table->foreignId('id');
+        Schema::create('pdf', function (Blueprint $table) {
+            $table->foreignId('id')->references('id')->on('thong_tin_hop_dong');
             $table->string('PDF');
             $table->string('PATH');
             $table->timestamps();
-
         });
     }
 
@@ -26,6 +25,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('pdf');
-
     }
 };

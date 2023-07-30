@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('loaitb',function(Blueprint $table){
+        Schema::create('loaitb', function (Blueprint $table) {
             $table->string('THIET_BI');
             $table->integer('GIA_TB');
-            $table->foreignId('MaGC');
-            $table->foreignId('MaLoai');
-            $table->foreignId('MaTH');
             $table->timestamps();
-
         });
     }
 
